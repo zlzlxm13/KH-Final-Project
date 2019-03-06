@@ -14,16 +14,16 @@
 
 		<!-- Header -->
 			<header id="header" class="alt">
-				<div class="logo"><a href="index.jsp">SooCut animal hospital <span>by KHfamily</span></a></div>
+				<div class="logo"><a href="index.do">SooCut animal hospital <span>by KHfamily</span></a></div>
 				<a href="#menu" class="toggle"><span>Menu</span></a>
 			</header>
 
 		<!-- Nav -->
 			<nav id="menu">
 				<ul class="links">
-					<li><a href="index.jsp">Home</a></li>
-					<li><a href="generic.jsp">Notice</a></li>
-					<li><a href="elements.jsp">Hospital</a></li>
+					<li><a href="index.do">Home</a></li>
+					<li><a href="generic.do">Notice</a></li>
+					<li><a href="elements.do">Hospital</a></li>
 				</ul>
 			</nav>
 

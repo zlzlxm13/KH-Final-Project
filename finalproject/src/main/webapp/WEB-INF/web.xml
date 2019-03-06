@@ -51,8 +51,15 @@
 	 <url-pattern>*.js</url-pattern>
 	 <url-pattern>*.gif</url-pattern>
 	 <url-pattern>*.jpg</url-pattern>
+	 <url-pattern>*.jpeg</url-pattern>
 	 <url-pattern>*.png</url-pattern>
 	 <url-pattern>*.xsl</url-pattern>
+	 <url-pattern>*.mp4</url-pattern>
+	 <url-pattern>*.ogv</url-pattern>
+	 <url-pattern>*.webm</url-pattern>
+	 <url-pattern>*.woff2</url-pattern>
+	 <url-pattern>*.woff</url-pattern>
+	 <url-pattern>*.tff</url-pattern>
 	</servlet-mapping>
 
 </web-app>

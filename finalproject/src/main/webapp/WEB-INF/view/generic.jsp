@@ -13,16 +13,16 @@
 
 		<!-- Header -->
 			<header id="header">
-				<div class="logo"><a href="index.jsp">Transitive <span>by TEMPLATED</span></a></div>
+				<div class="logo"><a href="index.do">Transitive <span>by TEMPLATED</span></a></div>
 				<a href="#menu" class="toggle"><span>Menu</span></a>
 			</header>
 
 		<!-- Nav -->
 			<nav id="menu">
 				<ul class="links">
-					<li><a href="index.jsp">Home</a></li>
-					<li><a href="generic.jsp">Generic</a></li>
-					<li><a href="elements.jsp">Elements</a></li>
+					<li><a href="index.do">Home</a></li>
+					<li><a href="generic.do">Generic</a></li>
+					<li><a href="elements.do">Elements</a></li>
 				</ul>
 			</nav>
 
