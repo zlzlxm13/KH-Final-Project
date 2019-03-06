@@ -7,22 +7,22 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<link rel="stylesheet" href="assets/css/main.css" />
+		<link rel="stylesheet" href="css/main.css" />
 	</head>
 	<body class="subpage">
 
 		<!-- Header -->
 			<header id="header">
-				<div class="logo"><a href="index.html">Transitive <span>by TEMPLATED</span></a></div>
+				<div class="logo"><a href="index.jsp">Transitive <span>by TEMPLATED</span></a></div>
 				<a href="#menu" class="toggle"><span>Menu</span></a>
 			</header>
 
 		<!-- Nav -->
 			<nav id="menu">
 				<ul class="links">
-					<li><a href="index.html">Home</a></li>
-					<li><a href="generic.html">Generic</a></li>
-					<li><a href="elements.html">Elements</a></li>
+					<li><a href="index.jsp">Home</a></li>
+					<li><a href="generic.jsp">Generic</a></li>
+					<li><a href="elements.jsp">Elements</a></li>
 				</ul>
 			</nav>
 

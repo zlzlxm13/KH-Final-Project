@@ -14,16 +14,16 @@
 
 		<!-- Header -->
 			<header id="header">
-				<div class="logo"><a href="index.html">Transitive <span>by TEMPLATED</span></a></div>
+				<div class="logo"><a href="index.jsp">Transitive <span>by TEMPLATED</span></a></div>
 				<a href="#menu" class="toggle"><span>Menu</span></a>
 			</header>
 
 		<!-- Nav -->
 			<nav id="menu">
 				<ul class="links">
-					<li><a href="index.html">Home</a></li>
-					<li><a href="generic.html">Generic</a></li>
-					<li><a href="elements.html">Elements</a></li>
+					<li><a href="index.jsp">Home</a></li>
+					<li><a href="generic.jsp">Generic</a></li>
+					<li><a href="elements.jsp">Elements</a></li>
 				</ul>
 			</nav>
 
@@ -486,12 +486,12 @@ print 'It took ' + i + ' iterations to sort the deck.';
 			</footer>
 
 		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.scrolly.min.js"></script>
-			<script src="assets/js/jquery.scrollex.min.js"></script>
-			<script src="assets/js/skel.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
+			<script src="js/jquery.min.js"></script>
+			<script src="js/jquery.scrolly.min.js"></script>
+			<script src="js/jquery.scrollex.min.js"></script>
+			<script src="js/skel.min.js"></script>
+			<script src="js/util.js"></script>
+			<script src="js/main.js"></script>
 
 	</body>
 </html>

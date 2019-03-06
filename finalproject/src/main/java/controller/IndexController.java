@@ -12,5 +12,12 @@ public class IndexController {
 	public String process() {
 		return "index";
 	}
-
+	@RequestMapping("/generic.do")
+	public String process1() {
+		return "generic";
+	}
+	@RequestMapping("/elements.do")
+	public String process2() {
+		return "elements";
+	}
 }
