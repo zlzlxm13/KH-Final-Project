@@ -35,8 +35,8 @@
 		-->
 			<section id="banner" data-video="images/banner">
 				<div class="inner">
-					<h1>Transitive</h1>
-					<p>A full responsive, business-oriented HTML5/CSS3 template<br />
+					<h1>愁Cut</h1>
+					<p>당신의 애완동물이 아프지않고 오래오래 만수무강하시길<br />
 					built by <a href="https://templated.co/">Templated</a> and released under the <a href="https://templated.co/license">Creative Commons</a>.</p>
 					<a href="#one" class="button special scrolly">Get Started</a>
 				</div>
