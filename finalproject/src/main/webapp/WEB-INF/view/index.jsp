@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Transitive by TEMPLATED</title>
+		<title>SooCut animal hospital</title>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 		
 		<meta charset="utf-8" />
@@ -14,7 +14,7 @@
 
 		<!-- Header -->
 			<header id="header" class="alt">
-				<div class="logo"><a href="index.jsp">Transitive <span>by TEMPLATED</span></a></div>
+				<div class="logo"><a href="index.jsp">SooCut animal hospital <span>by KHfamily</span></a></div>
 				<a href="#menu" class="toggle"><span>Menu</span></a>
 			</header>
 
@@ -22,8 +22,8 @@
 			<nav id="menu">
 				<ul class="links">
 					<li><a href="index.jsp">Home</a></li>
-					<li><a href="generic.jsp">Generic</a></li>
-					<li><a href="elements.jsp">Elements</a></li>
+					<li><a href="generic.jsp">Notice</a></li>
+					<li><a href="elements.jsp">Hospital</a></li>
 				</ul>
 			</nav>
 
@@ -36,8 +36,7 @@
 			<section id="banner" data-video="images/banner">
 				<div class="inner">
 					<h1>愁Cut</h1>
-					<p>당신의 애완동물이 아프지않고 오래오래 만수무강하시길<br />
-					built by <a href="https://templated.co/">Templated</a> and released under the <a href="https://templated.co/license">Creative Commons</a>.</p>
+					<p>당신의 가족이 아프지않도록 근심을 자른다.<br /></p>
 					<a href="#one" class="button special scrolly">Get Started</a>
 				</div>
 			</section>
@@ -70,29 +69,29 @@
 					<div id="flexgrid">
 						<div>
 							<header>
-								<h3>Tempus Feugiat</h3>
+								<h3>바꾸세요</h3>
 							</header>
-							<p>Morbi interdum mollis sapien. Sed ac risus. Phasellus lacinia, magna a ullamcorper laoreet, lectus arcu</p>
+							<p>바꾸세요 내용 바꾸세요 내용 바꾸세요 내용 바꾸세요 내용 바꾸세요 내용 바꾸세요 내용 바꾸세요 내용 바꾸세요 내용 바꾸세요 내용 바꾸세요 내용 바꾸세요 내용 </p>
 							<ul class="actions">
-								<li><a href="#" class="button alt">Learn More</a></li>
+								<li><a href="#" class="button alt">더보기</a></li>
 							</ul>
 						</div>
 						<div>
 							<header>
-								<h3>Aliquam Nulla</h3>
+								<h3>바꾸세요</h3>
 							</header>
-							<p>Ut convallis, sem sit amet interdum consectetuer, odio augue aliquam leo, nec dapibus tortor nibh sed </p>
+							<p>바꾸세요 내용 바꾸세요 내용 바꾸세요 내용 바꾸세요 내용 바꾸세요 내용 바꾸세요 내용 바꾸세요 내용 바꾸세요 내용 바꾸세요 내용 바꾸세요 내용 바꾸세요 내용 </p>
 							<ul class="actions">
-								<li><a href="#" class="button alt">Learn More</a></li>
+								<li><a href="#" class="button alt">더보기</a></li>
 							</ul>
 						</div>
 						<div>
 							<header>
-								<h3>Sed Magna</h3>
+								<h3>바꾸세요</h3>
 							</header>
-							<p>Suspendisse mauris. Fusce accumsan mollis eros. Pellentesque a diam sit amet mi ullamcorper vehicula.</p>
+							<p>바꾸세요 내용 바꾸세요 내용 바꾸세요 내용 바꾸세요 내용 바꾸세요 내용 바꾸세요 내용 바꾸세요 내용 바꾸세요 내용 바꾸세요 내용 바꾸세요 내용 바꾸세요 내용</p>
 							<ul class="actions">
-								<li><a href="#" class="button alt">Learn More</a></li>
+								<li><a href="#" class="button alt">더보기</a></li>
 							</ul>
 						</div>
 					</div>
