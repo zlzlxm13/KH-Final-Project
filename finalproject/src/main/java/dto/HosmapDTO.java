@@ -1,44 +1,73 @@
 package dto;
 
 public class HosmapDTO {
-	private int hosNum;
-	private String hosName;
-	private String hosLocation;
-	private String petKind_kind;
+	private int hosnum;
+	private String hosname;
+	private String petkind_kind;
+	private String hosadress;
+	private String hosarea;
+	private String latitude;
+	private String longitude;
 	
 	public HosmapDTO() {
 		
 	}
-	
-	public int getHosNum() {
-		return hosNum;
+
+	public int getHosnum() {
+		return hosnum;
+	}
+
+	public void setHosnum(int hosnum) {
+		this.hosnum = hosnum;
+	}
+
+	public String getHosname() {
+		return hosname;
+	}
+
+	public void setHosname(String hosname) {
+		this.hosname = hosname;
+	}
+
+	public String getPetkind_kind() {
+		return petkind_kind;
+	}
+
+	public void setPetkind_kind(String petkind_kind) {
+		this.petkind_kind = petkind_kind;
+	}
+
+	public String getHosadress() {
+		return hosadress;
+	}
+
+	public void setHosadress(String hosadress) {
+		this.hosadress = hosadress;
+	}
+
+	public String getHosarea() {
+		return hosarea;
+	}
+
+	public void setHosarea(String hosarea) {
+		this.hosarea = hosarea;
+	}
+
+	public String getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(String latitude) {
+		this.latitude = latitude;
+	}
+
+	public String getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(String longitude) {
+		this.longitude = longitude;
 	}
 	
-	public void setHosNum(int hosNum) {
-		this.hosNum = hosNum;
-	}
-	
-	public String getHosName() {
-		return hosName;
-	}
-	
-	public void setHosName(String hosName) {
-		this.hosName = hosName;
-	}
-	public String getHosLocation() {
-		return hosLocation;
-	}
-	
-	public void setHosLocation(String hosLocation) {
-		this.hosLocation = hosLocation;
-	}
-	
-	public String getPetKind_kind() {
-		return petKind_kind;
-	}
-	
-	public void setPetKind_kind(String petKind_kind) {
-		this.petKind_kind = petKind_kind;
-	}
 		
 }//end class

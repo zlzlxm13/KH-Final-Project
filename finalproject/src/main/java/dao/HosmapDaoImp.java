@@ -19,13 +19,13 @@ public class HosmapDaoImp implements HosmapDAO {
 	}
 
 	@Override
-	public List<HosmapDTO> lib_list(HashMap<String, Object> map) {
+	public List<HosmapDTO> hos_list(HashMap<String, Object> map) {
 		return sqlSession.selectList("hos.hos_list", map);
 	}
 
 	@Override
-	public int lib_countAll(String data) {
-		return s;
+	public int hos_countAll(String data) {
+		return sqlSession.selectOne("hos.hos_countAll", data);
 	}
 	
 	
