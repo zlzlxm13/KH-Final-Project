@@ -24,7 +24,11 @@
 					<li><a href="index.do">Home</a></li>
 					<li><a href="generic.do">Notice</a></li>
 					<li><a href="elements.do">Hospital</a></li>
+<<<<<<< HEAD
 					<li><a href="login.do">Login</a></li>
+=======
+					<li><a href="admin.do">admin</a></li>
+>>>>>>> branch 'tyee' of https://github.com/zlzlxm13/KH-Final-Project.git
 					
 				</ul>
 			</nav>
