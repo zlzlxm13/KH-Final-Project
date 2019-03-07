@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="hos">
+
+ <select id="hos_countAll" parameterType="String" resultType="int">
+   select count(*) from hospital where area like '%' || #{data} || '%'
+ </select>
+ 
+ <select id="g_list" parameterType="java.util.HashMap" resultType="dto.HosmapDTO">
+ <![CDATA[
+select b.* from(
+ select rownum as rowm, a.* from(
+    select * from hospital
+    where area like '%' || #{keyword} || '%')a )b
+ where b.rowm>=#{Startpage} and b.rowm<=#{Endpage}   
+ ]]> 
+ </select>
+
+</mapper>
