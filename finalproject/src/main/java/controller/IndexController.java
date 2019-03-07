@@ -20,4 +20,12 @@ public class IndexController {
 	public String process2() {
 		return "elements";
 	}
+	@RequestMapping("/login.do")
+	public String loginprocess() {
+		return "login";
+	}
+	@RequestMapping("/signup.do")
+	public String signupprocess() {
+		return "signup";
+	}
 }

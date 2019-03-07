@@ -24,6 +24,8 @@
 					<li><a href="index.do">Home</a></li>
 					<li><a href="generic.do">Notice</a></li>
 					<li><a href="elements.do">Hospital</a></li>
+					<li><a href="login.do">Login</a></li>
+					
 				</ul>
 			</nav>
 
@@ -37,7 +39,7 @@
 				<div class="inner">
 					<h1>愁Cut</h1>
 					<p>당신의 가족이 아프지않도록 근심을 자른다.<br /></p>
-					<a href="#one" class="button special scrolly">Get Started</a>
+					<a href="#one" class="button scrolly">Get Started</a>
 				</div>
 			</section>
 
