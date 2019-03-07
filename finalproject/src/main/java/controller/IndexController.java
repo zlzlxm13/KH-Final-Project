@@ -2,6 +2,7 @@ package controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import service.HospitalService;
 
@@ -34,7 +35,13 @@ public class IndexController {
 	}
 	
 	@RequestMapping("/admin.do")
-	public String adminProcess() {
-		return "admin";
+	public ModelAndView adminProcess() {
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("count", service.countProcess());
+		mav.setViewName("admin");
+
+		return mav;
+
 	}
 }

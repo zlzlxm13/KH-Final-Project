@@ -17,7 +17,7 @@ public class HospitalServiceImp implements HospitalService{
 	@Override
 	public int countProcess() {
 		// TODO Auto-generated method stub
-		return 0;
+		return dao.count();
 	}
 
 	@Override

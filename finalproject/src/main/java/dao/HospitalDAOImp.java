@@ -15,7 +15,7 @@ public class HospitalDAOImp implements HospitalDAO{
 	@Override
 	public int count() {
 		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.selectOne("hospital.count");
 	}
 
 	@Override

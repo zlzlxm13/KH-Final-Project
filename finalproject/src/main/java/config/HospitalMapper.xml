@@ -5,7 +5,10 @@
 
 <mapper namespace="hospital">
 
-	
+	<select id="count" resultType="int">
+		select count(*) from hospital
+	</select>
+
 </mapper>
 
 

@@ -10,7 +10,7 @@
 		<link rel="stylesheet" href="css/main.css" />
 	</head>
 	<body class="subpage">
-
+<p>${count }</p>
 		<!-- Header -->
 			<header id="header">
 				<div class="logo"><a href="index.do">Transitive <span>by TEMPLATED</span></a></div>
@@ -56,6 +56,8 @@
 					</header>
 
 				</div>
+				
+				
 			</section>
 
 		<!-- Footer -->
