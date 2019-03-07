@@ -33,7 +33,7 @@ public class IndexController {
 	public String process2() {
 		return "elements";
 	}
-<<<<<<< HEAD
+
 	@RequestMapping("/login.do")
 	public String loginprocess() {
 		return "login";
@@ -41,7 +41,7 @@ public class IndexController {
 	@RequestMapping("/signup.do")
 	public String signupprocess() {
 		return "signup";
-=======
+	}
 	
 	@RequestMapping("/admin.do")
 	public ModelAndView adminProcess() {
@@ -52,6 +52,6 @@ public class IndexController {
 
 		return mav;
 
->>>>>>> branch 'tyee' of https://github.com/zlzlxm13/KH-Final-Project.git
+
 	}
 }
