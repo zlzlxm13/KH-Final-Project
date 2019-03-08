@@ -78,11 +78,11 @@ var infowindow = new daum.maps.InfoWindow({
 });
 
 // 키워드로 장소를 검색합니다
-// searchPlaces();
+//searchPlaces();
 
 // 키워드 검색을 요청하는 함수입니다
 function searchPlaces() {
-	keyword = document.getElementById('keyword').value;
+	var keyword = document.getElementById('keyword').value;
 	if (!keyword.replace(/^\s+|\s+$/g, '')) {
 		alert('키워드를 입력해주세요!');
 		return false;
@@ -128,7 +128,6 @@ function Searchkeyword(keyword) {
 
 // 검색 결과 목록과 마커를 표출하는 함수입니다
 function displayPlaces(search) {
-	// alert(search.length);
 	var listEl = document.getElementById('placesList'), menuEl = document
 			.getElementById('menu_wrap'), fragment = document
 			.createDocumentFragment(), bounds = new daum.maps.LatLngBounds(), listStr = '';
@@ -208,14 +207,14 @@ function getListItem(index, search, marker) {
 			+ search.hosname + '</h5>';
 
 	if (search.newAddress) {
-		itemStr += '<span>' + search.address + '</span>'
-				+ '<span class="jibun gray">' + search.address
+		itemStr += '<span>' + search.hosaddress + '</span>'
+				+ '<span class="jibun gray">' + search.hosaddress
 				+ '</span>';
 	} else {
-		itemStr += '<span>' + search.address + '</span>';
+		itemStr += '<span>' + search.hosaddress + '</span>';
 	}
 
-	itemStr += '<span class="tel">' + search.p_num + '</span>'
+	itemStr += '<span class="tel">' + search.hosname + '</span>'
 			+ '</div>';
 
 	el.innerHTML = itemStr;
@@ -295,9 +294,9 @@ function displayPagination(totalPage, total, blocksize, pageNo) {
 function displayInfowindow(marker, title, searchs) {
 
 	
-	var content = '<div class ="f_main"><div id="f_image">' + searchs.hosname + '</div>'
-			+ '<div class="f_header">' + searchs.p_num
-			+ '</div>' + '<div id="f_date">' + searchs.hosarea
+	var content = '<div class ="f_main"><div id="f_image">' + searchs.hosnum + '</div>'
+			+ '<div class="f_header">' + searchs.hosname
+			+ '</div>' + '<div id="f_date">' + searchs.petkind_kind
 			+ '</div>' + '<div id="f_number">'
 			+ searchs.hosaddress + '</div></div>'; 
 

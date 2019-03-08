@@ -9,4 +9,5 @@ public interface HosmapDAO {
 	public List<HosmapDTO> hos_list(HashMap<String, Object> map);
 
 	public int hos_countAll(String data);
+	
 }//end interface

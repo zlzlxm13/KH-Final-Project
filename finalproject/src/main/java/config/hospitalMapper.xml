@@ -6,7 +6,7 @@
 <mapper namespace="hos">
 
  <select id="hos_countAll" parameterType="String" resultType="int">
-   select count(*) from hospital where area like '%' || #{data} || '%'
+   select count(*) from hospital where hosname like '%' || #{data} || '%'
  </select>
  
  <select id="hos_list" parameterType="java.util.HashMap" resultType="dto.HosmapDTO">
