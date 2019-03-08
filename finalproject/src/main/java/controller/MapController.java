@@ -24,7 +24,7 @@ public class MapController {
 		this.service = service;
 	}
 	
-	@RequestMapping("hosmap.do")
+	@RequestMapping("/hosmap.do")
 	public String mapForm() {
 		return "hosmap";
 	}//end mapForm()////////////////////

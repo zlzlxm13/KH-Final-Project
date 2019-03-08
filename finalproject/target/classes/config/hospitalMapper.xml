@@ -15,8 +15,8 @@ select b.* from(
  select rownum as rowm, a.* from(
     select * from hospital
     where hosname like '%' || #{keyword} || '%')a )b
- where b.rowm>=#{Startpage} and b.rowm<=#{Endpage}   
- ]]> 
+ where b.rowm>=#{Startpage} and b.rowm<=#{Endpage}
+ ]]>
  </select>
 
 </mapper>

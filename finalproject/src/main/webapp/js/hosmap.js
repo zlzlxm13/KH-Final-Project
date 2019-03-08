@@ -118,7 +118,6 @@ function Searchkeyword(keyword) {
 			totalPage = result.totalPage;
 			displayPlaces(search);
 			keyword = document.getElementById('keyword').value;
-			
 		},
 		error : function(error) {
 			alert(error);
@@ -137,6 +136,7 @@ function displayPlaces(search) {
 
 	// 지도에 표시되고 있는 마커를 제거합니다
 	removeMarker();
+	
 
 	for (var i = 0; i < search.length; i++) {
 		// 마커를 생성하고 지도에 표시합니다
@@ -178,7 +178,7 @@ function displayPlaces(search) {
 		})(marker, search[i], searchs);
 
 		fragment.appendChild(itemEl);
-	}
+	} // 무시
 
 	function removeMarker() {
 		for (var i = 0; i < markers.length; i++) {
