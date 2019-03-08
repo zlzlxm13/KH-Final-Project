@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="login">
+	<insert id="signup" parameterType="dto.MemDTO">
+		insert into member
+		values(#{id},#{pass},#{name},Bronze,#{phonenum},#{email})
+	</insert>
+
+	<select id="signin" resultType="dto.MemDTO">
+		select password from member where id = #{id}
+	</select>
+
+	<select id="Idchk" resultType="int">
+		<!-- 검색을 하는데 갯수를 출력해라 MEMBER 테이블에 해당하는 테이블의 별칭은 m으로 선언한다. -->
+		select count(*) from member where id = #{id}
+		<!-- 결과 : 0이면 아이디 중복 x 1이면 중복 검색 결과가 없으면 0으로 나옴 아래는 다 생략 동일하니 -->
+	</select>
+	
+	<select id="Login_Info" resultType="dto.MemDTO">
+		select * from member m
+		where m.id = #{id} and m.pw = #{pw}
+	</select>
+
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+ 
+ 
+ 
+ 
+ 
