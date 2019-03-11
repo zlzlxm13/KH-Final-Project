@@ -184,7 +184,7 @@ main section {
 	</ul>
 </nav>
 <main>
-<a href="#" class="button">Insert</a>
+<a href="adim" class="button">Insert</a>
 
 <a href="#" class="button">Update</a>
 
