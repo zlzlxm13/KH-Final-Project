@@ -6,9 +6,17 @@ public class MemDTO {
 	private String name;
 	private String grade;
 	private String phonenum;
-	
+	private String email;
 	public MemDTO() {
 		
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getId() {

@@ -15,6 +15,7 @@
 		<!-- Header -->
 			<header id="header" class="alt">
 				<div class="logo"><a href="index.do">SooCut animal hospital <span>by KHfamily</span></a></div>
+				{sessionScope.id}님
 				<a href="#menu" class="toggle"><span>Menu</span></a>
 			</header>
 
@@ -24,6 +25,10 @@
 					<li><a href="index.do">Home</a></li>
 					<li><a href="generic.do">Notice</a></li>
 					<li><a href="elements.do">Hospital</a></li>
+					<li><a href="login.do">Login</a></li>
+					<li><a href="admin.do">admin</a></li>
+
+					
 				</ul>
 			</nav>
 
@@ -36,8 +41,8 @@
 			<section id="banner" data-video="images/banner">
 				<div class="inner">
 					<h1>愁Cut</h1>
-					<p>당신의 가족이 아프지않도록 근심을 자른다.<br /></p>
-					<a href="#one" class="button special scrolly">Get Started</a>
+					<p>당신의 가족, 아프지 않게.<br /></p>
+					<a href="#one" class="button scrolly">Get Started</a>
 				</div>
 			</section>
 
