@@ -49,9 +49,14 @@ public class IndexController {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("count", service.countProcess());
 		mav.setViewName("admin");
-
 		return mav;
-
-
+	}
+	
+	@RequestMapping("/adminMember.do")
+	public ModelAndView adminMembersProcess() {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("count", service.countProcess());
+		mav.setViewName("admin/member");
+		return mav;
 	}
 }
