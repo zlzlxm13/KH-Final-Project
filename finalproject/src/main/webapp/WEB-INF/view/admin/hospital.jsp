@@ -83,21 +83,7 @@ nav ul li {
   border: 1px solid #2f343e;
   position: relative;
 }
-nav ul li.unread:after {
-  content: attr(data-content);
-  position: absolute;
-  top: 10px;
-  left: 25px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 15px;
-  height: 15px;
-  border-radius: 50%;
-  color: #fff;
-  background: #ef5952;
-  font-size: 8px;
-}
+
 nav ul li:not(:last-child) {
   border-bottom: none;
 }
@@ -155,16 +141,15 @@ main section {
   transition: all 0.15s ease-in-out;
 }
 
-
-
 </style>
 </head>
 <body>
+
 <input type="checkbox" id="menu_state" checked>
 <nav>
 	<label for="menu_state"><i class="fa"></i></label>
 	<ul>
-		<li >
+			
 			<a href="adminMember.do">
 				<i class="fa fa-inbox"></i>
 				<span>Member</span>
@@ -177,6 +162,7 @@ main section {
 			</a>
 		</li>
 		<li>
+		<li class="active">
 			<a href="javascript:void(0)">
 				<i class="fa fa-paper-plane"></i>
 				<span>Hospital</span>

@@ -72,19 +72,16 @@
 	</aop:config>
 
 	<!-- [6]DaoImp빈 선언 -->
-	<bean id="dao" class="dao.HospitalDAOImp">
-		<property name="sqlSession" ref="sqlSession" />
+
 		<!-- <constructor-arg><ref bean = "sqlSession"/></constructor-arg> -->
-	</bean>
+
 	<bean id="ldao" class="dao.LoginDAOImp">
 		<property name="session" ref="sqlSession" />
 
 	</bean>
 
 	<!-- [7] ServiceImp Bean 선언 -->
-	<bean id="service" class="service.HospitalServiceImp">
-		<property name="dao" ref="dao" />
-	</bean>
+
 	
 	<bean id="lservice" class="service.LoginServiceImp">
 		<property name="ldao" ref="ldao" />
@@ -97,8 +94,9 @@
 
 
 	<bean class="controller.IndexController">
-		<property name="service" ref="service"></property>
+		<property name="lservice" ref="lservice"></property>
 	</bean>
+	
 	
 	<!-- 다운로드 뷰 빈 선언 (mav.setviewName == id) -->
 

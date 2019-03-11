@@ -16,22 +16,29 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import dao.LoginDAO;
 import dto.MemDTO;
-import service.HospitalService;
+
 import service.LoginService;
 
 //http://localhost:8090/pet/index.do
 @Controller
 public class IndexController {
-	private HospitalService service;
 	private LoginDAO l_dao;
 	private LoginService lservice;
 
-	public HospitalService getService() {
-		return service;
+	public LoginDAO getL_dao() {
+		return l_dao;
 	}
 
-	public void setService(HospitalService service) {
-		this.service = service;
+	public void setL_dao(LoginDAO l_dao) {
+		this.l_dao = l_dao;
+	}
+
+	public LoginService getLservice() {
+		return lservice;
+	}
+
+	public void setLservice(LoginService lservice) {
+		this.lservice = lservice;
 	}
 
 	@RequestMapping("/generic.do")
@@ -95,11 +102,11 @@ public class IndexController {
 	public ModelAndView adminProcess() {
 
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("count", service.countProcess());
 		mav.setViewName("admin");
-
 		return mav;
 
 	}
+	
+	
 
 }

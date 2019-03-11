@@ -27,7 +27,7 @@ public void setSession(SqlSessionTemplate session) {
 	this.session = session;
 }
 
-Connection conn = getConnection();
+
 	@Override
 	public void signUpMethod(MemDTO dto) {
 	session.insert("login.signup",dto);
