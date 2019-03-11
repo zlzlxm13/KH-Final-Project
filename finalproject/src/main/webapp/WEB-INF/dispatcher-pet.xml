@@ -4,11 +4,14 @@
 	xmlns:aop="http://www.springframework.org/schema/aop"
 	xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 
+	<mvc:annotation-driven></mvc:annotation-driven>
 	<!-- [1] DataSource빈 선언 -->
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
@@ -27,6 +30,7 @@
 		<property name="mapperLocations">
 			<list>
 				<value>classpath:config/HospitalMapper.xml</value>
+				<value>classpath:config/LoginMapper.xml</value>
 			</list>
 		</property>
 
@@ -68,29 +72,35 @@
 	</aop:config>
 
 	<!-- [6]DaoImp빈 선언 -->
-	<bean id="dao" class="dao.HospitalDAOImp">
-		<property name="sqlSession" ref="sqlSession" />
+
 		<!-- <constructor-arg><ref bean = "sqlSession"/></constructor-arg> -->
+
+	<bean id="ldao" class="dao.LoginDAOImp">
+		<property name="session" ref="sqlSession" />
+
 	</bean>
 
 	<!-- [7] ServiceImp Bean 선언 -->
-	<bean id="service" class="service.HospitalServiceImp">
-		<property name="dao" ref="dao" />
-	</bean>
 
+	
+	<bean id="lservice" class="service.LoginServiceImp">
+		<property name="ldao" ref="ldao" />
+	</bean>
 
 
 
 	<!-- [9] Controller 빈 선언 -->
 
 
-	<!-- 다운로드 뷰 빈 선언 (mav.setviewName == id) -->
-
-
 
 	<bean class="controller.IndexController">
-		<property name="service" ref="service"></property>
+		<property name="lservice" ref="lservice"></property>
 	</bean>
+	
+	
+	<!-- 다운로드 뷰 빈 선언 (mav.setviewName == id) -->
+
+	
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/view/" />

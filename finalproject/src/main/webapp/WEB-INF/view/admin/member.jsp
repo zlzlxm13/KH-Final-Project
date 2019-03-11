@@ -184,10 +184,13 @@ main section {
 	</ul>
 </nav>
 <main>
-	<header></header>
-	<section>
-		<p>${count}</p>
-	</section>
+<a href="#" class="button">Insert</a>
+
+<a href="#" class="button">Update</a>
+
+<a href="#" class="button">Delete</a>
+
+
 </main>
 </body>
 </html>
