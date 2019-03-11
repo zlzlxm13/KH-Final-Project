@@ -27,6 +27,18 @@ public class HosmapDaoImp implements HosmapDAO {
 	public int hos_countAll(String data) {
 		return sqlSession.selectOne("hos.hos_countAll", data);
 	}
+
+	@Override
+	public List<HosmapDTO> list() {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("hos.list");
+	}
+
+	@Override
+	public int count() {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("hos.count");
+	}
 	
 	
 }//end class

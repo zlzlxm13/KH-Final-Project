@@ -5,11 +5,13 @@
 
 <mapper namespace="hos">
 
- <select id="hos_countAll" parameterType="String" resultType="int">
-   select count(*) from hospital where petkind_kind like '%' || #{data} || '%'
- </select>
+	<select id="hos_countAll" parameterType="String"
+		resultType="int">
+		select count(*) from hospital where petkind_kind like '%' || #{data} || '%'
+	</select>
 
- <select id="hos_list" parameterType="java.util.HashMap" resultType="dto.HosmapDTO">
+	<select id="hos_list" parameterType="java.util.HashMap"
+		resultType="dto.HosmapDTO">
  <![CDATA[
 select b.* from(
  select rownum as rowm, a.* from(
@@ -17,5 +19,21 @@ select b.* from(
     where petkind_kind like '%' || #{keyword} || '%')a )b
  where b.rowm>=#{Startpage} and b.rowm<=#{Endpage}
  ]]>
- </select>
+	</select>
+	<select id="count" resultType="int">
+		select count(*) from hospital
+	</select>
+	<select id="list" resultType="dto.HosmapDTO">
+		select * from hospital
+	</select>
+	<select id= "insert" parameterType ="dto.HosmapDTO">
+	insert into hospital values(hos_seq.nextval, #{hosname}, #{petkind_kind}, #{hosadress}, #{hosarea}, #{latitude}, #{longitude})
+	</select> 
+	<select id= "update" parameterType ="dto.HosmapDTO" resultType = "dto.HosmapDTO">
+		update hospital	set hosname = #{hosname}, petkind_kind = #{petkind_kind}, hosadress = #{hosadress}, hosarea = #{hosarea}, latitude = #{latitude}, longitude = #{longitude}
+		where hosnum=#{hosnum}
+	</select>
+	
+
+
 </mapper>

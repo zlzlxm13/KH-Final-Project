@@ -33,6 +33,7 @@
 			<list>
 				<value>classpath:config/HospitalMapper.xml</value>
 				<value>classpath:config/LoginMapper.xml</value>
+				<value>classpath:config/AdminMapper.xml</value>
 			</list>
 		</property>
 	</bean>
@@ -60,6 +61,7 @@
 	<bean id="lservice" class="service.LoginServiceImp">
 		<property name="ldao" ref="ldao" />
 	</bean>
+
 	
 	
 
@@ -69,6 +71,7 @@
    </bean>
    
    <bean class="controller.AdminController">
+    <property name="hservice" ref="service" />
    </bean>
    
    <bean class="controller.MapController" >
@@ -114,7 +117,6 @@ class="org.springframework.web.servlet.view.BeanNameViewResolver">
 			pointcut="execution(* service.Board*.*(..))" />
 	</aop:config>
 	
-
 	
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/view/" />
