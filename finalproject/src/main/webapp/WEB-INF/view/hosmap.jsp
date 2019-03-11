@@ -56,7 +56,7 @@
         <div class="option">
             <div>
                 <form onsubmit="searchPlaces(); return false;">
-                    병원검색 : <input type="text" value="병원 명" id="keyword" size="15"> 
+                    병원검색 : <input type="text" value="품종 명" id="keyword" size="15"> 
                     <button type="submit">검색하기</button> 
                 </form>
             </div>
