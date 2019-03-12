@@ -20,19 +20,7 @@ select b.* from(
  where b.rowm>=#{Startpage} and b.rowm<=#{Endpage}
  ]]>
 	</select>
-	<select id="count" resultType="int">
-		select count(*) from hospital
-	</select>
-	<select id="list" resultType="dto.HosmapDTO">
-		select * from hospital
-	</select>
-	<select id= "insert" parameterType ="dto.HosmapDTO">
-	insert into hospital values(hos_seq.nextval, #{hosname}, #{petkind_kind}, #{hosadress}, #{hosarea}, #{latitude}, #{longitude})
-	</select> 
-	<select id= "update" parameterType ="dto.HosmapDTO" resultType = "dto.HosmapDTO">
-		update hospital	set hosname = #{hosname}, petkind_kind = #{petkind_kind}, hosadress = #{hosadress}, hosarea = #{hosarea}, latitude = #{latitude}, longitude = #{longitude}
-		where hosnum=#{hosnum}
-	</select>
+	
 	
 
 

@@ -31,13 +31,13 @@ public class HosmapDaoImp implements HosmapDAO {
 	@Override
 	public List<HosmapDTO> list() {
 		// TODO Auto-generated method stub
-		return sqlSession.selectList("hos.list");
+		return sqlSession.selectList("admin.hos_list");
 	}
 
 	@Override
 	public int count() {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne("hos.count");
+		return sqlSession.selectOne("admin.hos_count");
 	}
 	
 	

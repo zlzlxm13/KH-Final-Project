@@ -5,11 +5,18 @@
 
 <mapper namespace="admin">
 
-	<select id="hos_count" resultType="int">
+<select id="hos_count" resultType="int">
 		select count(*) from hospital
 	</select>
-
 	<select id="hos_list" resultType="dto.HosmapDTO">
 		select * from hospital
 	</select>
+	<select id= "hos_insert" parameterType ="dto.HosmapDTO">
+	insert into hospital values(hos_seq.nextval, #{hosname}, #{petkind_kind}, #{hosadress}, #{hosarea}, #{latitude}, #{longitude})
+	</select> 
+	<select id= "hos_update" parameterType ="dto.HosmapDTO" resultType = "dto.HosmapDTO">
+		update hospital	set hosname = #{hosname}, petkind_kind = #{petkind_kind}, hosadress = #{hosadress}, hosarea = #{hosarea}, latitude = #{latitude}, longitude = #{longitude}
+		where hosnum=#{hosnum}
+	</select>
+	
 </mapper>
