@@ -33,13 +33,13 @@
 		<property name="dao" ref="Reservationdao"/>
 	</bean>
 
-<bean class="controller.IndexController" />
-<bean class="controller.Reservationcontroller">
-		<property name="service" ref="service"/>
-</bean>
+	<bean class="controller.IndexController" />
+	<bean class="controller.Reservationcontroller">
+			<property name="service" ref="service"/>
+	</bean>
 	
 
-<bean
+	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/view/" />
 		<property name="suffix" value=".jsp" />
