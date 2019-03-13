@@ -1,10 +1,7 @@
 package dao;
 
 import java.security.spec.ECFieldF2m;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+
 
 import javax.servlet.http.HttpSession;
 
@@ -12,59 +9,54 @@ import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 
 import dto.MemDTO;
-import static jdbc.JdbcTemplate.close;
-import static jdbc.JdbcTemplate.commit;
-import static jdbc.JdbcTemplate.getConnection;
-import static jdbc.JdbcTemplate.rollback;
 
 public class LoginDAOImp implements LoginDAO{
  private SqlSessionTemplate session;
- 
-
-
+ public LoginDAOImp() {}
+public SqlSessionTemplate getSession() {
+	return session;
+}
 
 public void setSession(SqlSessionTemplate session) {
 	this.session = session;
 }
 
-
+// private SqlSession session;
+ private static final String NameSpace="login.";
+ 
 	@Override
-	public void signUpMethod(MemDTO dto) {
-	session.insert("login.signup",dto);
+	public int signUpMethod(MemDTO dto) {
+		 //위에 선언된 Id_Check(m)의 결과값을 Id_Check_Result에 담는다.
+        int Id_Check_Result = IdChk(dto.getId());
+        //Id_Check_Result값이 0이 아니라면 Id_Check_Result값을 반환
+        //0은 아이디가 중복되지 않음 자세한거는 mapper를 열어보세요.
+        if(Id_Check_Result != 0) 
+        	return Id_Check_Result;
+        
+        try {
+            //sqlsession에 insert를 할꺼고 내가 쓸 맵퍼는 위에 12번째줄에 선언된거고
+            //내가 사용 할 QUERY문은 Register를 사용하고 넘길 값은 m이다.
+            //이후 설명은 다 생략 똑같은 내용
+            session.insert(NameSpace + "signup", dto);
+            return 0;
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            return -2;
+        }
+
 	}
-	
-	
-	
-	
+
 	@Override
 	public int loginMethod(MemDTO dto, HttpSession Hsession) {
-		  int Id_Search_Result = -1;
-	        try {
-	            Id_Search_Result = session.selectOne("login.signin", dto);
-	        }
-	        catch (Exception e) {
-	            e.printStackTrace();
-	            return -1;
-	        }
-	        
-	        if(Id_Search_Result != 1) return Id_Search_Result;
-	        
-	        try {
-	            MemDTO m_info = session.selectOne("login.Login_Info", dto);
-	            Hsession.setAttribute("dto", m_info);
-	            return 1;
-	        }
-	        catch (Exception e) {
-	            e.printStackTrace();
-	            return -2;
-	        }
-
+		
+		return session.selectOne("login.signin",dto);		
 	}
 
 	@Override
-	public int idChk(String id) {
+	public int IdChk(String id) {		
+		System.out.println("daoID:"+id);
 		return session.selectOne("login.Idchk",id);
-	}//end IdChk()
-
 	
+	}
 }

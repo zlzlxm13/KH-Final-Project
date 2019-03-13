@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -13,10 +16,23 @@
 	<body>
 
 		<!-- Header -->
+		<script src="js/login.js" type="text/javascript"></script>
 			<header id="header" class="alt">
 				<div class="logo"><a href="index.do">SooCut animal hospital <span>by KHfamily</span></a></div>
+<<<<<<< HEAD
 				{sessionScope.id}님
 				<a href="#menu" class="toggle"><span>Menu</span></a>
+=======
+						<a href="#menu" class="toggle" style="float:right"><span>Menu</span></a>
+		<%if(session.getAttribute("id") == null){ %>	
+						<input value="Login" class="button alt icon fa-check" type="submit" id = "login_process"style="float:right;">		
+						<input name="pass" id="pass" type="password" placeholder="Pass" style="width: 10%;float: right;margin-right: 10px;">				
+				<input name="id" id="id" type="text" placeholder="id" style="width: 10%;float: right;margin-right: 10px;">
+				<%} else {%>
+				${sessionScope.id }님 환영합니다
+			<a href="logout.do">로그아웃</a><%} %>
+		
+>>>>>>> refs/heads/testbranch
 			</header>
 
 		<!-- Nav -->
@@ -24,10 +40,28 @@
 				<ul class="links">
 					<li><a href="index.do">Home</a></li>
 					<li><a href="generic.do">Notice</a></li>
+<<<<<<< HEAD
 					<li><a href="elements.do">Hospital</a></li>
 					<li><a href="login.do">Login</a></li>
+=======
+					<li><a href="elements.do">Hospital</a></li>					
+					<%if(session.getAttribute("id") == null){ %>	
+							<li><a href="login.do">Login</a></li>
+							<%} else {%>
+							<li>${sessionScope.id }님 환영합니다
+								<ul>
+									<li><a href="#">마이페이지</a></li>
+									<li><a href="logout.do">로그아웃</a></li>
+								</ul>
+							</li>			
+							<%} %>
+>>>>>>> refs/heads/testbranch
 					<li><a href="admin.do">admin</a></li>
+<<<<<<< HEAD
 
+=======
+					<li><a href="main.do">Reservation</a></li>
+>>>>>>> refs/heads/testbranch
 					
 				</ul>
 			</nav>
@@ -42,6 +76,10 @@
 				<div class="inner">
 					<h1>愁Cut</h1>
 					<p>당신의 가족, 아프지 않게.<br /></p>
+<<<<<<< HEAD
+=======
+				
+>>>>>>> refs/heads/testbranch
 					<a href="#one" class="button scrolly">Get Started</a>
 				</div>
 			</section>
@@ -57,6 +95,7 @@
 							<div class="content">
 								<header class="align-center">
 									<h2>Lorem ipsum dolor</h2>
+									<p>	<%System.out.print(session.getAttribute("id"));%></p>
 									<p>maecenas feugiat ex purus, quis volutpat lacus placerat</p>
 								</header>
 								<hr />

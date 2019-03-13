@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,6 +10,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="stylesheet" href="css/main.css" />
+<<<<<<< HEAD
 <script type="text/javascript">
 $(document).ready(function(){
     //login_process의 id를 가지는것을 클릭하게 된다면 함수 실행
@@ -62,6 +63,9 @@ $(document).ready(function(){
 
 
 </script>
+=======
+
+>>>>>>> refs/heads/testbranch
 </head>
 <body class="subpage">
 
@@ -92,28 +96,48 @@ $(document).ready(function(){
 				<div class="content">
 					<h2 class="align-center">Get in Touch</h2>
 					<hr />
-					<form action="#" method="post">
+					<p><span class="image right"><img src="images/pay1.jpg" alt="" /></span>
+					<form action="#" method="post">				
 						<div class="field">
 							<label for="id">ID</label> <input name="id" id="id" type="text"
+<<<<<<< HEAD
 								placeholder="id">
 						</div>
 						<c:if test="${requestScope.IdChk==0}">
 							<span style="font-size: 20; color: red;">일치하는 회원 정보가 없습니다.
 								회원가입을 해주세요.</span>
 						</c:if>
+=======
+								placeholder="id" style="width: 50%">
+						</div>						
+>>>>>>> refs/heads/testbranch
 						<div class="field">
 							<label for="pass">Password</label> <input name="pass" id="pass"
+<<<<<<< HEAD
 								type="password" placeholder="Pass">
 						</div>
 						<c:if test="${requestScope.IdChk==-1}">
 							<span style="font-size: 20; color: red;">비밀번호를 확인하세요</span>
 						</c:if>
 						<ul class="actions align-center">
+=======
+								type="password" placeholder="Pass" style="width: 50%">
+						</div>							
+					</form>
+							
+					<script src="js/login.js" type="text/javascript"></script>
+						<ul class="actions align-center">		
+						<li><a href="#" class="button special icon fa-search">아이디,비밀번호 찾기</a>	</li>				
+>>>>>>> refs/heads/testbranch
 							<li><input value="Login" class="button alt icon fa-check"
+<<<<<<< HEAD
 								type="submit" id = "login_process"></li>							
+=======
+							 type="submit" id = "login_process" style="color: black;">
+							</li>							
+>>>>>>> refs/heads/testbranch
 							<li><a href="signup.do" class="button">회원가입</a></li>
 						</ul>
-					</form>
 				</div>
 			</div>
 		</div>
@@ -154,5 +178,6 @@ $(document).ready(function(){
 	<script src="js/util.js"></script>
 	<script src="js/main.js"></script>
 
+	
 </body>
 </html>

@@ -7,6 +7,7 @@
 <mapper namespace="login">
 	<insert id="signup" parameterType="dto.MemDTO">
 		insert into member
+
 		values(#{id},#{pass},#{name},Bronze,#{phonenum},#{email})
 	</insert>
 
@@ -27,22 +28,3 @@
 
 
 </mapper>
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
- 
- 
- 
- 
- 
