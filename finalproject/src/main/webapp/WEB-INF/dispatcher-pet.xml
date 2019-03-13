@@ -3,7 +3,41 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="oracle.jdbc.OracleDriver" />
+		<property name="url" value="jdbc:oracle:thin://@127.0.0.1:1521:xe" />
+		<property name="username" value="hr" />
+		<property name="password" value="a1234" />
+	</bean>
+
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="mapperLocations">
+			<list>
+				<value>classpath:config/reservation.xml</value>
+			 </list>
+		</property>
+	</bean>
+	
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSessionFactory" />
+	</bean>
+	
+	
+	<bean id="Reservationdao" class="dao.ReservationDaoImp">
+		<property name="sqlSession" ref="sqlSession" />
+	</bean>
+
+	<bean id="service" class="service.ReservationServiceImp">
+		<property name="dao" ref="Reservationdao"/>
+	</bean>
+
 <bean class="controller.IndexController" />
+<bean class="controller.Reservationcontroller">
+		<property name="service" ref="service"/>
+</bean>
+	
 
 <bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">

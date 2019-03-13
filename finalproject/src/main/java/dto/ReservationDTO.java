@@ -6,8 +6,8 @@ public class ReservationDTO {
 
 	private int res_num;
 	private Date res_date;
-	private HospitalDTO HosPital;
-	private MemDTO member;
+	private int hospital_hosnum;
+	private String member_id;
 	
 	public ReservationDTO() {
 		
@@ -29,21 +29,22 @@ public class ReservationDTO {
 		this.res_date = res_date;
 	}
 
-	public HospitalDTO getHosPital() {
-		return HosPital;
+	public int getHospital_hosnum() {
+		return hospital_hosnum;
 	}
 
-	public void setHosPital(HospitalDTO hosPital) {
-		HosPital = hosPital;
+	public void setHospital_hosnum(int hospital_hosnum) {
+		this.hospital_hosnum = hospital_hosnum;
 	}
 
-	public MemDTO getMember() {
-		return member;
+	public String getMember_id() {
+		return member_id;
 	}
 
-	public void setMember(MemDTO member) {
-		this.member = member;
+	public void setMember_id(String member_id) {
+		this.member_id = member_id;
 	}
+
 	
 	
 	
