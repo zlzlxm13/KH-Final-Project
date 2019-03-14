@@ -18,9 +18,8 @@ public class ReservationServiceImp implements ReservationService{
 
 
 	@Override
-	public void insertProcess(ReservationDTO rdto) {
-
-		dao.ReservationInsertMethod(rdto);
+	public void insertProcess(ReservationDTO dto) {
+		dao.save(dto);
 	}
 	
 }

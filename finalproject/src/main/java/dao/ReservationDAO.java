@@ -7,7 +7,7 @@ import dto.ReservationDTO;
 
 public interface ReservationDAO {
 	
-	public void ReservationInsertMethod(ReservationDTO rdto);
+	public void save(ReservationDTO dto);
 	
 	
 }//end interface

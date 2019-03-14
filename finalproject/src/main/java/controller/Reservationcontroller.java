@@ -1,38 +1,38 @@
 package controller;
 
+import java.sql.Date;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.context.support.HttpRequestHandlerServlet;
 import org.springframework.web.servlet.ModelAndView;
 
 import dao.ReservationDAO;
 import dto.ReservationDTO;
-import service.ReservationService;
 
 //http://localhost:8090/pet/main.do
 
 @Controller
 public class Reservationcontroller {
 	
-	private ReservationService service;
+	private ReservationDAO dao;
 	
 	public Reservationcontroller() {
 		
 	}
-	public void setService(ReservationService service) {
-		this.service = service;
-	}
 	
+	
+	public void setDao(ReservationDAO dao) {
+		this.dao = dao;
+	}
+
+
 	@RequestMapping("/main.do")
 	public ModelAndView listMethod() {
 		ModelAndView mav = new ModelAndView();
@@ -53,18 +53,23 @@ public class Reservationcontroller {
 	}
 	
 	@RequestMapping(value="/reservation.do", method = RequestMethod.POST)
-	public String reservationpro(ReservationDTO rdto) {
+	
+	public String reservationpro(ReservationDTO dto ) {
 		
-		/*SimpleDateFormat date = new SimpleDateFormat("yyyy/MM/dd");
-		String res_date = date.format(Calendar.getInstance().getTime());
-		*/
 		
-		System.out.println(rdto.getMember_id());
+		System.out.println("예약 날짜 : " + dto.getRes_date());
+		System.out.println("병원 번호 : " + dto.getHospital_hosnum());
+		System.out.println("아이디 : " + dto.getMember_id());
+		dao.save(dto);
 		
-		service.insertProcess(rdto);
-		
-		return "redirect:main";
+
+		return "redirect:main.do";
 	}
 	
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+	    SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+	    binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+	}
 	
 }
