@@ -45,27 +45,10 @@
 					<form action="#" method="post">				
 						<div class="field">
 							<label for="id">ID</label> <input name="id" id="id" type="text"
-
-								placeholder="id">
-						</div>
-						<c:if test="${requestScope.IdChk==0}">
-							<span style="font-size: 20; color: red;">일치하는 회원 정보가 없습니다.
-								회원가입을 해주세요.</span>
-						</c:if>
-
 								placeholder="id" style="width: 50%">
 						</div>						
-
 						<div class="field">
 							<label for="pass">Password</label> <input name="pass" id="pass"
-
-								type="password" placeholder="Pass">
-						</div>
-						<c:if test="${requestScope.IdChk==-1}">
-							<span style="font-size: 20; color: red;">비밀번호를 확인하세요</span>
-						</c:if>
-						<ul class="actions align-center">
-
 								type="password" placeholder="Pass" style="width: 50%">
 						</div>							
 					</form>
@@ -73,14 +56,9 @@
 					<script src="js/login.js" type="text/javascript"></script>
 						<ul class="actions align-center">		
 						<li><a href="#" class="button special icon fa-search">아이디,비밀번호 찾기</a>	</li>				
-
 							<li><input value="Login" class="button alt icon fa-check"
-
-								type="submit" id = "login_process"></li>							
-=======
 							 type="submit" id = "login_process" style="color: black;">
 							</li>							
->>>>>>> refs/heads/testbranch
 							<li><a href="signup.do" class="button">회원가입</a></li>
 						</ul>
 				</div>
