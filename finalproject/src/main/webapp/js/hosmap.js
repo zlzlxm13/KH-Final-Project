@@ -169,7 +169,7 @@ function displayPlaces(search) {
 			});
 
 			itemEl.onclick = function() {
-				displayInfowindow(marker, title, searchs);
+						displayInfowindow(marker, title, searchs);
 			};
 
 			// itemEl.onclick = function() {
@@ -196,6 +196,11 @@ function displayPlaces(search) {
 	map.setBounds(bounds);
 }
 
+function javascript(){
+    //현재창에서 다른페이지로 이동합니다.
+    window.location.href="http://localhost:8090/pet/index.do";
+}
+
 // 검색결과 항목을 Element로 반환하는 함수입니다
 function getListItem(index, search, marker) {
 
@@ -203,20 +208,21 @@ function getListItem(index, search, marker) {
 			+ (index + 1)
 			+ '"></span>'
 			+ '<div class="info">'
-			+ '   <h5>'
-			+ search.hosname + '</h5>';
+			+ '<h5>'
+			+search.hosname +'<input type="button" onclick="javascript()" value="예약하기" /></h5>';
+
 
 	if (search.newAddress) {
-		itemStr += '<span>' + search.hosaddress + '</span>'
-				+ '<span class="jibun gray">' + search.hosaddress
+		itemStr +='<span class="jibun gray">' + search.petkind_kind
 				+ '</span>';
 	} else {
-		itemStr += '<span>' + search.hosaddress + '</span>';
+		itemStr += '<span>' + search.petkind_kind + '</span>';
 	}
 
-	itemStr += '<span class="tel">' + search.hosname + '</span>'
+	itemStr += '<span class="tel">' + search.hosaddress + '</span>'
 			+ '</div>';
 
+	
 	el.innerHTML = itemStr;
 	el.className = 'item';
 	return el;
@@ -276,11 +282,6 @@ function displayPagination(totalPage, total, blocksize, pageNo) {
 		// 마지막 페이지와 같다면..
 		if (blockpage == totalpages)
 			i = blocksize + 1; // 다음차례에 for문 빠져나감
-		// if (blockpage == pageNo)
-		// paginationEl.insertAdjacentHTML("beforeEnd", " <span
-		// style='cursor:default;'><b>"
-		// + blockpage + "</b></span> ");
-		// else
 		paginationEl.insertAdjacentHTML("beforeEnd",
 				" <span style='cursor:pointer;'" + "onClick='Pagesearch("
 						+ totalPage + "," + total + "," + blocksize + ","
@@ -294,9 +295,8 @@ function displayPagination(totalPage, total, blocksize, pageNo) {
 function displayInfowindow(marker, title, searchs) {
 
 	
-	var content = '<div class ="f_main"><div id="f_image">' + searchs.hosnum + '</div>'
-			+ '<div class="f_header">' + searchs.hosname
-			+ '</div>' + '<div id="f_date">' + searchs.petkind_kind
+	var content = '<div class ="f_main"><div id="f_image">' + searchs.hosname + '</div>'
+			+ '<div class="f_header">' + searchs.petkind_kind
 			+ '</div>' + '<div id="f_number">'
 			+ searchs.hosaddress + '</div></div>'; 
 
