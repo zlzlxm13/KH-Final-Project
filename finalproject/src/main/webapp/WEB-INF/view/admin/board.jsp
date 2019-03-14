@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -102,50 +102,34 @@ nav ul li {
 
 nav
 
-
  
-
 
 ul
 
-
  
-
 
 li
 
 
-
-
 :not
 
-
  
-
 
 (
 :last-child
 
-
  
-
 
 )
 {
 border-bottom
 
 
-
-
 :
-
 
  
 
-
 none
-
-
 
 
 ;
@@ -196,17 +180,22 @@ nav ul li a span {
 main {
 	position: absolute;
 	transition: all 0.15s ease-in-out;
-	top: 30;
+	top: 0;
 	left: 50px;
-	margin-top: 30px;
-	margin-left: 30px;
-	
 }
 
-
+main section {
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+	background: #fff;
+	padding: 25px;
+	font-family: helvetica;
+	font-weight: lighter;
+	padding: 50px;
+	margin: 150px 75px;
+	transition: all 0.15s ease-in-out;
+}
 </style>
 </head>
-
 <body>
 
 	<input type="checkbox" id="menu_state" checked>
@@ -218,29 +207,17 @@ main {
 			<li><a href="adminPet.do"> <i class="fa fa-heart"></i> <span>Pet</span>
 			</a></li>
 			<li>
-			<li class="active"><a href="adminHospital.do"> <i
+			<li ><a href="adminHospital.do"> <i
 					class="fa fa-paper-plane"></i> <span>Hospital</span>
 			</a></li>
-			<li><a href="adminReservation.do"> <i class="fa fa-pencil"></i>
+			<li ><a href="adminReservation.do"> <i class="fa fa-pencil"></i>
 					<span>Reservation</span>
 			</a></li>
-			<li><a href="adminBoard.do"> <i class="fa fa-trash"></i> <span>Board</span>
+			<li class="active"><a href="adminBoard.do"> <i class="fa fa-trash"></i> <span>Board</span>
 			</a></li>
 		</ul>
 	</nav>
-	<main> <a href="adminHospitalinsert.do" class="button">Insert</a> <a href="#"
-		class="button">Update</a> <a href="#" class="button">Delete</a>
-	<p>${count}</p>
-	<table>
-		<c:forEach var="dto" items="${list}">
-
-			<li><a href =""> ${dto.hosnum} ${dto.hosname} ${dto.petkind_kind}
-					${dto.hosadress} ${dto.hosname}</a></li>
-
-
-		</c:forEach>
-	</table>
-
-	</main>
+	<main> <a href="adim" class="button">Insert</a> <a href="#"
+		class="button">Update</a> <a href="#" class="button">Delete</a> </main>
 </body>
 </html>

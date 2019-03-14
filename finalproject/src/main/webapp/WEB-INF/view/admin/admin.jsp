@@ -1,47 +1,51 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>SooCut animal hospital</title>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-		
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<link rel="stylesheet" href="css/main.css" />
-	</head>
-	<body>
+<head>
+<title>SooCut animal hospital</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-		<!-- Header -->
-			<header id="header" class="alt">
-				<div class="logo"><a href="index.do">SooCut animal hospital <span>by KHfamily</span></a></div>
-				<a href="#menu" class="toggle"><span>Menu</span></a>
-			</header>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="css/main.css" />
+</head>
+<body>
 
-		<!-- Nav -->
-			<nav id="menu">
-				<ul class="links">
-					<li><a href="index.do">Home</a></li>
-					<li><a href="generic.do">Notice</a></li>
-					<li><a href="elements.do">Hospital</a></li>
-<<<<<<< HEAD
-					<li><a href="login.do">Login</a></li>
-=======
-					<li><a href="admin.do">admin</a></li>
->>>>>>> branch 'tyee' of https://github.com/zlzlxm13/KH-Final-Project.git
-					
-				</ul>
-			</nav>
+	<!-- Header -->
+	<header id="header" class="alt">
+		<div class="logo">
+			<a href="index.do">SooCut animal hospital <span>by
+					KHfamily</span></a>
+		</div>
+		<a href="#menu" class="toggle"><span>Menu</span></a>
+	</header>
 
-		<!-- Banner -->
-		<!--
+	<!-- Nav -->
+	<nav id="menu">
+		<ul class="links">
+			<li><a href="index.do">Home</a></li>
+			<li><a href="generic.do">Notice</a></li>
+			<li><a href="elements.do">Hospital</a></li>
+
+			<li><a href="login.do">Login</a></li> =======
+			<li><a href="admin.do">admin</a></li>
+
+
+		</ul>
+	</nav>
+
+	<!-- Banner -->
+	<!--
 			To use a video as your background, set data-video to the name of your video without
 			its extension (eg. images/banner). Your video must be available in both .mp4 and .webm
 			formats to work correctly.
 		-->
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+	<%@ page language="java" contentType="text/html; charset=UTF-8"
+		pageEncoding="UTF-8"%>
+	<!DOCTYPE html>
 <html>
 <head>
 <title>Generic - Transitive by TEMPLATED</title>
@@ -140,10 +144,56 @@ nav ul li {
 	position: relative;
 }
 
-nav ul li:not (:last-child ) {
-	border-bottom: none;
-}
+nav
 
+
+ 
+
+
+ul
+
+
+ 
+
+
+li
+
+
+
+
+:not
+
+
+ 
+
+
+(
+:last-child
+
+
+ 
+
+
+)
+{
+border-bottom
+
+
+
+
+:
+
+
+ 
+
+
+none
+
+
+
+
+;
+}
 nav ul li.active a {
 	background: #4c515d;
 	color: #fff;
@@ -217,42 +267,62 @@ main section {
 	</header>
 	<input type="checkbox" id="menu_state" checked>
 	<nav>
-		<label for="menu_state"><i class="fa"></i></label>
-		<ul>
-			<li class="active"><a href="adminMember.do"> <i
-					class="fa fa-inbox"></i> <span>Member</span>
-			</a></li>
-			<li><a href="javascript:void(0)"> <i class="fa fa-heart"></i>
-					<span>Pet</span>
-			</a></li>
-			<li><a href="javascript:void(0)"> <i
-					class="fa fa-paper-plane"></i> <span>Hospital</span>
-			</a></li>
-			<li><a href="javascript:void(0)"> <i class="fa fa-pencil"></i>
-					<span>Reservation</span>
-			</a></li>
-			<li><a href="javascript:void(0)"> <i class="fa fa-trash"></i>
-					<span>Board</span>
-			</a></li>
-		</ul>
-	</nav>
-	<main> <header></header>
-	<section>
-		<p>${count}</p>
-	</section>
-	</main>
+	<label for="menu_state"><i class="fa"></i></label>
+	<ul>
+			<li>
+			<a href="adminMember.do">
+				<i class="fa fa-inbox"></i>
+				<span>Member</span>
+			</a>
+		</li>
+		<li>
+			<a href="adminPet.do">
+				<i class="fa fa-heart"></i>
+				<span>Pet</span>
+			</a>
+		</li>
+		<li>
+		<li class="active">
+			<a href="adminHospital.do">
+				<i class="fa fa-paper-plane"></i>
+				<span>Hospital</span>
+			</a>
+		</li>
+		<li>
+			<a href="adminReservation.do">
+				<i class="fa fa-pencil"></i>
+				<span>Reservation</span>
+			</a>
+		</li>
+		<li >
+			<a href="adminBoard.do">
+				<i class="fa fa-trash"></i>
+				<span>Board</span>
+			</a>
+		</li>
+	</ul>
+</nav>
+	<main>
+<a href="adim" class="button">Insert</a>
+
+<a href="#" class="button">Update</a>
+
+<a href="#" class="button">Delete</a>
+
+
+</main>
 </body>
 </html>
 
 
-		
-		<!-- Scripts -->
-			<script src="js/jquery.min.js"></script>
-			<script src="js/jquery.scrolly.min.js"></script>
-			<script src="js/jquery.scrollex.min.js"></script>
-			<script src="js/skel.min.js"></script>
-			<script src="js/util.js"></script>
-			<script src="js/main.js"></script>
 
-	</body>
+<!-- Scripts -->
+<script src="js/jquery.min.js"></script>
+<script src="js/jquery.scrolly.min.js"></script>
+<script src="js/jquery.scrollex.min.js"></script>
+<script src="js/skel.min.js"></script>
+<script src="js/util.js"></script>
+<script src="js/main.js"></script>
+
+</body>
 </html>

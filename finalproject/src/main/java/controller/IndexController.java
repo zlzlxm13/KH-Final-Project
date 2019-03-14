@@ -1,3 +1,4 @@
+    
 package controller;
 
 import javax.servlet.http.HttpSession;
@@ -25,10 +26,9 @@ public class IndexController {
 
 	private LoginDAO l_dao;
 	private LoginService lservice;
-
+	
 	public LoginDAO getL_dao() {
 		return l_dao;
-
 	}
 
 	public void setL_dao(LoginDAO l_dao) {
@@ -43,6 +43,8 @@ public class IndexController {
 		this.lservice = lservice;
 	}
 
+
+
 	@RequestMapping("/generic.do")
 	public String process1() {
 		return "generic";
@@ -53,62 +55,88 @@ public class IndexController {
 		return "elements";
 	}
 
+	
 	@RequestMapping("/index.do")
-	public String index() {
+	public String index() {		
 		return "index";
 	}
 
-	/////////////////////////////////////////////////////////////////////////////////////
-
+	
+	
 	@RequestMapping(value = "/login.do", method = RequestMethod.GET)
 	public String login() {
 		// VIEW 폴더애 login.jsp 파일을 뷰페이지로 선언
 		return "login";
 	}
 
-	@ResponseBody
-	// POST로 Login으로 요청을 할 경우
+	
+ 
 	@RequestMapping(value = "/login.do", method = RequestMethod.POST)
 	// login이라는 메소드명을 가지고 매개변수는 member m, Httpsession session
-	public int login(MemDTO dto, HttpSession session) {
+	public @ResponseBody int login(MemDTO dto, HttpSession session) {
 		// m_dao.Login(m, session)을 호출하고 반환한다.
-		return l_dao.loginMethod(dto, session);
-	}
+		int lchk = lservice.loginprocess(dto, session);
+		if (lchk == 1){
+			session.setAttribute("id", dto.getId());
+			session.setAttribute("pass", dto.getPass());
+			session.setAttribute("email",dto.getEmail());
+			session.setAttribute("name",dto.getName());
+			session.setAttribute("grade",dto.getGrade());
+			session.setAttribute("phonenum",dto.getPhonenum());
+			
+			//session.setAttribute("dto",dto);
+		
+		}else {
+			
+		}
+			
 
-	@RequestMapping("/idChk.do")
-	public int idChk(String id) {
-		return lservice.idChkprocess(id);
+		//if()
+		return lchk;
+	}
+	
+	@RequestMapping(value = "/idChk.do", method = RequestMethod.POST)
+	public @ResponseBody int idChk(String id) {
+		System.out.println(id);
+		
+		int chk =lservice.idChkprocess(id);
+		System.out.println("con:"+chk);
+		return chk;	
 	}
 
 	@RequestMapping("/logout.do")
-	public String logoutProcess(HttpSession session) {
-		session.removeAttribute("chk");
-		return "redirect:/index";
+	public String logoutProcess(MemDTO dto,HttpSession session) {
+		
+		session.removeAttribute("id");
+		session.removeAttribute("pass");
+		session.removeAttribute("name");
+		session.removeAttribute("email");
+		session.removeAttribute("grade");
+		session.removeAttribute("phonenum");	
+		//session.removeAttribute("dto");
+		return "redirect:/index.do";
 	}
 
-	@RequestMapping(value = "/signup.do", method = RequestMethod.GET)
+	@RequestMapping(value="/signup.do", method=RequestMethod.GET)
 	public void signupprocess() {
-
+		
 	}
+	   @RequestMapping(value="/signup.do", method=RequestMethod.POST)
+       public String signupPOST(MemDTO dto) {
 
-	@RequestMapping(value = "/signup.do", method = RequestMethod.POST)
-	public String signupPOST(MemDTO dto) {
+           lservice.insertMember(dto);
+           
+           return "index";
+       }
+	   @RequestMapping("/admin.do")
+		public ModelAndView adminProcess() {
 
-		lservice.insertMember(dto);
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("admin");
+			return mav;
 
-		return "index";
-	}
+		}
 
-	/////////////////////////////////////////////////////////////////////////////////////
-	@RequestMapping("/admin.do")
-	public ModelAndView adminProcess() {
-
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("admin");
-		return mav;
-
-	}
-	
 	
 
 }

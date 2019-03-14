@@ -103,13 +103,29 @@ nav ul li {
 nav
 
 
+
+
+
+
  
+
+
+
+
 
 
 ul
 
 
+
+
+
+
  
+
+
+
+
 
 
 li
@@ -117,17 +133,41 @@ li
 
 
 
+
+
+
+
+
+
+
+
 :not
 
 
+
+
+
+
  
+
+
+
+
 
 
 (
 :last-child
 
 
+
+
+
+
  
+
+
+
+
 
 
 )
@@ -137,13 +177,37 @@ border-bottom
 
 
 
+
+
+
+
+
+
+
+
 :
+
+
+
+
 
 
  
 
 
+
+
+
+
 none
+
+
+
+
+
+
+
+
 
 
 
@@ -200,10 +264,7 @@ main {
 	left: 50px;
 	margin-top: 30px;
 	margin-left: 30px;
-	
 }
-
-
 </style>
 </head>
 
@@ -228,19 +289,21 @@ main {
 			</a></li>
 		</ul>
 	</nav>
-	<main> <a href="adminHospitalinsert.do" class="button">Insert</a> <a href="#"
-		class="button">Update</a> <a href="#" class="button">Delete</a>
-	<p>${count}</p>
-	<table>
-		<c:forEach var="dto" items="${list}">
-
-			<li><a href =""> ${dto.hosnum} ${dto.hosname} ${dto.petkind_kind}
-					${dto.hosadress} ${dto.hosname}</a></li>
-
-
-		</c:forEach>
-	</table>
-
+	<main>
+	<input type="text" name="hosname" id="petkind_kind" value=""
+		placeholder="hosname">
+	<input type="text" name="petkind_kind" id="petkind_kind" value=""
+		placeholder="petkind_kind">
+	<input type="text" name="hosadress" id="hosadress" value=""
+		placeholder="hosadress">
+	<input type="text" name="hosarea" id="hosarea" value=""
+		placeholder="hosarea">
+	<input type="text" name="latitude" id="latitude" value=""
+		placeholder="latitude">
+	<input type="text" name="longitude" id="longitude" value=""
+		placeholder="longitude">
+	<a class="button">Insert</a>
 	</main>
+	
 </body>
 </html>

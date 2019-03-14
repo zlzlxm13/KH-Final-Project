@@ -198,7 +198,7 @@ function displayPlaces(search) {
 
 function javascript(){
     //현재창에서 다른페이지로 이동합니다.
-    window.location.href="http://localhost:8090/pet/index.do";
+    window.location.href="http://localhost:8090/pet/reservation.do";
 }
 
 // 검색결과 항목을 Element로 반환하는 함수입니다

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -99,10 +100,40 @@ nav ul li {
 	position: relative;
 }
 
-nav ul li:not (:last-child ) {
-	border-bottom: none;
-}
+nav
 
+ 
+
+ul
+
+ 
+
+li
+
+
+:not
+
+ 
+
+(
+:last-child
+
+ 
+
+)
+{
+border-bottom
+
+
+:
+
+ 
+
+none
+
+
+;
+}
 nav ul li.active a {
 	background: #4c515d;
 	color: #fff;
@@ -166,39 +197,27 @@ main section {
 </style>
 </head>
 <body>
-	<!-- Header -->
-	<header id="header" class="alt">
-		<div class="logo">
-			<a href="index.do">SooCut animal hospital <span>by
-					KHfamily</span></a>
-		</div>
-		<a href="#menu" class="toggle"><span>Menu</span></a>
-	</header>
+
 	<input type="checkbox" id="menu_state" checked>
 	<nav>
 		<label for="menu_state"><i class="fa"></i></label>
 		<ul>
-			<li class="active"><a href="adminMember.do"> <i
-					class="fa fa-inbox"></i> <span>Member</span>
+			<li><a href="adminMember.do"> <i class="fa fa-inbox"></i> <span>Member</span>
 			</a></li>
-			<li><a href="javascript:void(0)"> <i class="fa fa-heart"></i>
-					<span>Pet</span>
+			<li class="active"><a href="adminPet.do"> <i class="fa fa-heart"></i> <span>Pet</span>
 			</a></li>
-			<li><a href="javascript:void(0)"> <i
+			<li>
+			<li ><a href="adminHospital.do"> <i
 					class="fa fa-paper-plane"></i> <span>Hospital</span>
 			</a></li>
-			<li><a href="javascript:void(0)"> <i class="fa fa-pencil"></i>
+			<li ><a href="adminReservation.do"> <i class="fa fa-pencil"></i>
 					<span>Reservation</span>
 			</a></li>
-			<li><a href="javascript:void(0)"> <i class="fa fa-trash"></i>
-					<span>Board</span>
+			<li><a href="adminBoard.do"> <i class="fa fa-trash"></i> <span>Board</span>
 			</a></li>
 		</ul>
 	</nav>
-	<main> <header></header>
-	<section>
-		<p>${count}</p>
-	</section>
-	</main>
+	<main> <a href="adim" class="button">Insert</a> <a href="#"
+		class="button">Update</a> <a href="#" class="button">Delete</a> </main>
 </body>
 </html>

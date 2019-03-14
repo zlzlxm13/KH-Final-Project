@@ -7,24 +7,44 @@
 <title>Signup</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<meta charset="utf-8" />
+<meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="stylesheet" href="css/main.css" />
 </head>
 <body class="subpage">
 
 	<script type="text/javascript">
-		$(document).ready(
+		$(document)
+				.ready(
 						function() {
 							var idck = 0;
 							var duchk = 0;
 							var formValidation = false;
 							var nullchk = true;
+							var passchkValidation = false;
+							var hp1 = document.getElementById('hp1'); 
 
-							$('#sign').click(function() {
+							var hp2 = document.getElementById('hp2'); 
+
+							var hp3 = document.getElementById('hp3'); 
+
+							var phonenum = hp1.value + hp2.value + hp3.value;
+							
+							
+							
+							
+							
+							
+							
+							
+							$('#sign')
+									.click(
+											function() {
 												if (idck == 1
-														&& formValidation == true) {
+														&& formValidation == true && phoneValidation == true
+														&& passchkValidation == true && passValidation == true ) {
 													alert("회원가입 완료되었습니다. 다시 로그인해 주세요.");
+													$('#phonenum').val(phonenum);												
 													$('#joinform').submit();
 												} else if (idck == 1
 														&& formValidation == false) {
@@ -34,28 +54,38 @@
 														&& formValidation == true) {
 													alert("아이디 중복검사를 실행해주세요.");
 													return false;
-												} else if (nullchk) {
+												}else if (idck == 1
+														&& 	passchkValidation == false) {
+													alert("비밀번호가 일치하지 않습니다.");
+													return false;
+												}else if (nullchk) {
 													alert("입력값을 모두 입력해주세요.");
+													return false;
+												}else if (idck == 1
+														&& phoneValidation == false) {
+													alert("올바른 번호를 입력해주세요.");
 													return false;
 												}
 											});//end btn ================
-
-							$('#chkid').on('click',function() {			
-								if (duchk == 1) {
+											
+							$('#chkid').on('click',function() {
+						
+												if (duchk == 1) {
+												
 													//userid 를 param.       
-													$.ajax({
-																
-																async : true,
-																type : 'POST',		
-																contentType: "application/x-www-form-urlencoded; charset=utf-8",
-																data : 'id='+ $("#id").val(),		
-																url : "idChk",
+													$
+															.ajax({
+																url : "idChk.do",																
+																type : 'POST',																
+																data : 'id='
+																		+ $("#id").val(),																
 																dataType : "json",
 																success : idChkMethod
 															});//ajax
-															
-													function idChkMethod(res) {
-														if (res.chk > 0) {
+
+													function idChkMethod(chk) {
+																
+														if (chk > 0) {												
 															alert("아이디가 존재합니다. 다른 아이디를 입력해주세요.");
 															$("#id").focus();
 														} else {
@@ -63,7 +93,6 @@
 															$("#pass").focus();
 															idck = 1;
 														}
-														alert("l;kkl;kfeqljkfqejlfqekjlfeqjklfeqkjlfeqjklfeqkjlfeqlkjfeqjlkfeqjlk");
 													}
 												} else {
 													return false;
@@ -125,8 +154,9 @@
 									    			  document.getElementById("idp").innerHTML="영문, 숫자포함 4-12자리로 입력해주세요.";
 									    			  formValidation=false;
 									    			  duchk=-1;
-									    		  }    		  
+									    		  }    	
 											});
+
 							$('#pass')
 									.keyup(
 											function() {
@@ -138,55 +168,59 @@
 															.getElementById("passp").innerHTML = "";
 													$(this).css("color",
 															"green");
-													formValidation = true;
+													passValidation = true;
+												
 												} else {
 													$(this).css("color", "red");
 													document
 															.getElementById("passp").innerHTML = "영문, 숫자, 특수문자 포함 8-15자리로 입력해주세요.";
-													formValidation = false;
+													passValidation = false;
 												}
 											});//end fpassKeyUp()    	  
 
-							$('#ffpass')
+							$('#passchk')
 									.keyup(
 											function() {
-												var ffpass = $(this).val();
+												var ffpass = $('#passchk').val();
 												var fpass = $('#pass').val();
 												if (ffpass == fpass) {
 													document
 															.getElementById("ffpassp").innerHTML = "";
 													$(this).css("color",
 															"green");
-													formValidation = true;
+													passchkValidation = true;
+													
 												} else {
 													$(this).css("color", "red");
 													document
 															.getElementById("ffpassp").innerHTML = "비밀번호가 일치하지 않습니다.";
-													formValidation = false;
+													passchkValidation = false;
+													
 												}
 											});//end ffpassKeyUp()   
 
 							$('#phone')
 									.keyup(
 											function() {
-												var phone = $(this).val();
+												phonenum=$("#hp1").val()+$("#hp2").val()+$("#hp3").val();
+											
 												var re4 = /^[0-9]+$/; //번호만
-												var result = re4.test(phone);
+												var result = re4.test(phonenum);
 												if (result == true
-														&& phone.length == 11) {
+														&& phonenum.length == 11) {
 													document
 															.getElementById("phonep").innerHTML = "";
 													$(this).css("color",
 															"green");
-													formValidation = true;
+													phoneValidation = true;
 												} else {
 													$(this).css("color", "red");
 													document
 															.getElementById("phonep").innerHTML = "번호를 올바르게 입력해주세요.";
-													formValidation = false;
+													phoneValidation = false;
 												}
-											});//end phoneKeyUp()    	  
-						
+											});//end phoneKeyUp()    
+											
 						});
 	</script>
 
@@ -217,32 +251,32 @@
 				<div class="content">
 					<h2 class="align-center">Sign up</h2>
 					<hr />
-					<form action="#" id="joinform" name="joinform" method="post">
+					<form action="#" id="joinform" name ="joinform"  method="post">
 						<div class="field half">
 							<label for="id">ID</label> <input name="id" id="id" type="text"
 								placeholder="id" style="width: 70%;"> <input
-								type="hidden" name="idDuplication" value="idUncheck"> <input
-								type="button" id="chkid" value="중복확인">
-							<p id="idp" style="color: red"></p>
+								type="hidden" name="idDuplication" value="idUncheck">
+								 <input	type="button" id="chkid" value="중복확인">
+								  <p id="idp" style="color: red" ></p>
 						</div>
 						<div class="field">
 							<label for="pass">Password</label> <input name="pass" id="pass"
 								type="password" placeholder="Pass" style="width: 33%;">
-							<p id="passp" style="color: red"></p>
+								<p id="passp" style="color: red" ></p>
 						</div>
 						<div class="field">
 							<label for="pass">Password Check</label> <input name="passchk"
 								id="passchk" type="password" placeholder="Pass"
 								style="width: 33%;">
-							<p id="ffpassp" style="color: red"></p>
+								   <p id="ffpassp" style="color: red" ></p>
 						</div>
 						<div class="field half">
 							<label for="name">Name</label> <input name="name" id="name"
 								type="text" placeholder="Name" style="width: 70%;">
-							<p id="namep" style="color: red"></p>
+								 <p id="namep" style="color: red" ></p>
 						</div>
 
-						<div class="field">
+						<div class="field" id="phone">
 							<label for="email">PhoneNumber</label> <select id="hp1"
 								name="hp1" class="hp1"
 								style="width: 10%; float: left; margin-right: 5px;">
@@ -259,13 +293,16 @@
 
 								<option value="019">019</option>
 
-							</select><input type="text" class="hp2" id="hp2" name="hp2" size="4"
+							</select>
+							<input type="text" class="hp2" id="hp2" name="hp2" size="4"
 								maxlength="4"
-								style="width: 15%; float: left; margin-right: 5px;"><input
+								style="width: 15%; float: left; margin-right: 5px;">
+								<input
 								type="text" id="hp3" class="hp3" name="hp3" size="4"
-								maxlength="4" style="width: 15%;"> <input type="hidden"
-								id="phonenum" name="phonenum">
-							<p id="phonep" style="color: red"></p>
+								maxlength="4" style="width: 15%;">
+								 <input type="hidden" id="phonenum" name="phonenum">
+								  <p id="phonep" style="color: red" ></p>
+								
 						</div>
 
 						<div class="field half">
