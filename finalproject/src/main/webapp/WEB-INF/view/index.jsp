@@ -24,7 +24,7 @@
 				<ul class="links">
 					<li><a href="index.do">Home</a></li>
 					<li><a href="generic.do">Notice</a></li>
-					<li><a href="elements.do">Hospital</a></li>
+					<li><a href="hosmap.do">Hospital</a></li>
 					<li><a href="login.do">Login</a></li>
 					<li><a href="admin.do">admin</a></li>
 

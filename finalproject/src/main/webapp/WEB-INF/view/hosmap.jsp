@@ -6,13 +6,14 @@
     <meta charset="utf-8">
     <title>병원찾기</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script 
-	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=a328a3aa73a3d31430a2aa26a4ea5fe5"></script>
+<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=a328a3aa73a3d31430a2aa26a4ea5fe5"></script>    
     
-    <style>
+<link rel="stylesheet" href="css/hosmap.css" />
+
+<style>
 .map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
 .map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
-.map_wrap {position:relative;width:100%;height:500px;}
+.map_wrap {margin-top:56px;position:relative;width:100%;height:940px;}
 #menu_wrap {position:absolute;top:0;left:0;bottom:0;width:250px;margin:10px 0 30px 10px;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 0.7);z-index: 1;font-size:12px;border-radius: 10px;}
 .bg_white {background:#fff;}
 #menu_wrap hr {display: block; height: 1px;border: 0; border-top: 2px solid #5F5F5F;margin:3px 0;}
@@ -48,7 +49,28 @@
 #pagination .on {font-weight: bold; cursor: default;color:#777;}
 </style>
 </head>
+		
 <body>
+<!-- Header -->
+			<header id="header">
+				<div class="logo"><a href="index.jsp">SooCut animal hospital<span> by KHfamily</span> Find hospital</a></div>
+				<a href="#menu" class="toggle"><span>Menu</span></a>
+			</header>
+
+		<!-- Nav -->
+			<nav id="menu">
+				<ul class="links">
+					<li><a href="index.do">Home</a></li>
+					<li><a href="generic.do">Notice</a></li>
+					<li><a href="login.do">Login</a></li>
+					<li><a href="admin.do">admin</a></li>
+				</ul>
+			</nav>
+
+			
+		
+
+
 <div class="map_wrap">
     <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
 
@@ -56,7 +78,7 @@
         <div class="option">
             <div>
                 <form onsubmit="searchPlaces(); return false;">
-                    병원검색 : <input type="text" value="품종 명" id="keyword" size="15"> 
+                    병원검색 : <input type="text" value="품종을 입력하세요." id="keyword" size="15" onclick=this.value=''> 
                     <button type="submit">검색하기</button> 
                 </form>
             </div>
@@ -68,5 +90,12 @@
 </div>
 
 <script src="js/hosmap.js"></script>
+<script src="js/jquery.min.js"></script>
+<script src="js/jquery.scrolly.min.js"></script>
+<script src="js/jquery.scrollex.min.js"></script>
+<script src="js/skel.min.js"></script>
+<script src="js/util.js"></script>
+<script src="js/main.js"></script>
+
 </body>
 </html>

@@ -33,7 +33,7 @@ $(document).ready(function(){
                 $("#" + str).focus(); 
                 return;
             } */
-        }
+        
         alert(str);
         //비동기 통신 선언 (아작스)
          $.ajax({
