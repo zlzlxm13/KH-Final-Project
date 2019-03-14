@@ -26,4 +26,22 @@ public class ReservationDaoImp implements ReservationDAO{
 		sqlSession.insert("reservation.save", dto);
 		
 	}
+
+	@Override
+	public void search(String data) {
+		sqlSession.selectOne("reservation.search",data);
+	}
+
+	@Override
+	public List<ReservationDTO> r_list() {
+		return sqlSession.selectList("reservation.r_list");
+	}
+
+	@Override
+	public void r_delete(int num) {
+		sqlSession.delete("reservation.r_delete",num);
+		
+	}
+
+
 }

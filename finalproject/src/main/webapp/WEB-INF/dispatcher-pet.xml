@@ -29,10 +29,6 @@
 		<property name="sqlSession" ref="sqlSession" />
 	</bean>
 
-	<bean id="service" class="service.ReservationServiceImp">
-		<property name="dao" ref="Reservationdao"/>
-	</bean>
-
 	<bean class="controller.IndexController" />
 	<bean class="controller.Reservationcontroller">
 			<!-- <property name="service" ref="service"/> -->
