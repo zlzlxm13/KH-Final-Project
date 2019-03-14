@@ -169,7 +169,7 @@ function displayPlaces(search) {
 			});
 
 			itemEl.onclick = function() {
-				displayInfowindow(marker, title, searchs);
+						displayInfowindow(marker, title, searchs);
 			};
 
 			// itemEl.onclick = function() {
@@ -196,6 +196,11 @@ function displayPlaces(search) {
 	map.setBounds(bounds);
 }
 
+function javascript(){
+    //현재창에서 다른페이지로 이동합니다.
+    window.location.href="http://localhost:8090/pet/index.do";
+}
+
 // 검색결과 항목을 Element로 반환하는 함수입니다
 function getListItem(index, search, marker) {
 
@@ -204,8 +209,8 @@ function getListItem(index, search, marker) {
 			+ '"></span>'
 			+ '<div class="info">'
 			+ '<h5>'
-			+search.hosname +'<button type="button" onClick="location.href='
-			+'index.jsp'+';">예약하기</button></h5>';
+			+search.hosname +'<input type="button" onclick="javascript()" value="예약하기" /></h5>';
+
 
 	if (search.newAddress) {
 		itemStr +='<span class="jibun gray">' + search.petkind_kind
@@ -217,6 +222,7 @@ function getListItem(index, search, marker) {
 	itemStr += '<span class="tel">' + search.hosaddress + '</span>'
 			+ '</div>';
 
+	
 	el.innerHTML = itemStr;
 	el.className = 'item';
 	return el;
