@@ -45,7 +45,7 @@ public class Reservationcontroller {
 	@RequestMapping(value = "/reservation.do", method = RequestMethod.GET)
 	public ModelAndView reservation() {
 		ModelAndView mav = new ModelAndView();
-		
+		 
 		
 		mav.setViewName("reservation");
 		return mav;
