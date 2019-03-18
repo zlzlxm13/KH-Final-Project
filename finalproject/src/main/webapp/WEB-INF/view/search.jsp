@@ -4,18 +4,33 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="ajaxsrc/search.js"></script>
+
+
+<script type="text/javascript">
+
+	$(documnet).ready(function(){
+		
+
+	});
+
+</script>
+
+
 </head>
 <body>
 
 
-<form action="searchpro.do">
 
  	<p> 검색 </p>
-	 <input type="text" name="data"/>
+	 <input type="text" name="member_id" id="member_id"/>
 	<input type="submit" value="찾기" id="btnsearch" />
-	<div id="wrap"></div>
-
+	
+	<div id="wrap">
+	
+	</div>
 
 </body>
 </html>

@@ -8,7 +8,7 @@ import dto.ReservationDTO;
 public interface ReservationDAO {
 	
 	public void save(ReservationDTO dto);
-	public void search(String data);
+	public List<ReservationDTO> search(String member_id);
 	public List<ReservationDTO> r_list();
 	public void r_delete(int num);
 	

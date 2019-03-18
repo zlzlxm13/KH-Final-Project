@@ -57,7 +57,7 @@ public class Reservationcontroller {
 	}
 	
 	@RequestMapping(value="/reservation.do", method = RequestMethod.POST)
-	public String reservationpro(ReservationDTO dto ) {
+	public String reservationpro(ReservationDTO dto ) {	
 		
 		
 		System.out.println("예약 날짜 : " + dto.getRes_date());
@@ -69,26 +69,15 @@ public class Reservationcontroller {
 		return "redirect:main.do";
 	}
 	
-	/*@InitBinder
-	public void initBinder(WebDataBinder binder) {
-	    SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
-	    binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
-	}*/
-	
 	@RequestMapping("/search.do")
-	public ModelAndView SearchForm() {
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("search");
-		return mav;
+	public String Search() {
+		return "search";
 	}
 	
 	@RequestMapping("/searchpro.do")
-	public 	ModelAndView SearchproForm(@PathVariable String data) {
+	public @ResponseBody List<ReservationDTO> SearchForm(String member_id) {
 
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("searchpro");
-		
-		return mav;
+		return dao.search(member_id);
 	}
 	
 	@RequestMapping("/list.do")
@@ -96,6 +85,14 @@ public class Reservationcontroller {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("list",dao.r_list());
 		mav.setViewName("list");
+		return mav;
+	}
+	
+	@RequestMapping("/delete.do")
+	public ModelAndView delete(int num) {
+		ModelAndView mav = new ModelAndView();
+		dao.r_delete(num);
+		mav.setViewName("main");
 		return mav;
 	}
 	

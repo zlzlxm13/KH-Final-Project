@@ -28,8 +28,8 @@ public class ReservationDaoImp implements ReservationDAO{
 	}
 
 	@Override
-	public void search(String data) {
-		sqlSession.selectOne("reservation.search",data);
+	public List<ReservationDTO> search(String member_id) {
+		return sqlSession.selectList("reservation.search",member_id);
 	}
 
 	@Override
