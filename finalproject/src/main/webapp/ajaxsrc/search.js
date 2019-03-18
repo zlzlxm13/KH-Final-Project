@@ -36,7 +36,7 @@ function viewMessage(res){
 
 	});
 	  
-	$("#del").on("click", deleteRun() ,function() { 
+	$("#del").on("click" ,function() { 
 
 	    $(this).parent().parent().remove(); 
 	});  

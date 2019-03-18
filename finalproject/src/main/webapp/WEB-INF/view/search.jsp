@@ -12,7 +12,6 @@
 <script type="text/javascript">
 
 	$(documnet).ready(function(){
-		
 
 	});
 
