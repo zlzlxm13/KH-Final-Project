@@ -52,6 +52,9 @@
 	<bean id="ldao" class="dao.LoginDAOImp">
 		<property name="session" ref="sqlSession" />
 	</bean>
+	<bean id="pkdao" class="dao.PetKindDAOImp">
+		<property name="sqlSession" ref="sqlSession"></property>
+	</bean>
 
 	<!-- [5] Service -->
 	<bean id="service" class="service.HosServiceImp">
@@ -61,6 +64,9 @@
 	<bean id="lservice" class="service.LoginServiceImp">
 		<property name="ldao" ref="ldao" />
 	</bean>
+	<bean id="pkservice" class="service.PetKindImpService">
+		<property name="dao" ref="pkdao"></property>
+	</bean>
 
 	
 	
@@ -68,10 +74,12 @@
    <!-- [6]Controller -->
    <bean class="controller.IndexController" >
     <property name="lservice" ref="lservice" />
+
    </bean>
    
    <bean class="controller.AdminController">
     <property name="hservice" ref="service" />
+    <property name="pkservice" ref="pkservice"></property>
    </bean>
    
    <bean class="controller.MapController" >

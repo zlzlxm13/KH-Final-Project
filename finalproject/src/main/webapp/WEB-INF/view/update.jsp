@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,6 +13,14 @@
 <link rel="stylesheet"
 	href="http://netdna.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 </head>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	$("li[value="+${menu}+"]").addClass('active');
+
+});
+</script>
+
 <style type="text/css">
 input[type="checkbox"]#menu_state {
 	display: none;
@@ -100,40 +108,6 @@ nav ul li {
 	position: relative;
 }
 
-nav
-
- 
-
-ul
-
- 
-
-li
-
-
-:not
-
- 
-
-(
-:last-child
-
- 
-
-)
-{
-border-bottom
-
-
-:
-
- 
-
-none
-
-
-;
-}
 nav ul li.active a {
 	background: #4c515d;
 	color: #fff;
@@ -180,44 +154,59 @@ nav ul li a span {
 main {
 	position: absolute;
 	transition: all 0.15s ease-in-out;
-	top: 0;
+	top: 30;
 	left: 50px;
-}
-
-main section {
-	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-	background: #fff;
-	padding: 25px;
-	font-family: helvetica;
-	font-weight: lighter;
-	padding: 50px;
-	margin: 150px 75px;
-	transition: all 0.15s ease-in-out;
+	margin-top: 30px;
+	margin-left: 30px;
 }
 </style>
 </head>
+
 <body>
 
 	<input type="checkbox" id="menu_state" checked>
 	<nav>
 		<label for="menu_state"><i class="fa"></i></label>
 		<ul>
-			<li><a href="adminMember.do"> <i class="fa fa-inbox"></i> <span>Member</span>
+			<li value="1"><a href="adminMember.do"> <i
+					class="fa fa-smile-o"></i> <span>Member</span>
 			</a></li>
-			<li><a href="adminPet.do"> <i class="fa fa-heart"></i> <span>Pet</span>
+			<li value="2"><a href="adminPet.do"> <i class="fa fa-heart"></i>
+					<span>Pet</span>
 			</a></li>
 			<li>
-			<li ><a href="adminHospital.do"> <i
-					class="fa fa-paper-plane"></i> <span>Hospital</span>
+			<li value="3"><a href="adminHospital.do"> <i
+					class="fa fa-hospital-o"></i> <span>Hospital</span>
 			</a></li>
-			<li ><a href="adminReservation.do"> <i class="fa fa-pencil"></i>
-					<span>Reservation</span>
+			<li value="4"><a href="adminReservation.do"> <i
+					class="fa fa-paper-plane"></i> <span>Reservation</span>
 			</a></li>
-			<li class="active"><a href="adminBoard.do"> <i class="fa fa-trash"></i> <span>Board</span>
+			<li value="5"><a href="adminBoard.do"> <i
+					class="fa fa-pencil"></i> <span>Board</span>
+			</a></li>
+			<li value="6"><a href="adminPetKind.do"> <i
+					class="fa fa-gift"></i> <span>PetKind</span>
 			</a></li>
 		</ul>
 	</nav>
-	<main> <a href="adim" class="button">Insert</a> <a href="#"
-		class="button">Update</a> <a href="#" class="button">Delete</a> </main>
+	<main> <c:if test="${menu == 6}">
+		<a href="#"
+			onclick="$('#frm').attr('action', 'adminPetKindUpdate.do').submit();"
+			class="button">update</a>
+		<form id="frm" method="post">
+			<table>
+				<tr>
+
+				</tr>
+				<tr>
+					<td><input type="text" name="kind" id="kind" value=""
+						placeholder="kind"></td>
+					<td>${dto.kind}</td>
+
+				</tr>
+			</table>
+		</form>
+	</c:if> </main>
 </body>
 </html>
+

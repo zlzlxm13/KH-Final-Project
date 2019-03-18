@@ -5,18 +5,81 @@
 
 <mapper namespace="admin">
 
-<select id="hos_count" resultType="int">
+	<select id="hos_count" resultType="int">
 		select count(*) from hospital
 	</select>
 	<select id="hos_list" resultType="dto.HosmapDTO">
 		select * from hospital
 	</select>
-	<select id= "hos_insert" parameterType ="dto.HosmapDTO">
-	insert into hospital values(hos_seq.nextval, #{hosname}, #{petkind_kind}, #{hosadress}, #{hosarea}, #{latitude}, #{longitude})
-	</select> 
-	<select id= "hos_update" parameterType ="dto.HosmapDTO" resultType = "dto.HosmapDTO">
-		update hospital	set hosname = #{hosname}, petkind_kind = #{petkind_kind}, hosadress = #{hosadress}, hosarea = #{hosarea}, latitude = #{latitude}, longitude = #{longitude}
+	<select id="hos_insert" parameterType="dto.HosmapDTO">
+		insert into hospital
+		values(hos_seq.nextval, #{hosname}, #{petkind_kind},
+		#{hosaddress},
+		#{hosarea}, #{latitude}, #{longitude})
+	</select>
+	<select id="hos_update" parameterType="dto.HosmapDTO">
+		update hospital set
+		hosname = #{hosname}, petkind_kind = #{petkind_kind}, hosaddress =
+		#{hosaddress}, hosarea = #{hosarea}, latitude = #{latitude}, longitude
+		= #{longitude}
 		where hosnum=#{hosnum}
 	</select>
+	<select id="hos_delete" parameterType="dto.HosmapDTO">
+		delete from hospital where
+		member_id = #{member_id}
+	</select>
+
+	<select id="pet_count" resultType="int">
+		select count(*) from pet
+	</select>
+	<select id="pet_list" resultType="dto.PetDTO">
+		select * from pet
+	</select>
+	<select id="pet_insert" parameterType="dto.PetDTO">
+		insert into pet
+		values(#{petname}, #{petage}, #{petsex}, #{member_id},
+		#{petinfo},
+		#{petkind_kind})
+	</select>
+	<select id="pet_update" parameterType="dto.PetDTO">
+		update pet set petage =
+		#{petage}, petsex = #{petsex}, petinfo = #{petinfo}, petkind_kind =
+		#{petkind_kind}
+		where
+		petname = #{petname} and member_id = #{member_id}
+	</select>
+	<select id="pet_delete" parameterType="dto.PetDTO">
+		delete from pet where
+		petname = #{petname} and member_id = #{member_id}
+	</select>
+
 	
+	<select id="petkind_count" resultType="int">
+		select count(*) from
+		petkind
+	</select>
+	<select id="petkind_list" resultType="dto.PetKindDTO">
+		select * from petkind
+	</select>
+	<select id="petkind_insert" parameterType="dto.PetKindDTO">
+		insert into petkind
+		values(#{kind})
+	</select>
+	<select id="petkind_delete" parameterType="map">
+		delete from petkind where kind in
+		<foreach collection="array" item="item" index="index" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+	</select>
+	
+	<select id="petkind_content" parameterType="dto.PetKindDTO" resultType="dto.PetKindDTO">
+		select * from petkind where kind = #{kind}
+	</select>
+
+
 </mapper>
+
+
+
+
