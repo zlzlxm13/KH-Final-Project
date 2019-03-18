@@ -4,15 +4,25 @@
 	xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xmlns:aop="http://www.springframework.org/schema/aop"
 	xmlns:tx="http://www.springframework.org/schema/tx"
-	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"	
-	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xmlns:websocket="http://www.springframework.org/schema/websocket"
+	xsi:schemaLocation="http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket-4.3.xsd
 		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+		http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 
 
 	<mvc:annotation-driven></mvc:annotation-driven>
+  
+   
+   <!-- WebSocket 등록 -->
+   <bean id="chatWebSocketHandler" class="controller.ChatWebSocketHandler" />
+   
+   <websocket:handlers>
+    <websocket:mapping handler="chatWebSocketHandler" path="/chatws.do" />
+   </websocket:handlers>
 
 	<!-- [1] DataSource빈 선언 -->
 	<bean id="dataSource"
@@ -118,6 +128,8 @@
 	<bean class="controller.MapController">
 		<property name="service" ref="service" />
 	</bean>
+	
+	<bean class="controller.ChatController" />
 	
 	<!-- [7] View -->
     <bean class="org.springframework.web.servlet.view.json.MappingJackson2JsonView" id="jsonView">

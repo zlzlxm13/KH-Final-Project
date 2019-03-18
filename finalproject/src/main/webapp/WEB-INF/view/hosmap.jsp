@@ -57,20 +57,18 @@
 				<a href="#menu" class="toggle"><span>Menu</span></a>
 			</header>
 
+
 		<!-- Nav -->
 			<nav id="menu">
 				<ul class="links">
 					<li><a href="index.do">Home</a></li>
 					<li><a href="generic.do">Notice</a></li>
 					<li><a href="login.do">Login</a></li>
-					<li><a href="admin.do">admin</a></li>
+					<li><a href="admin.do">Admin</a></li>
 				</ul>
 			</nav>
 
 			
-		
-
-
 <div class="map_wrap">
     <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
 
