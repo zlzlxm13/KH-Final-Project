@@ -1,18 +1,18 @@
 package dao;
 
 import java.security.spec.ECFieldF2m;
-
-
 import javax.servlet.http.HttpSession;
-
 import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
-
 import dto.MemDTO;
 
 public class LoginDAOImp implements LoginDAO{
  private SqlSessionTemplate session;
- public LoginDAOImp() {}
+ 
+ public LoginDAOImp() {
+	 
+ }
+ 
 public SqlSessionTemplate getSession() {
 	return session;
 }
@@ -59,4 +59,5 @@ public void setSession(SqlSessionTemplate session) {
 		return session.selectOne("login.Idchk",id);
 	
 	}
+	
 }

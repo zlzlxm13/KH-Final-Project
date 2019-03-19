@@ -11,39 +11,32 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import dao.LoginDAO;
 import dto.MemDTO;
-
 import service.LoginService;
 
+
 //http://localhost:8090/pet/index.do
+
 @Controller
 public class IndexController {
-
 	private LoginDAO l_dao;
 	private LoginService lservice;
 	
-	public LoginDAO getL_dao() {
-		return l_dao;
+	public IndexController() {
+		
 	}
-
+	
+	
 	public void setL_dao(LoginDAO l_dao) {
 		this.l_dao = l_dao;
-	}
-
-	public LoginService getLservice() {
-		return lservice;
 	}
 
 	public void setLservice(LoginService lservice) {
 		this.lservice = lservice;
 	}
-
-
 
 	@RequestMapping("/generic.do")
 	public String process1() {
@@ -59,9 +52,7 @@ public class IndexController {
 	@RequestMapping("/index.do")
 	public String index() {		
 		return "index";
-	}
-
-	
+	}	
 	
 	@RequestMapping(value = "/login.do", method = RequestMethod.GET)
 	public String login() {
@@ -82,18 +73,11 @@ public class IndexController {
 			session.setAttribute("email",dto.getEmail());
 			session.setAttribute("name",dto.getName());
 			session.setAttribute("grade",dto.getGrade());
-			session.setAttribute("phonenum",dto.getPhonenum());
-			
-			//session.setAttribute("dto",dto);
-		
+			session.setAttribute("phonenum",dto.getPhonenum());		
 		}else {
-			
+			return lchk;
 		}
-			
 
-		//if()
-		return lchk;
-	}
 	
 	@RequestMapping(value = "/idChk.do", method = RequestMethod.POST)
 	public @ResponseBody int idChk(String id) {
@@ -103,6 +87,7 @@ public class IndexController {
 		System.out.println("con:"+chk);
 		return chk;	
 	}
+	
 
 	@RequestMapping("/logout.do")
 	public String logoutProcess(MemDTO dto,HttpSession session) {
@@ -134,9 +119,5 @@ public class IndexController {
 			ModelAndView mav = new ModelAndView();
 			mav.setViewName("admin");
 			return mav;
-
 		}
-
-	
-
 }

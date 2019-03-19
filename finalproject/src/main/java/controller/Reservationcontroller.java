@@ -23,12 +23,12 @@ import service.ReservationService;
 
 @Controller
 public class Reservationcontroller {
-	
 	private ReservationService rservice;
 	
 	public Reservationcontroller() {
 		
 	}
+	
 	public void setService(ReservationService rservice) {
 		this.rservice = rservice;
 	}
@@ -45,7 +45,6 @@ public class Reservationcontroller {
 	@RequestMapping(value = "/reservation.do", method = RequestMethod.GET)
 	public ModelAndView reservation() {
 		ModelAndView mav = new ModelAndView();
-		 
 		
 		mav.setViewName("reservation");
 		return mav;

@@ -9,9 +9,10 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket-4.3.xsd
 		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
 		http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+	    http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
-		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">	
 
 
 	<mvc:annotation-driven></mvc:annotation-driven>
@@ -24,6 +25,7 @@
     <websocket:mapping handler="chatWebSocketHandler" path="/chatws.do" />
    </websocket:handlers>
 
+	
 	<!-- [1] DataSource빈 선언 -->
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
@@ -46,7 +48,6 @@
 				<value>classpath:config/LoginMapper.xml</value>
 				<value>classpath:config/reservation.xml</value>
 				<value>classpath:config/AdminMapper.xml</value>				
-				
 			</list>
 		</property>
 	</bean>
@@ -89,11 +90,11 @@
 
 
 	<!-- [6]DaoImp빈 선언 -->
-	
 	<bean id="ldao" class="dao.LoginDAOImp">
 		<property name="session" ref="session" />
 		<!-- <constructor-arg><ref bean = "sqlSession"/></constructor-arg> -->
 	</bean>
+
 	<bean id="Reservationdao" class="dao.ReservationDaoImp">
 		<property name="sqlSession" ref="sqlSession" />
 	</bean>
@@ -101,9 +102,8 @@
 	<bean id="dao" class="dao.HosmapDaoImp">
 		<property name="sqlSession" ref="sqlSession" />
 	</bean>
-
+	
 	<!-- [7] ServiceImp Bean 선언 -->
-
 	<bean id="lservice" class="service.LoginServiceImp">
 		<property name="ldao" ref="ldao" />
 	</bean>
@@ -114,17 +114,16 @@
 	
 	<bean id="service" class="service.HosServiceImp">
 		<property name="dao" ref="dao" />
-	</bean>
-
 
 	<!-- [9] Controller 빈 선언 -->
-
 	<bean class="controller.IndexController">
-		<property name="lservice" ref="lservice"></property>
+		<property name="lservice" ref="lservice" />
 	</bean>
+	
 	<bean class="controller.Reservationcontroller">
-		<property name="service" ref="rservice" />
+		<property name="rservice" ref="rservice" />
 	</bean>
+	
 	<bean class="controller.MapController">
 		<property name="service" ref="service" />
 	</bean>
@@ -137,7 +136,8 @@
       
     <bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
       <property value="1" name="order"/></bean>
-	
+   </bean>
+   
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/view/" />

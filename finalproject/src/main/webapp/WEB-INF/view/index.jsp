@@ -35,6 +35,7 @@
 				<ul class="links">
 					<li><a href="index.do">Home</a></li>
 					<li><a href="generic.do">Notice</a></li>
+<<<<<<< HEAD
 					<li><a href="hosmap.do">Hospital</a></li>					
 					<%if(session.getAttribute("id") == null){ %>	
 							<li><a href="login.do">Login</a></li>
@@ -47,8 +48,25 @@
 							</li>			
 							<%} %>
 
+=======
+					<li><a href="elements.do">Hospital</a></li>					
+					<%if(session.getAttribute("id") == null){ %>	
+							<li><a href="login.do">Login</a></li>
+							<%} else {%>
+							<li>${sessionScope.id }님 환영합니다
+								<ul>
+									<li><a href="#">마이페이지</a></li>
+									<li><a href="logout.do">로그아웃</a></li>
+								</ul>
+							</li>			
+							<%} %>
+>>>>>>> branch 'testbranch' of https://github.com/zlzlxm13/KH-Final-Project
 					<li><a href="admin.do">admin</a></li>
+<<<<<<< HEAD
 
+=======
+					<li><a href="main.do">Reservation</a></li>
+>>>>>>> branch 'testbranch' of https://github.com/zlzlxm13/KH-Final-Project
 					
 				</ul>
 			</nav>

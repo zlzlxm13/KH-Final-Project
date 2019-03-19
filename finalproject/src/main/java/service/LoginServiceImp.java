@@ -1,5 +1,3 @@
-
-    
 package service;
 
 import java.sql.ResultSet;
@@ -38,7 +36,5 @@ public class LoginServiceImp implements LoginService {
 		return ldao.loginMethod(dto, Hsession);
 	}
 
-	
-	
 }
 

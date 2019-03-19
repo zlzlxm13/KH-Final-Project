@@ -7,8 +7,12 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="js/datedropper.js"></script>
 <link rel="stylesheet" type="text/css" href="css/datedropper.css"> 
+<<<<<<< HEAD
 <style type="text/css">
 
+=======
+<style>
+>>>>>>> branch 'testbranch' of https://github.com/zlzlxm13/KH-Final-Project
 #res {
   width: 610px;
   height: 600px;
