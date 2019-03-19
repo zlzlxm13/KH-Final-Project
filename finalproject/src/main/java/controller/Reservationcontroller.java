@@ -64,6 +64,35 @@ public class Reservationcontroller {
 		
 		return "redirect:main";
 	}
+
+	@RequestMapping("/search.do")
+	public String Search() {
+		return "search";
+	}
 	
+	@RequestMapping("/searchpro.do")
+	public @ResponseBody List<ReservationDTO> SearchForm(String member_id) {
+
+		return dao.search(member_id);
+	}
+	
+	@RequestMapping("/list.do")
+	public ModelAndView listForm() {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("list",dao.r_list());
+		mav.setViewName("list");
+		return mav;
+	}
+	
+	@RequestMapping(value="/delete.do")
+	@ResponseBody
+	public ModelAndView delete(int num) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("num",num);
+		dao.r_delete(num);
+		mav.setViewName("main");
+		return mav;
+	}
+
 	
 }
