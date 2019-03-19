@@ -35,7 +35,6 @@ function viewMessage(res){
 			confirm("예약을 취소하시겠습니까?")
 			$.ajax({
 				type : 'POST',
-				dataType : 'json',
 				url : 'delete.do?num=' + $('#num').val(),
 				success : deleteMessage
 			});
