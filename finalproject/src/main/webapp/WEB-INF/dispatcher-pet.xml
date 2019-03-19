@@ -31,15 +31,18 @@
 	</bean>
 	
 	
-	<bean id="Reservationdao" class="dao.ReservationDaoImp">
+	<bean id="rdao" class="dao.ReservationDaoImp">
 		<property name="sqlSession" ref="sqlSession" />
+	</bean>
+	
+	<bean id="rservice" class="service.ReservationServiceImp">
+		<property name="rdao" ref="rdao" />
 	</bean>
 
 	<bean class="controller.IndexController" />
 	<bean class="controller.Reservationcontroller">
-			<property name="dao" ref="Reservationdao"/>
+		<property name="rservice" ref="rservice"></property>
 	</bean>
-	
 
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
