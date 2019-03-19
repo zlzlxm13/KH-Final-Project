@@ -88,9 +88,11 @@ public class Reservationcontroller {
 		return mav;
 	}
 	
-	@RequestMapping("/delete.do")
+	@RequestMapping(value="/delete.do")
+	@ResponseBody
 	public ModelAndView delete(int num) {
 		ModelAndView mav = new ModelAndView();
+		mav.addObject("num",num);
 		dao.r_delete(num);
 		mav.setViewName("main");
 		return mav;
