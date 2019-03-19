@@ -28,7 +28,6 @@
 		from reservation
 		where res_num = #{res_num}
 	</delete>
-	
 
 
 </mapper>
