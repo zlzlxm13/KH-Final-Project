@@ -44,7 +44,7 @@ function viewMessage(res){
 
 
 function deleteMessage(res){
-	
+	alert();
 	
 }
 
