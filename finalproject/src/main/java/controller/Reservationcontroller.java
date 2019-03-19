@@ -90,7 +90,8 @@ public class Reservationcontroller {
 	
 	@RequestMapping(value="/delete.do")
 	@ResponseBody
-	public ModelAndView delete(int num) {
+	public List<ReservationDTO> delete(HttpServletRequest request,int num) {
+		String res_num = request.getParameter("res_num");
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("num",num);
 		dao.r_delete(num);
