@@ -14,15 +14,9 @@ $(document).ready(function(){
 
 function viewMessage(res){
 
-	//alert(res);
-
+	
 	$('#wrap').append('<table><tr><td> 예약 번호  </td><td> 예약 날짜   </td><td> 병원 번호  </td><td> 예약 아이디 </td><td> 예약 취소 </td></tr></table>');
 
-	//자식 요소 삭제
-
-	//$('#wrap').children().remove();
-
-	// $('#wrap').empty();
 
 	$.each(res,function(index,value){
 		var sdata=new Date(value.res_date);
@@ -35,11 +29,23 @@ function viewMessage(res){
 		$('#wrap table').append(tr);
 
 	});
-	  
-	$("#del").on("click" ,function() { 
 
-	    $(this).parent().parent().remove(); 
-	});  
-	
 
+	$('#del').click(function(){
+			confirm("예약을 취소하시겠습니까?")
+			$.ajax({
+				type : 'POST',
+				dataType : 'json',
+				url : 'delete.do?num=' + $('#num').val(),
+				success : deleteMessage
+			});
+			alert($("num").val());
+		});
 }
+
+
+function deleteMessage(res){
+	
+	
+}
+

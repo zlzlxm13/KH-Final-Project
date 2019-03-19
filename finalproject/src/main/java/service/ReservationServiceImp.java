@@ -1,26 +1,43 @@
 package service;
 
+import java.util.List;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import dao.ReservationDAO;
-import dto.ReservationDTO;
-
+import dao.MarketDAO;
+import dto.ItemDTO;
+import dto.SalesDTO;
+import dto.WarehouseDTO;
 
 public class ReservationServiceImp implements ReservationService{
-	private ReservationDAO dao;
+	private MarketDAO dao;
+
+	public ReservationServiceImp() {
+		
+	}
 	
-	public void setDao(ReservationDAO dao) {
+	public void setDao(MarketDAO dao) {
 		this.dao = dao;
 	}
 
-
+	@Override
+	public void insertProcess(WarehouseDTO dto) {
+		dao.inputInsertMethod(dto);		
+	}
 
 	@Override
-	public void insertProcess(ReservationDTO rdto) {
-
-		dao.ReservationInsertMethod(rdto);
+	public void salesInsertProcess(SalesDTO dto) {
+		int price=dao.salesSelectMethod(dto.getCode());
+		dto.setSaprice(price*dto.getSacnt());
+		dao.salesInsertMethod(dto);		
 	}
-	
-}
+
+	@Override
+	public List<ItemDTO> itemSelectProcess() {
+		return dao.itemSelectMethod();
+	}
+
+	@Override
+	public List<String> pnameSelectProcess() {
+		return dao.pnameSelectMethod();
+	}
+}//end class
+
