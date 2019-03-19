@@ -30,25 +30,6 @@
 	</delete>
 	
 
-	<select id="r_list" resultType="dto.ReservationDTO">
-		select * 
-        from reservation
-        order by res_num desc
-        
-	</select>
-	
- 	<select id="search" parameterType="String" resultType="dto.ReservationDTO">
-		select res_num, res_date, hospital_hosnum, member_id
-		from reservation
-		where member_id=#{member_id}
-	</select> 
-	
-	<delete id="r_delete" parameterType="int">
-		delete 
-		from reservation
-		where res_num = #{res_num}
-	</delete>
-
 
 </mapper>
 
