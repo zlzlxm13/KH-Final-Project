@@ -12,7 +12,7 @@
 	
 	<select id="r_list" resultType="dto.ReservationDTO">
 		select * 
-        from reservation 
+        from reservation
         order by res_num desc
         
 	</select>
