@@ -16,12 +16,14 @@
 
 	<mvc:annotation-driven></mvc:annotation-driven>
 
-   <!-- WebSocket 등록 -->
-   <bean id="chatWebSocketHandler" class="controller.ChatWebSocketHandler" />
-   
-   <websocket:handlers>
-    <websocket:mapping handler="chatWebSocketHandler" path="/chatws.do" />
-   </websocket:handlers>
+	<!-- WebSocket 등록 -->
+	<bean id="chatWebSocketHandler"
+		class="controller.ChatWebSocketHandler" />
+
+	<websocket:handlers>
+		<websocket:mapping handler="chatWebSocketHandler"
+			path="/chatws.do" />
+	</websocket:handlers>
 
 
 	<!-- [1] DataSource빈 선언 -->
@@ -118,7 +120,7 @@
 		<property name="sqlSession" ref="sqlSession" />
 
 	</bean>
-	
+
 	<bean id="dao" class="dao.HosmapDaoImp">
 		<property name="sqlSession" ref="sqlSession" />
 
@@ -145,21 +147,30 @@
 		<property name="mailSender" ref="mailSender"></property>
 
 	</bean>
+	<bean class="controller.Reservationcontroller">
+		<property name="dao" ref="Reservationdao" />
+	</bean>
 
 
 	<bean class="controller.MapController">
 		<property name="service" ref="service" />
 	</bean>
-	
+
 	<bean class="controller.ChatController" />
-	
+
 	<!-- [7] View -->
-    <bean class="org.springframework.web.servlet.view.json.MappingJackson2JsonView" id="jsonView">
-      <property value="application/json;charset=UTF-8" name="contentType"/></bean>
-      
-    <bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
-      <property value="1" name="order"/></bean>
-	
+	<bean
+		class="org.springframework.web.servlet.view.json.MappingJackson2JsonView"
+		id="jsonView">
+		<property value="application/json;charset=UTF-8"
+			name="contentType" />
+	</bean>
+
+	<bean
+		class="org.springframework.web.servlet.view.BeanNameViewResolver">
+		<property value="1" name="order" />
+	</bean>
+
 
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
