@@ -131,10 +131,6 @@
 
 	</bean>
 
-	<bean id="rservice" class="service.ReservationServiceImp">
-		<property name="dao" ref="Reservationdao" />
-	</bean>
-	
 	<bean id="service" class="service.HosServiceImp">
 		<property name="dao" ref="dao" />
 
@@ -149,11 +145,6 @@
 		<property name="mailSender" ref="mailSender"></property>
 
 	</bean>
-	<bean class="controller.Reservationcontroller">
-
-
-		<property name="service" ref="rservice"/>
-</bean>
 
 
 	<bean class="controller.MapController">
