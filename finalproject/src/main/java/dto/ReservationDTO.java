@@ -1,10 +1,6 @@
 package dto;
 
-
-
-import java.util.Date;
-
-import org.springframework.format.annotation.DateTimeFormat;
+import java.sql.Date;
 
 public class ReservationDTO {
 
@@ -16,14 +12,6 @@ public class ReservationDTO {
 	public ReservationDTO() {
 		
 	}
-	
-	public ReservationDTO(int res_num, Date res_date, int hospital_hosnum, String member_id) {
-		super();
-		this.res_num = res_num;
-		this.res_date = res_date;
-		this.hospital_hosnum = hospital_hosnum;
-		this.member_id = member_id;
-	}
 
 	public int getRes_num() {
 		return res_num;
@@ -33,7 +21,7 @@ public class ReservationDTO {
 		this.res_num = res_num;
 	}
 
-	public java.util.Date getRes_date() {
+	public Date getRes_date() {
 		return res_date;
 	}
 

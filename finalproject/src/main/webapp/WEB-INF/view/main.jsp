@@ -6,15 +6,6 @@
 <title> 병원 정보 페이지 </title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="ajaxsrc/jquesy01.js"></script>
-
-<script type="text/javascript">
-  $(document).ready(function(){
-
-	  
-
-  });
-</script>
-
 </head>
 <body>
 
@@ -22,14 +13,6 @@
 
  <button id="checkin" >예약하기</button>
 
-
-</form>
-
-<form>
-
- <a href="search.do">검색하기</a>
- <a href="list.do">예약 리스트</a>
- 
 </form>
 
 </body>
