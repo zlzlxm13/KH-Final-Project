@@ -62,7 +62,7 @@
 </tr>
 
 <tr>
-<td width="20%" align="center"> 고객 ID  :</td>
+<td width="20%" align="center"> 고객 ID :</td>
 <td><input type="text" id = "mem_id" name="member_id" /></td>
 </tr>
 </table>

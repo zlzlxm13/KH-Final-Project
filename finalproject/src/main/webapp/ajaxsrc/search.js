@@ -25,19 +25,19 @@ function viewMessage(res){
 		sm+=sdata.getDate();
 		
 		var tr = '<tr><td>'+value.res_num+'</td><td>'+sm+'</td><td>'+value.hospital_hosnum+'</td><td>'+value.member_id+'</td>';
-		tr += '<td><button type="button" id="del"> 예약 취소</button>';
+		tr += '<td><button type="button"> 예약 취소</button>';
 		$('#wrap table').append(tr);
 		var res_num = value.res_num
 
 	});
 
 
-	$('#del').click(function(){
+	$('<button type=button>').click(function(){
 			confirm("예약을 취소하시겠습니까?")
 			$.ajax({
 				type : 'POST',
 				url : 'delete.do',
-				data : {"res_num" : res_num},
+			/*	data : {"value.res_num" : value.res_num},*/
 				success : deleteMessage
 			});
 			alert(res_num);
@@ -46,7 +46,8 @@ function viewMessage(res){
 
 
 function deleteMessage(res){
-	alert();
+	alert("삭제가 완료되었습니다.");
+	
 	
 }
 

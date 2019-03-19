@@ -22,6 +22,8 @@ import dto.ReservationDTO;
 import service.ReservationService;
 
 @Controller
+
+//http://localhost:8090/pet/main.do
 public class Reservationcontroller {
 	
 	private ReservationDAO rdao;
