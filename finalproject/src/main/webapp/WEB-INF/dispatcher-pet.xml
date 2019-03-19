@@ -2,6 +2,7 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:mvc="http://www.springframework.org/schema/mvc"
+<<<<<<< HEAD
 	xmlns:aop="http://www.springframework.org/schema/aop"
 	xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
@@ -13,8 +14,13 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">	
+=======
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+>>>>>>> branch 'testbranch' of https://github.com/zlzlxm13/KH-Final-Project
 
 
+<<<<<<< HEAD
 	<mvc:annotation-driven></mvc:annotation-driven>
   
    
@@ -138,6 +144,44 @@
       <property value="1" name="order"/></bean>
    </bean>
    
+=======
+
+  	<mvc:annotation-driven> </mvc:annotation-driven>
+
+
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="oracle.jdbc.OracleDriver" />
+		<property name="url" value="jdbc:oracle:thin://@127.0.0.1:1521:xe" />
+		<property name="username" value="hr" />
+		<property name="password" value="a1234" />
+	</bean>
+
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="mapperLocations">
+			<list>
+				<value>classpath:config/reservation.xml</value>
+			 </list>
+		</property>
+	</bean>
+	
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSessionFactory" />
+	</bean>
+	
+	
+	<bean id="Reservationdao" class="dao.ReservationDaoImp">
+		<property name="sqlSession" ref="sqlSession" />
+	</bean>
+
+	<bean class="controller.IndexController" />
+	<bean class="controller.Reservationcontroller">
+			<!-- <property name="service" ref="service"/> -->
+			<property name="dao" ref="Reservationdao"/>
+	</bean>
+	
+
+>>>>>>> branch 'testbranch' of https://github.com/zlzlxm13/KH-Final-Project
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/view/" />
