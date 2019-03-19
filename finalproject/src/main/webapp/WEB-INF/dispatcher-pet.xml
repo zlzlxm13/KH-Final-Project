@@ -152,6 +152,10 @@
 	</bean>
 	
 	<bean class="controller.ChatController" />
+		<bean class="controller.Reservationcontroller">
+			<property name="dao" ref="Reservationdao"/>
+	</bean>
+	
 	
 	<!-- [7] View -->
     <bean class="org.springframework.web.servlet.view.json.MappingJackson2JsonView" id="jsonView">
