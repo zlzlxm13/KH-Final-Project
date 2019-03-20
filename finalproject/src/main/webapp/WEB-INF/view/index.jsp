@@ -42,7 +42,7 @@
 							<%} else {%>
 							<li>${sessionScope.id }님 환영합니다
 								<ul class="links">
-									<li><a href="#">마이페이지</a></li>
+									<li><a href="mypage.do">마이페이지</a></li>
 									<li><a href="logout.do">로그아웃</a></li>
 								</ul>
 							</li>			
@@ -61,7 +61,7 @@
 			its extension (eg. images/banner). Your video must be available in both .mp4 and .webm
 			formats to work correctly.
 		-->
-			<section id="banner" data-video="images/banner">
+			<section id="banner" data-video="images/banner">	
 				<div class="inner">
 					<h1>愁Cut</h1>
 					<p>당신의 가족, 아프지 않게.<br /></p>
@@ -78,7 +78,7 @@
 							<div class="image fit">
 								<img src="images/pic01.jpg" alt="" />
 							</div>
-							<div class="content">
+							<div class="content">	
 								<header class="align-center">
 									<h2>Lorem ipsum dolor</h2>
 									<p>	<%System.out.print(session.getAttribute("id"));%></p>

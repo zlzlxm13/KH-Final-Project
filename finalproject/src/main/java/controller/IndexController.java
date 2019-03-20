@@ -194,6 +194,11 @@ public JavaMailSenderImpl getMailSender() {
 		    }
 		return key;
 	}
+	
+	@RequestMapping(value = "/mypage.do", method = RequestMethod.GET)
+	public String mypage() {	
+		return "mypage";
+	}
 
 	@RequestMapping("/admin.do")
 	public ModelAndView adminProcess() {

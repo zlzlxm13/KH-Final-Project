@@ -64,7 +64,7 @@ public class Reservationcontroller {
 		System.out.println("병원 번호 : " + dto.getHospital_hosnum());
 		System.out.println("아이디 : " + dto.getMember_id());
 		dao.save(dto);
-		//
+		
 
 		return "redirect:main.do";
 	}
@@ -88,11 +88,9 @@ public class Reservationcontroller {
 		return mav;
 	}
 	
-	@RequestMapping(value="/delete.do")
-	@ResponseBody
+	@RequestMapping("/delete.do")
 	public ModelAndView delete(int num) {
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("num",num);
 		dao.r_delete(num);
 		mav.setViewName("main");
 		return mav;

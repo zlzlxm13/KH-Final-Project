@@ -59,6 +59,7 @@
 						<div class="image fit">
 							<img src="images/pic01.jpg" alt="" />
 						</div>
+						
 						<div class="content">
 							<header class="align-center">
 								<h2>Lorem ipsum dolor</h2>

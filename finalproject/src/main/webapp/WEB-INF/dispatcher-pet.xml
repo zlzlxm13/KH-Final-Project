@@ -147,9 +147,6 @@
 		<property name="mailSender" ref="mailSender"></property>
 
 	</bean>
-	<bean class="controller.Reservationcontroller">
-		<property name="dao" ref="Reservationdao" />
-	</bean>
 
 
 	<bean class="controller.MapController">
