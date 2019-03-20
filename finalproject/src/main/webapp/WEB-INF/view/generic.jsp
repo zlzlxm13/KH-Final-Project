@@ -12,19 +12,45 @@
 	<body class="subpage">
 
 		<!-- Header -->
-			<header id="header">
-				<div class="logo"><a href="index.do">Transitive <span>by TEMPLATED</span></a></div>
-				<a href="#menu" class="toggle"><span>Menu</span></a>
+		<script src="js/login.js" type="text/javascript"></script>
+	<header id="header">
+			<div class="logo"><a href="index.do">SooCut animal hospital <span>by KHfamily</span></a></div>
+						<a href="#menu" class="toggle" style="float:right"><span>Menu</span></a>
+		<%if(session.getAttribute("id") == null){ %>	
+						<input value="Login" class="button alt icon fa-check" type="submit" id = "login_process"style="float:right;">		
+						<input name="pass" id="pass" type="password" placeholder="Pass" style="width: 10%;float: right;margin-right: 10px;">				
+				<input name="id" id="id" type="text" placeholder="id" style="width: 10%;float: right;margin-right: 10px;">
+				<%} else {%>
+				${sessionScope.id }님 환영합니다
+			<a href="logout.do">로그아웃</a><%} %>
+		
 			</header>
 
 		<!-- Nav -->
 			<nav id="menu">
 				<ul class="links">
 					<li><a href="index.do">Home</a></li>
-					<li><a href="generic.do">Generic</a></li>
-					<li><a href="elements.do">Elements</a></li>
+					<li><a href="generic.do">Notice</a></li>
+		   <!--  --><li><a href="elements.do">element</a></li>	
+					<li><a href="hosmap.do">Hospital</a></li>					
+					<%if(session.getAttribute("id") == null){ %>	
+							<li><a href="login.do">Login</a></li>
+							<%} else {%>
+							<li>${sessionScope.id }님 환영합니다
+								<ul class="links">
+									<li><a href="#">마이페이지</a></li>
+									<li><a href="logout.do">로그아웃</a></li>
+								</ul>
+							</li>			
+							<%} %>
+
+					<li><a href="admin.do">admin</a></li>
+					<li><a href="main.do">Reservation</a></li>
+
+					
 				</ul>
 			</nav>
+
 
 		<!-- One -->
 			<section id="one" class="wrapper style2">
@@ -33,6 +59,7 @@
 						<div class="image fit">
 							<img src="images/pic01.jpg" alt="" />
 						</div>
+						
 						<div class="content">
 							<header class="align-center">
 								<h2>Lorem ipsum dolor</h2>

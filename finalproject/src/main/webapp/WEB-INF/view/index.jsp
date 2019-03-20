@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -13,10 +16,20 @@
 	<body>
 
 		<!-- Header -->
+		<script src="js/login.js" type="text/javascript"></script>
 			<header id="header" class="alt">
 				<div class="logo"><a href="index.do">SooCut animal hospital <span>by KHfamily</span></a></div>
-				{sessionScope.id}님
-				<a href="#menu" class="toggle"><span>Menu</span></a>
+
+						<a href="#menu" class="toggle" style="float:right"><span>Menu</span></a>
+		<%if(session.getAttribute("id") == null){ %>	
+						<input value="Login" class="button alt icon fa-check" type="submit" id = "login_process"style="float:right;">		
+						<input name="pass" id="pass" type="password" placeholder="Pass" style="width: 10%;float: right;margin-right: 10px;">				
+				<input name="id" id="id" type="text" placeholder="id" style="width: 10%;float: right;margin-right: 10px;">
+				<%} else {%>
+				${sessionScope.id }님 환영합니다
+			<a href="logout.do">로그아웃</a><%} %>
+		
+
 			</header>
 
 		<!-- Nav -->
@@ -24,9 +37,23 @@
 				<ul class="links">
 					<li><a href="index.do">Home</a></li>
 					<li><a href="generic.do">Notice</a></li>
-					<li><a href="elements.do">Hospital</a></li>
-					<li><a href="login.do">Login</a></li>
+
+		   <!--  --><li><a href="elements.do">element</a></li>	
+					<li><a href="hosmap.do">Hospital</a></li>					
+					<%if(session.getAttribute("id") == null){ %>	
+							<li><a href="login.do">Login</a></li>
+							<%} else {%>
+							<li>${sessionScope.id }님 환영합니다
+								<ul class="links">
+									<li><a href="mypage.do">마이페이지</a></li>
+									<li><a href="logout.do">로그아웃</a></li>
+								</ul>
+							</li>			
+							<%} %>
+
 					<li><a href="admin.do">admin</a></li>
+					<li><a href="main.do">Reservation</a></li>
+
 
 					
 				</ul>
@@ -38,10 +65,11 @@
 			its extension (eg. images/banner). Your video must be available in both .mp4 and .webm
 			formats to work correctly.
 		-->
-			<section id="banner" data-video="images/banner">
+			<section id="banner" data-video="images/banner">	
 				<div class="inner">
 					<h1>愁Cut</h1>
 					<p>당신의 가족, 아프지 않게.<br /></p>
+
 					<a href="#one" class="button scrolly">Get Started</a>
 				</div>
 			</section>
@@ -54,9 +82,10 @@
 							<div class="image fit">
 								<img src="images/pic01.jpg" alt="" />
 							</div>
-							<div class="content">
+							<div class="content">	
 								<header class="align-center">
 									<h2>Lorem ipsum dolor</h2>
+									<p>	<%System.out.print(session.getAttribute("id"));%></p>
 									<p>maecenas feugiat ex purus, quis volutpat lacus placerat</p>
 								</header>
 								<hr />
@@ -115,11 +144,12 @@
 								</div>
 								<div class="content">
 									<header class="align-center">
-										<h2>Lorem ipsum dolor</h2>
-										<p>maecenas feugiat ex purus, quis volutpat lacus placerat</p>
+										<h2>미안해요, 그래도 같이 살아요!</h2>
+										<p>길냥이 죽이지마세요, 살려주세요.</p>
 									</header>
 									<hr />
-									<p> Cras aliquet urna ut sapien tincidunt, quis malesuada elit facilisis. Vestibulum sit amet tortor velit. Nam elementum nibh a libero pharetra elementum. Maecenas feugiat ex purus, quis volutpat lacus placerat malesuada. Praesent in sem ex. Morbi mattis sapien pretium tellus venenatis, at egestas urna ornare.</p>
+									<p>길냥이들이 시끄러워 죄송합니다. 길냥이들이 차를 긁어 죄송합니다. 길냥이들이 쓰레기를 뜯는 것 죄송합니다. 길냥이들이 무섭다구요? 그것도 죄송합니다.</p>
+									<p>태어난 이유로 열심히 살아남고 있습니다.모든 생명에 이유가 있습니다. 그러니 제발 죽이지는 마세요. 숨 붙어 있는 생명, 용서해 주세요.</p>
 								</div>
 							</div>
 						</div>

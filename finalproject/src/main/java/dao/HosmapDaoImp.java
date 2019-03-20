@@ -9,7 +9,8 @@ import dto.HosmapDTO;
 
 public class HosmapDaoImp implements HosmapDAO {
 	private SqlSessionTemplate sqlSession;
-	
+
+	//
 	public HosmapDaoImp() {
 		
 	}
@@ -28,6 +29,7 @@ public class HosmapDaoImp implements HosmapDAO {
 		return sqlSession.selectOne("hos.hos_countAll", data);
 	}
 
+
 	@Override
 	public List<HosmapDTO> list() {
 		// TODO Auto-generated method stub
@@ -39,6 +41,6 @@ public class HosmapDaoImp implements HosmapDAO {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("admin.hos_count");
 	}
-	
+
 	
 }//end class

@@ -43,7 +43,8 @@ public class HosServiceImp implements HosService {
 		// TODO Auto-generated method stub
 		return dao.count();
 	}
-	
+
+
 	
 	
 }//end class

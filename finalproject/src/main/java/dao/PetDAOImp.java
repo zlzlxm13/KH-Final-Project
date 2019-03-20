@@ -44,6 +44,12 @@ public class PetDAOImp implements PetDAO{
 		sqlSession.delete("admin.pet_delete", chk);
 	}
 
+	@Override
+	public int content(PetDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("admin.pet_content", dto);
+	}
+
 	public SqlSessionTemplate getSqlSession() {
 		return sqlSession;
 	}

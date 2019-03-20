@@ -8,13 +8,26 @@ import org.springframework.web.servlet.ModelAndView;
 
 import dao.HosmapDAO;
 import dao.PetKindDAO;
+import dto.HosmapDTO;
+import dto.PetDTO;
 import dto.PetKindDTO;
 import service.HosService;
 import service.LoginService;
 import service.PetKindService;
+import service.PetService;
 
 @Controller
 public class AdminController {
+	private PetService pservice;
+
+	public PetService getPservice() {
+		return pservice;
+	}
+
+	public void setPservice(PetService pservice) {
+		this.pservice = pservice;
+	}
+
 	private PetKindService pkservice;
 
 	public PetKindService getPkservice() {
@@ -51,17 +64,8 @@ public class AdminController {
 
 	}
 
-	@RequestMapping("/adminPet.do")
-	public ModelAndView adminPetProcess() {
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("menu", "2");
-		mav.setViewName("admin");
-		return mav;
-
-	}
-
-	@RequestMapping("/adminHospital.do")
-	public ModelAndView adminHospitalProcess() {
+	@RequestMapping("/adminHosmap.do")
+	public ModelAndView adminHosmapProcess() {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("menu", "3");
 		mav.addObject("count", hservice.countProcess());
@@ -88,6 +92,13 @@ public class AdminController {
 		return mav;
 
 	}
+	@RequestMapping("/adminInsert.do")
+	public ModelAndView adminInsertProcess(String menu) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("menu", menu);
+		mav.setViewName("insert");
+		return mav;
+	}
 
 	@RequestMapping("/adminPetKind.do")
 	public ModelAndView adminPetKindProcess(HttpSession session) {
@@ -99,12 +110,13 @@ public class AdminController {
 		return mav;
 	}
 
+	
+
 	@RequestMapping("/adminPetKindInsert.do")
 	public ModelAndView adminPetKindInsertProcess(PetKindDTO dto) {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("menu", "6");
-		System.out.println(pkservice.contentProcess(dto).equals(""));
-		if (!dto.equals(null) ) {
+		if (!dto.equals(null) && pkservice.contentProcess(dto) == 0) {
 			pkservice.insertProcess(dto);
 		}
 		mav.addObject("count", pkservice.countProcess());
@@ -113,19 +125,9 @@ public class AdminController {
 		return mav;
 	}
 
-	@RequestMapping("/adminInsert.do")
-	public ModelAndView adminInsertProcess(String menu) {
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("menu", menu);
-		mav.setViewName("insert");
-		return mav;
-
-	}
-
 	@RequestMapping("/adminPetKindDelete.do")
 	public ModelAndView adminPetKindDeleteProcess(String menu, String[] chk) {
 		ModelAndView mav = new ModelAndView();
-		System.out.println(chk[0]);
 		pkservice.deleteProcess(chk);
 		mav.addObject("menu", menu);
 		mav.addObject("count", pkservice.countProcess());
@@ -136,9 +138,9 @@ public class AdminController {
 	}
 
 	@RequestMapping("/adminPetKindUpdate.do")
-	public ModelAndView adminPetKindUpdateProcess(String menu, PetKindDTO dto) {
+	public ModelAndView adminPetKindUpdateProcess(String menu, String ckind, PetKindDTO dto) {
 		ModelAndView mav = new ModelAndView();
-		System.out.println(menu);
+		System.out.println(ckind);
 		mav.addObject("menu", menu);
 		mav.addObject("dto", dto);
 		mav.setViewName("update");
@@ -146,5 +148,93 @@ public class AdminController {
 		return mav;
 
 	}
+	
+	
+	@RequestMapping("/adminPet.do")
+	public ModelAndView adminPetProcess(HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("menu", "2");
+		mav.addObject("count", pservice.countProcess());
+		mav.addObject("list", pservice.listProcess());
+		mav.setViewName("admin");
+		return mav;
+	}
+	
+	@RequestMapping("/adminPetInsert.do")
+	public ModelAndView adminPetInsertProcess(PetDTO dto) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("menu", "6");
+		if (!dto.equals(null) && pservice.contentProcess(dto) == 0) {
+			pservice.insertProcess(dto);
+		}
+		mav.addObject("count", pservice.countProcess());
+		mav.addObject("list", pservice.listProcess());
+		mav.setViewName("admin");
+		return mav;
+	}
+
+	@RequestMapping("/adminPetDelete.do")
+	public ModelAndView adminPetDeleteProcess(String menu, String[] chk) {
+		ModelAndView mav = new ModelAndView();
+		System.out.println(chk[0]);
+		pservice.deleteProcess(chk);
+		mav.addObject("menu", menu);
+		mav.addObject("count", pservice.countProcess());
+		mav.addObject("list", pservice.listProcess());
+		mav.setViewName("admin");
+		return mav;
+
+	}
+
+	@RequestMapping("/adminPetUpdate.do")
+	public ModelAndView adminPetUpdateProcess(String menu, PetDTO dto) {
+		ModelAndView mav = new ModelAndView();
+		System.out.println(menu);
+		mav.addObject("menu", menu);
+		mav.addObject("dto", dto);
+		mav.setViewName("update");
+		return mav;
+
+	}
+	
+	
+	@RequestMapping("/adminHosmapInsert.do")
+	public ModelAndView adminHosmapInsertProcess(HosmapDTO dto) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("menu", "6");
+		if (!dto.equals(null)) {
+
+		}
+		mav.addObject("count", hservice.countProcess());
+		mav.addObject("list", hservice.listProcess());
+		mav.setViewName("admin");
+		return mav;
+	}
+
+	@RequestMapping("/adminHosmapDelete.do")
+	public ModelAndView adminHosmapDeleteProcess(String menu, String[] chk) {
+		ModelAndView mav = new ModelAndView();
+		System.out.println(chk[0]);
+		pservice.deleteProcess(chk);
+		mav.addObject("menu", menu);
+		mav.addObject("count", hservice.countProcess());
+		mav.addObject("list", hservice.listProcess());
+		mav.setViewName("admin");
+		return mav;
+
+	}
+
+	@RequestMapping("/adminHosmapUpdate.do")
+	public ModelAndView adminHosmapUpdateProcess(String menu, HosmapDTO dto) {
+		ModelAndView mav = new ModelAndView();
+		System.out.println(menu);
+		mav.addObject("menu", menu);
+		mav.addObject("dto", dto);
+		mav.setViewName("update");
+		return mav;
+
+	}
+	
+	
 
 }

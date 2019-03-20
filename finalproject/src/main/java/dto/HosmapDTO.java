@@ -4,7 +4,9 @@ public class HosmapDTO {
 	private int hosnum;
 	private String hosname;
 	private String petkind_kind;
-	private String hosadress;
+
+
+	private String hosaddress;
 	private String hosarea;
 	private String latitude;
 	private String longitude;
@@ -36,13 +38,14 @@ public class HosmapDTO {
 	public void setPetkind_kind(String petkind_kind) {
 		this.petkind_kind = petkind_kind;
 	}
-
-	public String getHosadress() {
-		return hosadress;
+	
+	public String getHosaddress() {
+		return hosaddress;
 	}
 
-	public void setHosadress(String hosadress) {
-		this.hosadress = hosadress;
+	public void setHosaddress(String hosaddress) {
+		this.hosaddress = hosaddress;
+
 	}
 
 	public String getHosarea() {

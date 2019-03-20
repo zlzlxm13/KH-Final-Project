@@ -29,31 +29,8 @@
 		member_id = #{member_id}
 	</select>
 
-	<select id="pet_count" resultType="int">
-		select count(*) from pet
-	</select>
-	<select id="pet_list" resultType="dto.PetDTO">
-		select * from pet
-	</select>
-	<select id="pet_insert" parameterType="dto.PetDTO">
-		insert into pet
-		values(#{petname}, #{petage}, #{petsex}, #{member_id},
-		#{petinfo},
-		#{petkind_kind})
-	</select>
-	<select id="pet_update" parameterType="dto.PetDTO">
-		update pet set petage =
-		#{petage}, petsex = #{petsex}, petinfo = #{petinfo}, petkind_kind =
-		#{petkind_kind}
-		where
-		petname = #{petname} and member_id = #{member_id}
-	</select>
-	<select id="pet_delete" parameterType="dto.PetDTO">
-		delete from pet where
-		petname = #{petname} and member_id = #{member_id}
-	</select>
 
-	
+
 	<select id="petkind_count" resultType="int">
 		select count(*) from
 		petkind
@@ -72,9 +49,40 @@
 			#{item}
 		</foreach>
 	</select>
-	
-	<select id="petkind_content" parameterType="dto.PetKindDTO" resultType="dto.PetKindDTO">
-		select * from petkind where kind = #{kind}
+	<update id="petkind_update" parameterType="dto.PetKindDTO">
+		update petkind set kind = #{kind} where kind = #{kind}
+	</update>
+	<select id="petkind_content" parameterType="dto.PetKindDTO"
+		resultType="int">
+		select count(*) from petkind where kind = #{kind}
+	</select>
+
+
+
+	<select id="pet_count" resultType="int">
+		select count(*) from pet
+	</select>
+	<select id="pet_list" resultType="dto.PetDTO">
+		select * from pet
+	</select>
+	<select id="pet_insert" parameterType="dto.PetDTO">
+		insert into pet
+		values(#{petname}, #{petage}, #{petsex}, #{member_id}, #{petinfo},
+		#{petkind_kind})
+	</select>
+	<select id="pet_delete" parameterType="map">
+
+		<foreach collection="list" item="item" index="index" open="("
+			close=")">
+			delete from pet where petname = #{item.petname} and memberid =
+			#{item.member_id}
+		</foreach>
+	</select>
+
+	<select id="pet_content" parameterType="dto.PetDTO"
+		resultType="int">
+		select count(*) from pet where petname = #{petname} and
+		member_id = #{member_id}
 	</select>
 
 

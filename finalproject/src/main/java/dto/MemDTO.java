@@ -7,10 +7,21 @@ public class MemDTO {
 	private String grade;
 	private String phonenum;
 	private String email;
+
+	private String user_authCode;
+	private String user_email;
+	
+
 	public MemDTO() {
 		
 	}
+	public String getUser_authCode() {
+		return user_authCode;
+	}
 
+	public void setUser_authCode(String user_authCode) {
+		this.user_authCode = user_authCode;
+	}
 	public String getEmail() {
 		return email;
 	}
@@ -57,6 +68,12 @@ public class MemDTO {
 
 	public void setPhonenum(String phonenum) {
 		this.phonenum = phonenum;
+	}
+	public String getUser_email() {
+		return user_email;
+	}
+	public void setUser_email(String user_email) {
+		this.user_email = email;
 	}
 	
 	

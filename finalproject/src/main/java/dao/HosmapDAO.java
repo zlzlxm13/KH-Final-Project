@@ -11,5 +11,6 @@ public interface HosmapDAO {
 	public int hos_countAll(String data);
 	public List<HosmapDTO> list();
 	public int count();
-	
+
+
 }//end interface
