@@ -103,7 +103,7 @@
 										alt="Loading..." />
 								</div>
 								<div class="field">
-									<label for="id">ID</label> <input name="id" id="id" type="text"
+									<label for="id">ID</label> <input name="signid" id="signid" type="text"
 										placeholder="id"
 										style="width: 47%; float: left; margin-right: 10px;">
 									<input type="hidden" name="idDuplication" value="idUncheck">
@@ -111,7 +111,7 @@
 									<p id="idp" style="color: red"></p>
 								</div>
 								<div class="field">
-									<label for="pass">Password</label> <input name="pass" id="pass"
+									<label for="pass">Password</label> <input name="signpass" id="signpass"
 										type="password" placeholder="Pass" style="width: 68%;">
 									<p id="passp" style="color: red"></p>
 								</div>

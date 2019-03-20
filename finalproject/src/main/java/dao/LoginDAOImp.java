@@ -70,6 +70,16 @@ public void setSession(SqlSessionTemplate session) {
 		
 		return session.selectOne("login.passsearch",dto);
 	}
+	@Override
+	public int emailChk(String email) {
+		
+		return session.selectOne("login.emailchk",email);
+	}
+	@Override
+	public MemDTO signin(MemDTO dto) {
+	
+		return session.selectOne("login.signlogin",dto);
+	}
 
 
 	

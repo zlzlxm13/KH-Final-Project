@@ -19,5 +19,7 @@ public String idsearch(MemDTO dto);
 
 public String passsearch(MemDTO dto);
 
+public int emailChk(String email);
 
+public MemDTO signin(MemDTO dto);
 }

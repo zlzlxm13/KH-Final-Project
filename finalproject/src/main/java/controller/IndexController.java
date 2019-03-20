@@ -85,20 +85,18 @@ public JavaMailSenderImpl getMailSender() {
 	public @ResponseBody int login(MemDTO dto, HttpSession session) {
 		// m_dao.Login(m, session)을 호출하고 반환한다.
 		int lchk = lservice.loginprocess(dto, session);
+		
 		if (lchk == 1) {
-			session.setAttribute("id", dto.getId());
-			session.setAttribute("pass", dto.getPass());
-			session.setAttribute("email", dto.getEmail());
-			session.setAttribute("name", dto.getName());
-			session.setAttribute("grade", dto.getGrade());
-			session.setAttribute("phonenum", dto.getPhonenum());
-
+			MemDTO mdto = lservice.signloginprocess(dto);
+			session.setAttribute("id", mdto.getId());
+			session.setAttribute("pass", mdto.getPass());
+			session.setAttribute("email", mdto.getEmail());
+			session.setAttribute("name", mdto.getName());
+			session.setAttribute("grade", mdto.getGrade());
+			session.setAttribute("phonenum", mdto.getPhonenum());
+			System.out.println("logindoemail:!!!!!"+mdto.getEmail());
 			// session.setAttribute("dto",dto);
-
-		} else {
-
 		}
-
 		// if()
 
 		return lchk;
@@ -110,6 +108,15 @@ public JavaMailSenderImpl getMailSender() {
 		int chk = lservice.idChkprocess(id);
 		System.out.println("con:" + chk);
 		return chk;
+	}
+	
+	@RequestMapping(value = "/emailChk.do", method = RequestMethod.POST)
+	public @ResponseBody int emailChk(String email) {
+		System.out.println(email);
+
+		int echk = lservice.emailChkprocess(email);
+		System.out.println("emailchk:" + echk);
+		return echk;
 	}
 
 	@RequestMapping("/logout.do")
@@ -164,7 +171,7 @@ public JavaMailSenderImpl getMailSender() {
 		      messageHelper.setFrom("snrnaudwls@gmail.com","수컷");  // 보내는사람 생략하거나 하면 정상작동을 안함
 		      messageHelper.setTo(dto.getEmail());     // 받는사람 이메일
 		      messageHelper.setSubject("[Soocut] 비밀번호찾기 서비스입니다."); // 메일제목은 생략이 가능하다
-		      messageHelper.setText("안녕하세요 SooCut 인증서비스 입니다. 문의하신 고객님의 비밀번호는"+passsear+"입니다.");  // 메일 내용
+		      messageHelper.setText("안녕하세요 SooCut 인증서비스 입니다. 문의하신 고객님의 비밀번호는  "+passsear+"  입니다.");  // 메일 내용
 		     
 		      mailSender.send(message);
 		    } catch(Exception e){
@@ -186,7 +193,7 @@ public JavaMailSenderImpl getMailSender() {
 		      messageHelper.setFrom("snrnaudwls@gmail.com","수컷");  // 보내는사람 생략하거나 하면 정상작동을 안함
 		      messageHelper.setTo(request.getParameter("email"));     // 받는사람 이메일
 		      messageHelper.setSubject("[Soocut] Email인증코드 입니다."); // 메일제목은 생략이 가능하다
-		      messageHelper.setText("안녕하세요 SooCut 인증서비스 입니다. email 인증코드는"+key+"입니다.");  // 메일 내용
+		      messageHelper.setText("안녕하세요 SooCut 인증서비스 입니다. email 인증코드는  "+key+"  입니다.");  // 메일 내용
 		     
 		      mailSender.send(message);
 		    } catch(Exception e){

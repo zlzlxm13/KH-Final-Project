@@ -4,10 +4,11 @@ $(document)
 					var code = null;
 					var idck = 0;
 					var duchk = 0;
+					var emailck = 0;
 					var formValidation = false;
 					var nullchk = true;
 					var passchkValidation = false;
-					var emailcodechk = false;
+					var emailcodechk = false;					
 					var hp1 = document.getElementById('hp1');
 
 					var hp2 = document.getElementById('hp2');
@@ -19,6 +20,8 @@ $(document)
 					$('#sign')
 							.click(
 									function() {
+										
+										
 										if (idck == 1 && formValidation == true
 												&& phoneValidation == true
 												&& passchkValidation == true
@@ -61,7 +64,7 @@ $(document)
 							$.ajax({
 								url : "idChk.do",
 								type : 'POST',
-								data : 'id=' + $("#id").val(),
+								data : 'id=' + $("#signid").val(),
 								dataType : "json",
 								success : idChkMethod
 							});// ajax
@@ -70,10 +73,10 @@ $(document)
 
 								if (chk > 0) {
 									alert("아이디가 존재합니다. 다른 아이디를 입력해주세요.");
-									$("#id").focus();
+									$("#signid").focus();
 								} else {
 									alert("사용가능한 아이디입니다.");
-									$("#pass").focus();
+									$("#signpass").focus();
 									idck = 1;
 								}
 							}
@@ -84,27 +87,52 @@ $(document)
 					// ///////////////////////////////mail
 
 					$('#emailchk').on('click', function() {	
-					
-						$.ajax({							
-							url : "sendMail.do",
+						$.ajax({
+							url : "emailChk.do",
 							type : 'POST',
 							data : 'email=' + $("#email").val(),
-							dataType : "text",
-							success : emailMethod,
-							beforeSend:function(){
-								$('#loading').show();
-							},
-							complete: function(){
-								$('#loading').hide();
-							}
-							
+							dataType : "json",
+							success : emailChkMethod
 						});// ajax
 
-						function emailMethod(res) {
-							code = res;
-							alert("인증코드가 발송되었습니다.");							
-							$('#codechkdiv').css("display", "inherit");
+						function emailChkMethod(echk) {
+
+							if (echk > 0) {
+								alert("Email로 가입한 아이디가 이미 존재합니다.");
+								$("#email").focus();
+								return false;
+							} else {								
+								$.ajax({							
+									url : "sendMail.do",
+									type : 'POST',
+									data : 'email=' + $("#email").val(),
+									dataType : "text",
+									success : emailMethod,
+									beforeSend:function(){
+										$('#loading').show();
+									},
+									complete: function(){
+										$('#loading').hide();
+									}
+								
+								});// ajax
+
+								function emailMethod(res) {
+									alert($("#email").val());
+									if($("#email").val()!=""){
+									emailck = 1;
+									code = res;
+									alert("인증코드가 발송되었습니다.");							
+									$('#codechkdiv').css("display", "inherit");
+									}else{
+										alert("email을 입력해주세요");
+										return false;
+									}
+								}
+								
+							}
 						}
+						
 					});
 					
 					// 코드 확인
@@ -124,8 +152,8 @@ $(document)
 					// //////////////
 					function nullChk() {
 						var namechk = (document.getElementById("name").val());
-						var passchk = (document.getElementById("pass").val());
-						var idchk = (document.getElementById("id").val());
+						var passchk = (document.getElementById("signpass").val());
+						var idchk = (document.getElementById("signid").val());
 						var phonechk = (document.getElementById("phonenum")
 								.val());
 						var emailchk = (document.getElementById("email").val());
@@ -154,7 +182,7 @@ $(document)
 										}
 									});// end nameKeyUp()
 
-					$('#id')
+					$('#signid')
 							.keyup(
 									function() {
 										var fid = $(this).val();
@@ -179,7 +207,7 @@ $(document)
 										}
 									});
 
-					$('#pass')
+					$('#signpass')
 							.keyup(
 									function() {
 										var pass = $(this).val();
@@ -202,7 +230,7 @@ $(document)
 							.keyup(
 									function() {
 										var ffpass = $('#passchk').val();
-										var fpass = $('#pass').val();
+										var fpass = $('#signpass').val();
 										if (ffpass == fpass) {
 											document.getElementById("ffpassp").innerHTML = "";
 											$(this).css("color", "green");

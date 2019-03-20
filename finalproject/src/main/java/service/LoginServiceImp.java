@@ -59,6 +59,18 @@ public class LoginServiceImp implements LoginService {
 		return ldao.passsearch(dto);
 	}
 
+	@Override
+	public int emailChkprocess(String email) {
+		
+		return ldao.emailChk(email);
+	}
+
+	@Override
+	public MemDTO signloginprocess(MemDTO dto) {
+	
+		return ldao.signin(dto);
+	}
+
 
 
 

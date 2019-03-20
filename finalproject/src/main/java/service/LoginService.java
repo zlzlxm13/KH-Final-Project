@@ -17,6 +17,8 @@ public String idsearchprocess(MemDTO dto);
 
 public String passearchprocess(MemDTO dto);
 
+public int emailChkprocess(String email);
 
+public MemDTO signloginprocess(MemDTO dto);
 }
 
