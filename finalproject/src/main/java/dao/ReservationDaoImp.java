@@ -38,10 +38,11 @@ public class ReservationDaoImp implements ReservationDAO{
 	}
 
 	@Override
-	public int r_delete(int num) {
-		return sqlSession.delete("reservation.r_delete",num);
+	public void r_delete(int num) {
+		sqlSession.delete("reservation.r_delete",num);
 		
 	}
+
 
 
 }

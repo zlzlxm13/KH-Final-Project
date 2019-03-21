@@ -26,18 +26,12 @@ import service.ReservationService;
 //http://localhost:8090/pet/main.do
 public class Reservationcontroller {
 	
-	private ReservationDAO rdao;
 	private ReservationService rservice;
 	
 	public Reservationcontroller() {
 		
 	}
 	
-	
-	
-	public void setRdao(ReservationDAO rdao) {
-		this.rdao = rdao;
-	}
 	
 	public void setRservice(ReservationService rservice) {
 		this.rservice = rservice;
@@ -82,7 +76,6 @@ public class Reservationcontroller {
 	
 	@RequestMapping("/searchpro.do")
 	public @ResponseBody List<ReservationDTO> SearchForm(String member_id) {
-
 		return rservice.search(member_id);
 	}
 	
@@ -94,14 +87,9 @@ public class Reservationcontroller {
 		return mav;
 	}
 	
-	@RequestMapping(value="/delete.do")
-	@ResponseBody
-	public ModelAndView delete(int num) {
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("num",num);
-		rdao.r_delete(num);
-		mav.setViewName("main");
-		return mav;
+	@RequestMapping("/delete.do")
+	public @ResponseBody List<ReservationDTO> delete(ReservationDTO dto) {
+		return rservice.r_deleteProcess(dto);
 	}
 	
 }
