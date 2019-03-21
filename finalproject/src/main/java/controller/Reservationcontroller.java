@@ -19,22 +19,23 @@ import org.springframework.web.servlet.ModelAndView;
 import dao.ReservationDAO;
 import dto.ReservationDTO;
 //http://localhost:8090/pet/main.do
+import service.ReservationService;
 
 @Controller
+
+//http://localhost:8090/pet/main.do
 public class Reservationcontroller {
 	
-	private ReservationDAO dao;
+	private ReservationService rservice;
 	
 	public Reservationcontroller() {
 		
 	}
 	
 	
-	public void setDao(ReservationDAO dao) {
-		this.dao = dao;
+	public void setRservice(ReservationService rservice) {
+		this.rservice = rservice;
 	}
-	
-	
 
 
 	@RequestMapping("/main.do")
@@ -63,8 +64,7 @@ public class Reservationcontroller {
 		System.out.println("예약 날짜 : " + dto.getRes_date());
 		System.out.println("병원 번호 : " + dto.getHospital_hosnum());
 		System.out.println("아이디 : " + dto.getMember_id());
-		dao.save(dto);
-		//
+		rservice.saveProcess(dto);
 
 		return "redirect:main.do";
 	}
@@ -76,26 +76,20 @@ public class Reservationcontroller {
 	
 	@RequestMapping("/searchpro.do")
 	public @ResponseBody List<ReservationDTO> SearchForm(String member_id) {
-
-		return dao.search(member_id);
+		return rservice.search(member_id);
 	}
 	
 	@RequestMapping("/list.do")
 	public ModelAndView listForm() {
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("list",dao.r_list());
+		mav.addObject("list", rservice.r_list());
 		mav.setViewName("list");
 		return mav;
 	}
 	
-	@RequestMapping(value="/delete.do")
-	@ResponseBody
-	public ModelAndView delete(int num) {
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("num",num);
-		dao.r_delete(num);
-		mav.setViewName("main");
-		return mav;
+	@RequestMapping("/delete.do")
+	public @ResponseBody List<ReservationDTO> delete(ReservationDTO dto) {
+		return rservice.r_deleteProcess(dto);
 	}
 	
 }

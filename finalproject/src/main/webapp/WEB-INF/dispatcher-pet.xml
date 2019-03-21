@@ -135,13 +135,16 @@
 		<property name="dao" ref="dao" />
 
 	</bean>
+	
+	<bean id="rservice" class="service.ReservationServiceImp">
+		<property name="rdao" ref="rdao" />
+	</bean>
 
 
 	<!-- [9] Controller 빈 선언 -->
 
 	<bean class="controller.IndexController">
 		<property name="lservice" ref="lservice"></property>
-
 		<property name="mailSender" ref="mailSender"></property>
 
 	</bean>
@@ -151,9 +154,8 @@
 		<property name="service" ref="service" />
 	</bean>
 	
-	<bean class="controller.ChatController" />
-		<bean class="controller.Reservationcontroller">
-			<property name="dao" ref="Reservationdao"/>
+	<bean class="controller.Reservationcontroller">
+		<property name="rservice" ref="rservice"></property>
 	</bean>
 	
 	
