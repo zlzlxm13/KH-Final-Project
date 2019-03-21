@@ -155,7 +155,7 @@
 									<p class="btn_area_btm">
 										<a href="#"
 											onclick="changeImage();clickcr(this,'imn.prfmodify','','',event);"
-											class="btn_model"><b class="btn2">비밀번호 변경</b></a>
+											class="btn_model"><b class="btn2">회원정보 변경</b></a>
 									</p>
 									<p>더이상 수컷을 사용하지 않는다면  </p><a href="#">회원탈퇴</a>
 								</div>
