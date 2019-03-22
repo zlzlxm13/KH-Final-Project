@@ -27,7 +27,7 @@ public class ReservationServiceImp implements ReservationService {
 
 	@Override
 	public List<ReservationDTO> search(String member_id) {
-		return rdao.search(member_id);
+		return rdao.r_search(member_id);
 	}
 
 	@Override
@@ -40,7 +40,7 @@ public class ReservationServiceImp implements ReservationService {
 	@Override
 	public List<ReservationDTO> r_deleteProcess(ReservationDTO dto) {
 		rdao.r_delete(dto.getRes_num());
-		return rdao.search(dto.getMember_id());
+		return rdao.r_search(dto.getMember_id());
 	}
 
 }

@@ -114,7 +114,7 @@
 		<property name="session" ref="session" />
 		<!-- <constructor-arg><ref bean = "sqlSession"/></constructor-arg> -->
 	</bean>
-	<bean id="Reservationdao" class="dao.ReservationDaoImp">
+	<bean id="rdao" class="dao.ReservationDaoImp">
 		<property name="sqlSession" ref="sqlSession" />
 
 	</bean>

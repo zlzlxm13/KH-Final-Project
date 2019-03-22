@@ -79,13 +79,13 @@ public class Reservationcontroller {
 		return rservice.search(member_id);
 	}
 	
-	@RequestMapping("/list.do")
+	/*@RequestMapping("/list.do")
 	public ModelAndView listForm() {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("list", rservice.r_list());
 		mav.setViewName("list");
 		return mav;
-	}
+	}*/
 	
 	@RequestMapping("/delete.do")
 	public @ResponseBody List<ReservationDTO> delete(ReservationDTO dto) {
