@@ -17,6 +17,7 @@
 
 
 	<mvc:annotation-driven></mvc:annotation-driven>
+	
 
 	<!-- WebSocket 등록 -->
 	<bean id="chatWebSocketHandler"
@@ -129,11 +130,22 @@
 	</bean>
 
 
+
+
 	<bean class="dao.PetKindDAOImp" id="pkdao">
 		<property name="sqlSession" ref="sqlSession" />
 	</bean>
 	<bean class="dao.PetDAOImp" id="pdao">
 		<property name="sqlSession" ref="sqlSession" />
+	</bean>
+
+	<bean id="hdao" class="dao.HospitalDaoImp">
+		<property name="sqlSession" ref="sqlSession" />
+
+	</bean>
+	<bean id="mdao" class="dao.MemberDaoImp">
+		<property name="sqlSession" ref="sqlSession" />
+
 	</bean>
 
 
@@ -148,6 +160,11 @@
 		<property name="dao" ref="dao" />
 
 	</bean>
+	<bean class="service.ReservationServiceImp" id="rservice">
+		<property name="dao" ref="Reservationdao" />
+	</bean>
+
+
 
 
 	<bean class="service.PetImpService" id="pservice">
@@ -155,6 +172,13 @@
 	</bean>
 	<bean class="service.PetKindImpService" id="pkservice">
 		<property name="dao" ref="pkdao" />
+	</bean>
+
+	<bean class="service.HospitalServiceImp" id="hservice">
+		<property name="dao" ref="hdao" />
+	</bean>
+	<bean class="service.MemberImpService" id="mservice">
+		<property name="dao" ref="mdao" />
 	</bean>
 
 
@@ -180,9 +204,12 @@
 
 
 	<bean class="controller.AdminController">
-		<property name="hservice" ref="service" />
+		<property name="hservice" ref="hservice" />
 		<property name="pkservice" ref="pkservice" />
 		<property name="pservice" ref="pservice" />
+		<property name="mservice" ref="mservice" />
+		<property name="rservice" ref="rservice" />
+
 	</bean>
 
 	<!-- [7] View -->

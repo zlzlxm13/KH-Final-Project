@@ -52,9 +52,16 @@ public class PetKindImpService implements PetKindService{
 	}
 
 	@Override
-	public int contentProcess(PetKindDTO dto) {
+	public PetKindDTO contentProcess(PetKindDTO dto) {
 		// TODO Auto-generated method stub
+		System.out.println(dao.content(dto));
 		return dao.content(dto);
+	}
+
+	@Override
+	public int checkProcess(PetKindDTO dto) {
+		// TODO Auto-generated method stub
+		return dao.check(dto);
 	}
 
 	

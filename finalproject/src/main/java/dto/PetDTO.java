@@ -7,6 +7,14 @@ public class PetDTO {
 	private String member_id;
 	private String petinfo;
 	private String petkind_kind;
+	private String petnum;
+	
+	public String getPetnum() {
+		return petnum;
+	}
+	public void setPetnum(String petnum) {
+		this.petnum = petnum;
+	}
 	public PetDTO() {
 		super();
 		// TODO Auto-generated constructor stub

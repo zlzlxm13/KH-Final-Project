@@ -1,23 +1,66 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
-<head>
+
 <title>Generic - Transitive by TEMPLATED</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="js/login.js" type="text/javascript"></script>
+
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="stylesheet" href="css/main.css" />
+
 <link rel="stylesheet"
 	href="http://netdna.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+<head>
+<title>SooCut animal hospital</title>
+
 </head>
+<script src="js/jquery.min.js"></script>
+<script src="js/jquery.scrolly.min.js"></script>
+<script src="js/jquery.scrollex.min.js"></script>
+<script src="js/skel.min.js"></script>
+<script src="js/util.js"></script>
+<script src="js/main.js"></script>
 
 <script type="text/javascript">
 $(document).ready(function(){
-	$("li[value="+${menu}+"]").addClass('active');
+	if(${menu} != "") {
+		$("li[value="+${menu}+"]").addClass('active');
+	}
+	if(${menu} == '4') {
+		document.getElementById('rdate').valueAsDate = new Date();
+	}
+	
+	$("#add").on('click',function(){
+		if ($('#kind option:selected').val() != ""){
+			if ($('#petkind_kind').attr("value") == ""){
+				$('#petkind_kind').attr("value", $('#kind option:selected').val());
+				$('#kind option:selected').remove();
+				return;
+			}
+			$('#petkind_kind').attr("value", $('#petkind_kind').attr("value")+" "+$('#kind option:selected').val());
+			$('#kind option:selected').remove();
+		}
+	});
+	$("#del").on('click',function(){
+		var str = $('#petkind_kind').attr("value");
+		if(str.length == 0)	{
+			alert("입력값이 없습니다.");
+			return;
+		}
+		
+		var kind = str.substring(str.lastIndexOf(" ")+1, str.length);
+		str = str.substring(0, str.lastIndexOf(" "));
+		$('#kind').append('<option value='+kind+'>'+kind+'</option>');
+		
+		$('#petkind_kind').attr("value", str);
 
+	});
 });
 </script>
 
@@ -26,23 +69,24 @@ input[type="checkbox"]#menu_state {
 	display: none;
 }
 
-input[type="checkbox"]:checked ~ nav {
+input[type="checkbox"]:checked ~ nav.admin {
 	width: 250px;
 }
 
-input[type="checkbox"]:checked ~ nav label[for="menu_state"] i::before {
+input[type="checkbox"]:checked ~ nav.admin label[for="menu_state"] i::before
+	{
 	content: "\f053";
 }
 
-input[type="checkbox"]:checked ~ nav ul {
+input[type="checkbox"]:checked ~ nav.admin ul {
 	width: 100%;
 }
 
-input[type="checkbox"]:checked ~ nav ul li a i {
+input[type="checkbox"]:checked ~ nav.admin ul li a i {
 	border-right: 1px solid #2f343e;
 }
 
-input[type="checkbox"]:checked ~ nav ul li a span {
+input[type="checkbox"]:checked ~ nav.admin ul li a span {
 	opacity: 1;
 	transition: opacity 0.25s ease-in-out;
 }
@@ -51,13 +95,13 @@ input[type="checkbox"]:checked ~ main {
 	left: 250px;
 }
 
-nav {
-	position: fixed;
+nav.admin {
+	position: absolute;
 	z-index: 9;
-	top: 0;
+	top: 82px;
 	left: 0;
 	bottom: 0;
-	background: #383e49;
+	background: rgba(0, 0, 0, 0.75);
 	color: #9aa3a8;
 	width: 50px;
 	font-family: 'Montserrat', sans-serif;
@@ -65,7 +109,7 @@ nav {
 	transition: all 0.15s ease-in-out;
 }
 
-nav label[for="menu_state"] i {
+nav.admin label[for="menu_state"] i {
 	cursor: pointer;
 	position: absolute;
 	top: 50%;
@@ -84,17 +128,17 @@ nav label[for="menu_state"] i {
 	z-index: 1;
 }
 
-nav label[for="menu_state"] i::before {
+nav.admin  label[for="menu_state"] i::before {
 	margin-top: 2px;
 	content: "\f054";
 }
 
-nav label[for="menu_state"] i:hover {
+nav.admin label[for="menu_state"] i:hover {
 	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px
 		rgba(0, 0, 0, 0.23);
 }
 
-nav ul {
+nav.admin  ul {
 	overflow: hidden;
 	display: block;
 	width: 50px;
@@ -103,17 +147,17 @@ nav ul {
 	margin: 0;
 }
 
-nav ul li {
+nav.admin ul li {
 	border: 1px solid #2f343e;
 	position: relative;
 }
 
-nav ul li.active a {
+nav.admin ul li.active a {
 	background: #4c515d;
 	color: #fff;
 }
 
-nav ul li a {
+nav.admin ul li a {
 	position: relative;
 	display: block;
 	white-space: nowrap;
@@ -124,27 +168,27 @@ nav ul li a {
 	transition: all 0.15s ease-in-out;
 }
 
-nav ul li a:hover {
+nav.admin ul li a:hover {
 	background: #4c515d;
 	color: #fff;
 }
 
-nav ul li a * {
+nav.admin ul li a * {
 	height: 100%;
 	display: inline-block;
 }
 
-nav ul li a i {
+nav.admin ul li a i {
 	text-align: center;
 	width: 50px;
 	z-index: 999999;
 }
 
-nav ul li a i.fa {
+nav.admin ul li a i.fa {
 	line-height: 50px;
 }
 
-nav ul li a span {
+nav.admin  ul li a span {
 	padding-left: 25px;
 	opacity: 0;
 	line-height: 50px;
@@ -154,7 +198,7 @@ nav ul li a span {
 main {
 	position: absolute;
 	transition: all 0.15s ease-in-out;
-	top: 30;
+	top: 100px;
 	left: 50px;
 	margin-top: 30px;
 	margin-left: 30px;
@@ -162,10 +206,96 @@ main {
 </style>
 </head>
 
+<script src="js/login.js" type="text/javascript"></script>
+
 <body>
 
+	<header id="header" class="alt"
+		style="background-color: rgba(0, 0, 0, 0.75);">
+		<div class="logo">
+			<a href="index.do">SooCut animal hospital <span>by
+					KHfamily</span></a>
+		</div>
+		<a href="#menu" class="toggle" style="float: right"><span>Menu</span></a>
+		<%
+			if (session.getAttribute("id") == null) {
+		%>
+		<input value="Login" class="button alt icon fa-check" type="submit"
+			id="login_process" style="float: right;"> <input name="pass"
+			id="pass" type="password" placeholder="Pass"
+			style="width: 10%; float: right; margin-right: 10px;"> <input
+			name="id" id="id" type="text" placeholder="id"
+			style="width: 10%; float: right; margin-right: 10px;">
+		<%
+			} else {
+		%>
+		${sessionScope.id }님 환영합니다 <a href="logout.do">로그아웃</a>
+		<%
+			}
+		%>
+
+	</header>
+	<script src="js/login.js" type="text/javascript"></script>
+	<header id="header" class="alt">
+		<div class="logo">
+			<a href="index.do">SooCut animal hospital <span>by
+					KHfamily</span></a>
+		</div>
+		<a href="#menu" class="toggle" style="float: right"><span>Menu</span></a>
+		<%
+			if (session.getAttribute("id") == null) {
+		%>
+		<input value="Login" class="button alt icon fa-check" type="submit"
+			id="login_process" style="float: right;"> <input name="pass"
+			id="pass" type="password" placeholder="Pass"
+			style="width: 10%; float: right; margin-right: 10px;"> <input
+			name="id" id="id" type="text" placeholder="id"
+			style="width: 10%; float: right; margin-right: 10px;">
+		<%
+			} else {
+		%>
+		${sessionScope.id }님 환영합니다 <a href="logout.do">로그아웃</a>
+		<%
+			}
+		%>
+
+	</header>
+
+	<!-- Nav -->
+	<nav id="menu">
+		<ul class="links">
+			<li><a href="index.do">Home</a></li>
+			<li><a href="generic.do">Notice</a></li>
+
+			<li><a href="elements.do">Hospital</a></li>
+			<%
+				if (session.getAttribute("id") == null) {
+			%>
+			<li><a href="login.do">Login</a></li>
+			<%
+				} else {
+			%>
+			<li>${sessionScope.id }님환영합니다
+				<ul>
+					<li><a href="#">마이페이지</a></li>
+					<li><a href="logout.do">로그아웃</a></li>
+				</ul>
+			</li>
+			<%
+				}
+			%>
+
+			<li><a href="hosmap.do">Hospital</a></li>
+			<li><a href="login.do">Login</a></li>
+
+			<li><a href="admin.do">admin</a></li>
+
+
+		</ul>
+	</nav>
+
 	<input type="checkbox" id="menu_state" checked>
-	<nav>
+	<nav class="admin">
 		<label for="menu_state"><i class="fa"></i></label>
 		<ul>
 			<li value="1"><a href="adminMember.do"> <i
@@ -189,10 +319,133 @@ main {
 			</a></li>
 		</ul>
 	</nav>
-	<main> <c:if test="${menu == 6}">
-		<form method = "post">
+	<main> <c:if test="${menu == 1}">
+		<form method="post">
+			<input type="text" name="id" id="id" value="" placeholder="ID">
+			<input type="text" name="password" id="password" value=""
+				placeholder="PASSWORD"> <input type="text" name="name"
+				id="name" value="" placeholder="NAME"> <input type="text"
+				name="grade" id="grade" value="" placeholder="GRADE"> <input
+				type="text" name="phonenum" id="phonenum" value=""
+				placeholder="PHONENUM"> <input type="text" name="email"
+				id="email" placeholder="EMAIL"> <a href="#" class="button"
+				onclick="$('form').attr('action', 'adminMemberInsert.do').submit();">Insert</a>
+		</form>
+	</c:if> <c:if test="${menu == 2}">
+		<form method="post">
+			<input type="text" name="petname" id="petname" value=""
+				placeholder="PETNAME"> <input type="text" name="petage"
+				id="petage" value="" placeholder="PETAGE"> <input
+				type="text" name="petsex" id="petsex" value="" placeholder="PETSEX">
+			<input type="text" name="member_id" id="member_id" value=""
+				placeholder="MEMBER_ID"> <input type="text"
+				name="petkind_kind" id="petkind_kind" value=""
+				placeholder="PETKIND_KIND">
+			<textarea type="text" name="petinfo" id="petinfo"
+				placeholder="PETINFO"></textarea>
+			<a href="#" class="button"
+				onclick="$('form').attr('action', 'adminPetInsert.do').submit();">Insert</a>
+		</form>
+	</c:if> <c:if test="${menu == 3}">
+		<form method="post">
+			<table>
+				<thead>
+					<tr>
+						<th>INSERT</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>HOSNAME</td>
+						<td><input type="text" name="hosname" id="hosname" value=""
+							placeholder="HOSNAME"></input></td>
+					</tr>
+					<tr>
+						<td>HOSADDRESS</td>
+						<td><input type="text" name="hosaddress" id="hosaddress"
+							value="" placeholder="HOSADDRESS"></input></td>
+					</tr>
+
+
+
+					<tr>
+						<td>HOSAREA</td>
+						<td><input type="text" name="hosarea" id="hosarea" value=""
+							placeholder="HOSAREA"></input></td>
+					</tr>
+					<tr>
+						<td>LATITUDE</td>
+						<td><input type="text" name="latitude" id="latitude" value=""
+							placeholder="LATITUDE"></input></td>
+					</tr>
+					<tr>
+						<td>LONGITUDE</td>
+						<td><input type="text" name="longitude" id="longitude"
+							value="" placeholder="LONGITUDE"></input></td>
+					</tr>
+
+					<tr>
+						<td>PETKIND</td>
+						<td><input type="text" class="petkind_kind" id="petkind_kind"
+							value="" name="petkind_kind"></input></td>
+						<td><select name="kind" id="kind">
+								<option value="">- PetKind -</option>
+								<c:forEach var="petkind" items="${petkind}" varStatus="status">
+									<option value="${petkind.kind}">${petkind.kind}</option>
+								</c:forEach>
+
+						</select></td>
+						<td><input type="button" class="add" id="add" name="add"
+							value="ADD"></input></td>
+						<td><input type="button" class="del" id="del" name="del"
+							value="del"></input></td>
+
+					</tr>
+				</tbody>
+			</table>
+
+			<a href="#" class="button"
+				onclick="$('form').attr('action', 'adminHospitalInsert.do').submit();">Insert</a>
+		</form>
+	</c:if>
+	<c:if test="${menu == 4}">
+		<form method="post">
+			<table>
+				<thead>
+					<tr>
+						<th>INSERT</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>hospital_hosnum</td>
+						<td><input type="text" name="hospital_hosnum"
+							id="hospital_hosnum" value="" placeholder="hospital_hosnum"></input></td>
+					</tr>
+					<tr>
+						<td>member_id</td>
+						<td><input type="text" name="member_id" id="member_id"
+							value="" placeholder="member_id"></input></td>
+					</tr>
+
+
+
+					<tr>
+						<td>res_date</td>
+						<td><input type="date" name="rdate" id="rdate" value=""
+							placeholder="res_date"></input></td>
+					</tr>
+				</tbody>
+			</table>
+
+			<a href="#" class="button"
+				onclick="$('form').attr('action', 'adminReservationInsert.do').submit();">Insert</a>
+		</form>
+	</c:if> <c:if test="${menu == 6}">
+		<form method="post">
 			<input type="text" name="kind" id="kind" value="" placeholder="kind">
-			<a href="#" class = "button" onclick="$('form').attr('action', 'adminPetKindInsert.do').submit();">Insert</a>
+			<a href="#" class="button"
+				onclick="$('form').attr('action', 'adminPetKindInsert.do').submit();">Insert</a>
 		</form>
 	</c:if> </main>
 </body>

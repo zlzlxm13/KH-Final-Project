@@ -10,5 +10,6 @@ public interface PetService {
 	public void insertProcess(PetDTO dto);
 	public void updateProcess(PetDTO dto);
 	public void deleteProcess(String[] chk);
-	public int contentProcess(PetDTO dto);
+	public int checkProcess(PetDTO dto);
+	public PetDTO contentProcess(PetDTO dto);
 }

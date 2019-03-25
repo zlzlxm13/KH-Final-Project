@@ -6,8 +6,16 @@ import org.mybatis.spring.SqlSessionTemplate;
 
 import dto.PetDTO;
 
-public class PetDAOImp implements PetDAO{
+public class PetDAOImp implements PetDAO {
 	private SqlSessionTemplate sqlSession;
+
+	public SqlSessionTemplate getSqlSession() {
+		return sqlSession;
+	}
+
+	public void setSqlSession(SqlSessionTemplate sqlSession) {
+		this.sqlSession = sqlSession;
+	}
 
 	public PetDAOImp() {
 		super();
@@ -45,17 +53,15 @@ public class PetDAOImp implements PetDAO{
 	}
 
 	@Override
-	public int content(PetDTO dto) {
+	public PetDTO content(PetDTO dto) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("admin.pet_content", dto);
 	}
 
-	public SqlSessionTemplate getSqlSession() {
-		return sqlSession;
+	@Override
+	public int check(PetDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("admin.pet_check", dto);
 	}
 
-	public void setSqlSession(SqlSessionTemplate sqlSession) {
-		this.sqlSession = sqlSession;
-	}
-	
 }

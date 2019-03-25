@@ -53,9 +53,17 @@ public class PetKindDAOImp implements PetKindDAO {
 	}
 
 	@Override
-	public int content(PetKindDTO dto) {
+	public PetKindDTO content(PetKindDTO dto) {
 		// TODO Auto-generated method stub
+		
 		return sqlSession.selectOne("admin.petkind_content", dto);
+		
+	}
+
+	@Override
+	public int check(PetKindDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("admin.petkind_check", dto);
 	}
 
 	

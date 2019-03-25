@@ -6,6 +6,7 @@ import java.util.List;
 import dao.HosmapDAO;
 import dto.HosmapDTO;
 
+
 public class HosServiceImp implements HosService {
 	private HosmapDAO dao;
 	
@@ -31,20 +32,5 @@ public class HosServiceImp implements HosService {
 	public int f_countAllProcess(String data) {
 		return dao.hos_countAll(data);
 	}
-
-	@Override
-	public List<HosmapDTO> listProcess() {
-		// TODO Auto-generated method stub
-		return dao.list();
-	}
-
-	@Override
-	public int countProcess() {
-		// TODO Auto-generated method stub
-		return dao.count();
-	}
-
-
-	
 	
 }//end class

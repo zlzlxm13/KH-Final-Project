@@ -10,5 +10,7 @@ public interface PetDAO {
 	public void insert(PetDTO dto);
 	public void update(PetDTO dto);
 	public void delete(String[] chk);
-	public int content(PetDTO dto);
+	public PetDTO content(PetDTO dto);
+	public int check(PetDTO dto);
+	
 }

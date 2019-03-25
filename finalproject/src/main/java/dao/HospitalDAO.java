@@ -1,12 +1,20 @@
 package dao;
 
-import java.util.List;
 
-import dto.HospitalDTO;
+import java.util.List;
+import dto.HosmapDTO;
+
 
 public interface HospitalDAO {
+
+	public List<HosmapDTO> list();
 	public int count();
-	public HospitalDTO List(int num);
-	public void update(HospitalDTO dto);
-	public void delete(int num);
-}
+
+	
+	public void insert(HosmapDTO dto);
+	public void update(HosmapDTO dto);
+	public void delete(String[] chk);
+	public HosmapDTO content(HosmapDTO dto);
+	public int check(HosmapDTO dto);
+
+}//end interface

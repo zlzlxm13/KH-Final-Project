@@ -1,0 +1,42 @@
+<c:if test="${menu == 4}">
+		<form method="post">
+			<table>
+				<thead>
+					<tr>
+						<th>INSERT</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>hospital_hosnum</td>
+						<td><input type="text" name="hospital_hosnum" id="hospital_hosnum" value=""
+							placeholder="hospital_hosnum"></input></td>
+					</tr>
+					<tr>
+						<td>member_id</td>
+						<td><input type="text" name="member_id" id="member_id"
+							value="" placeholder="member_id"></input></td>
+					</tr>
+
+
+
+					<tr>
+						<td>res_date</td>
+						<td><input type="text" name="res_date" id="res_date" value=""
+							placeholder="res_date"></input></td>
+					</tr>
+				
+					<tr>
+						<td><input type="button" class="add" id="add" name="add"
+							value="ADD"></input></td>
+						<td><input type="button" class="del" id="del" name="del"
+							value="del"></input></td>
+
+					</tr>
+				</tbody>
+			</table>
+
+			<a href="#" class="button"
+				onclick="$('form').attr('action', 'adminReservationInsert.do').submit();">Insert</a>
+		</form>
+	</c:if>

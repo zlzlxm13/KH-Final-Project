@@ -16,6 +16,16 @@
 
 <link rel="stylesheet"
 	href="http://netdna.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+<head>
+<title>SooCut animal hospital</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="css/main.css" />
+</head>
 </head>
 <script src="js/jquery.min.js"></script>
 <script src="js/jquery.scrolly.min.js"></script>
@@ -27,7 +37,6 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	$("li[value="+${menu}+"]").addClass('active');
-
 	$('input.dbbox').on('click', function(){
 		if ($(this).is(":checked")){
 			$(this).attr('name', 'chk');
@@ -296,7 +305,7 @@ main {
 					<span>Pet</span>
 			</a></li>
 			<li>
-			<li value="3"><a href="adminHosmap.do"> <i
+			<li value="3"><a href="adminHospital.do"> <i
 					class="fa fa-hospital-o"></i> <span>Hospital</span>
 			</a></li>
 			<li value="4"><a href="adminReservation.do"> <i
@@ -310,7 +319,50 @@ main {
 			</a></li>
 		</ul>
 	</nav>
-	<main> <c:if test="${menu == 2}">
+	<main> <c:if test="${menu == 1}">
+		<a href="#"
+			onclick="$('#frm').attr('action', 'adminInsert.do').submit();"
+			class="button">Insert</a>
+		<a href="#"
+			onclick="$('#frm').attr('action', 'adminMemberDelete.do').submit();"
+			class="button">delete</a>
+		<p></p>
+		<form id="frm" method="post">
+			<table>
+				<tr>
+					<td>No.</td>
+					<td>id</td>
+					<td>password</td>
+					<td>name</td>
+					<td>grade</td>
+					<td>phonenum</td>
+					<td>email</td>
+					<td><input type="checkbox" id="checkall" value="checkall"></input>
+						<label for="checkall"></label></td>
+				</tr>
+
+				<c:forEach var="dto" items="${list}" varStatus="status">
+					<tr>
+						<td><a href="#"
+							onclick='location.href="adminMemberContent.do?menu=${menu}&id=${dto.id}";'>${status.count}</a></td>
+						<td>${dto.id}</td>
+						<td>${dto.password}</td>
+						<td>${dto.name}</td>
+						<td>${dto.grade}</td>
+						<td>${dto.phonenum}</td>
+						<td>${dto.email}</td>
+						<td><input type="checkbox" class="dbbox" id=${dto.id }
+							value=${dto.id} ></input> <label for=${dto.id}></label></td>
+						<input type="hidden" name="id" value=${dto.id }></input>
+					</tr>
+				</c:forEach>
+				<input type="hidden" name="menu" value=${menu } />
+
+
+
+			</table>
+		</form>
+	</c:if> <c:if test="${menu == 2}">
 		<a href="#"
 			onclick="$('#frm').attr('action', 'adminInsert.do').submit();"
 			class="button">Insert</a>
@@ -326,8 +378,8 @@ main {
 					<td>PETAGE</td>
 					<td>PETSEX</td>
 					<td>MEMBER_ID</td>
-					<td>PETINFO</td>
 					<td>PETKIND_KIND</td>
+					<td>PETINFO</td>
 					<td><input type="checkbox" id="checkall" value="checkall"></input>
 						<label for="checkall"></label></td>
 				</tr>
@@ -335,17 +387,97 @@ main {
 				<c:forEach var="dto" items="${list}" varStatus="status">
 					<tr>
 						<td><a href="#"
-							onclick='location.href="adminPetUpdate.do?menu=${menu}&petname=${dto.petname}&member_id=${member_id} }";'>${status.count}</a></td>
+							onclick='location.href="adminPetContent.do?menu=${menu}&petnum=${dto.petnum}";'>${status.count}</a></td>
 						<td>${dto.petname}</td>
 						<td>${dto.petage}</td>
 						<td>${dto.petsex}</td>
 						<td>${dto.member_id}</td>
-						<td>${dto.petinfo}</td>
 						<td>${dto.petkind_kind}</td>
+						<td>${dto.petinfo}</td>
 						<td><input type="checkbox" class="dbbox" id=${dto.petname }
-							value=${dto.petname} ></input> <label for=${dto.petname}  }></label></td>
-						<input type="hidden" name="petname" value=${dto.petname }></input>
-						<input type="hidden" name="member_id" value=${dto.member_id }></input>
+							value=${dto.petnum} ></input> <label for=${dto.petname}></label></td>
+						<input type="hidden" name="petnum" value=${dto.petnum }></input>
+					</tr>
+				</c:forEach>
+				<input type="hidden" name="menu" value=${menu } />
+
+
+
+			</table>
+		</form>
+	</c:if> <c:if test="${menu == 3}">
+		<a href="#"
+			onclick="$('#frm').attr('action', 'adminInsert.do').submit();"
+			class="button">Insert</a>
+		<a href="#"
+			onclick="$('#frm').attr('action', 'adminHospitalDelete.do').submit();"
+			class="button">delete</a>
+		<p></p>
+		<form id="frm" method="post">
+			<table>
+				<tr>
+					<TD>No.</TD>
+					<TD>HOSNAME</TD>
+					<TD>HOSADDRESS</TD>
+					<TD>HOSAREA</TD>
+					<TD>LATITUDE</TD>
+					<TD>LONGITUDE</TD>
+					<td><input type="checkbox" id="checkall" value="checkall"></input>
+						<label for="checkall"></label></td>
+				</tr>
+
+				<c:forEach var="dto" items="${list}" varStatus="status">
+					<tr>
+						<td><a href="#"
+							onclick='location.href="adminHospitalContent.do?menu=${menu}&hosnum=${dto.hosnum}";'>${status.count}</a></td>
+						<td>${dto.hosname}</td>
+						<td>${dto.hosaddress}</td>
+						<td>${dto.hosarea}</td>
+						<td>${dto.latitude}</td>
+						<td>${dto.longitude}</td>
+						<td><input type="checkbox" class="dbbox" id=${dto.hosnum }
+							value=${dto.hosnum} ></input> <label for=${dto.hosnum}></label></td>
+						<input type="hidden" name="hosnum" value=${dto.hosnum }></input>
+					</tr>
+				</c:forEach>
+				<input type="hidden" name="menu" value=${menu } />
+
+
+
+			</table>
+		</form>
+	</c:if> <c:if test="${menu == 4}">
+		<a href="#"
+			onclick="$('#frm').attr('action', 'adminInsert.do').submit();"
+			class="button">Insert</a>
+		<a href="#"
+			onclick="$('#frm').attr('action', 'adminReservationDelete.do').submit();"
+			class="button">delete</a>
+		<p></p>
+		<form id="frm" method="post">
+			<table>
+				<tr>
+					<TD>NO.</TD>
+					<TD>MEMBER_ID</TD>
+					<TD>RES_DATE</TD>
+					<TD>HOSPITAL_HOSNUM</TD>
+			
+					<td><input type="checkbox" id="checkall" value="checkall"></input>
+						<label for="checkall"></label></td>
+				</tr>
+
+				<c:forEach var="dto" items="${list}" varStatus="status">
+					<tr>
+						<td><a href="#"
+							onclick='location.href="adminReservationContent.do?menu=${menu}&res_num=${dto.res_num}";'>${status.count}</a></td>
+						<td>${dto.member_id}</td>
+						<td>${dto.res_date}</td>
+						<td>${dto.hospital_hosnum}</td>
+						<td><input type="checkbox" class="dbbox"
+							id=${dto.res_num } value=${dto.res_num} ></input>
+							<label for=${dto.res_num}></label></td>
+						<input type="hidden" name="res_num"
+							value=${dto.res_num }></input>
 					</tr>
 				</c:forEach>
 				<input type="hidden" name="menu" value=${menu } />
@@ -389,50 +521,6 @@ main {
 
 			</table>
 		</form>
-	</c:if> <c:if test="${menu == 3}">
-		<a href="#"
-			onclick="$('#frm').attr('action', 'adminInsert.do').submit();"
-			class="button">Insert</a>
-		<a href="#"
-			onclick="$('#frm').attr('action', 'adminHosmapDelete.do').submit();"
-			class="button">delete</a>
-		<p></p>
-		<form id="frm" method="post">
-			<table>
-				<tr>
-					<td>hosnum</td>
-					<td>hosname</td>
-					<td>petkind_kind</td>
-					<td>hosaddress</td>
-					<td>hosarea</td>
-					<td>latitude</td>
-					<td>longitude</td>
-					<td><input type="checkbox" id="checkall" value="checkall"></input>
-						<label for="checkall"></label></td>
-				</tr>
-
-				<c:forEach var="dto" items="${list}" varStatus="status">
-					<tr>
-						<td><a href="#"
-							onclick='location.href="adminPetUpdate.do?menu=${menu}&hosnum=${dto.hosnum}&hosaddress=${hosaddress} }";'>${dto.hosnum}</a></td>
-
-						<td>${dto.hosname}</td>
-						<td>${dto.petkind_kind}</td>
-						<td>${dto.hosaddress}</td>
-						<td>${dto.hosarea}</td>
-						<td>${dto.latitude}</td>
-						<td>${dto.longitude}</td>
-						<td><input type="checkbox" class="dbbox" id=${dto.hosnum }
-							value=${dto.hosnum} ></input> <label for=${dto.hosnum}  }></label></td>
-						<input type="hidden" name="hosnum" value=${dto.hosnum }></input>
-					</tr>
-				</c:forEach>
-				<input type="hidden" name="menu" value=${menu } />
-
-
-
-			</table>
-		</form>
-	</c:if> </main>
+	</c:if></main>
 </body>
 </html>
