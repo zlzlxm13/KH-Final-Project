@@ -6,7 +6,6 @@
     <meta charset="utf-8">
     <title>병원찾기</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
 <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=a328a3aa73a3d31430a2aa26a4ea5fe5"></script>    
     
 <link rel="stylesheet" href="css/hosmap.css" />
@@ -118,6 +117,7 @@
 <script src="js/skel.min.js"></script>
 <script src="js/util.js"></script>
 <script src="js/main.js"></script>
+
 
 </body>
 </html>

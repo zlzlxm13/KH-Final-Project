@@ -1,0 +1,36 @@
+<select id="reservation_count" resultType="int">
+		select count(*) from reservation
+	</select>
+	<select id="reservation_list" resultType="dto.reservationDTO">
+		select * from reservation order by grade
+	</select>
+	<select id="reservation_insert" parameterType="dto.reservationDTO">
+		insert into reservation
+		values(#{id}, #{password}, #{name}, #{grade}, #{phonenum},
+		#{email})
+	</select>
+	<delete id="reservation_delete" parameterType="map">
+
+		delete from reservation where id in
+		<foreach collection="array" item="item" index="index" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+	
+	<update id="reservation_update" parameterType="dto.reservationDTO">
+		update reservation set
+		password = #{password}, name = #{name}, grade = #{grade}, phonenum = #{phonenum}, email = #{email}
+		where id = #{id}
+	</update>
+
+	<select id="reservation_content" parameterType="dto.reservationDTO"
+		resultType="dto.reservationDTO">
+		select * from reservation where id = #{id}
+
+	</select>
+
+	<select id="reservation_check" parameterType="dto.reservationDTO"
+		resultType="int">
+		select count(*) from reservation where id = #{id}
+	</select>

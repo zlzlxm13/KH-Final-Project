@@ -3,8 +3,6 @@ package dto;
 public class HosmapDTO {
 	private int hosnum;
 	private String hosname;
-	private String petkind_kind;
-
 	private String hosaddress;
 	private String hosarea;
 	private String latitude;
@@ -30,14 +28,6 @@ public class HosmapDTO {
 		this.hosname = hosname;
 	}
 
-	public String getPetkind_kind() {
-		return petkind_kind;
-	}
-
-	public void setPetkind_kind(String petkind_kind) {
-		this.petkind_kind = petkind_kind;
-	}
-	
 	public String getHosaddress() {
 		return hosaddress;
 	}

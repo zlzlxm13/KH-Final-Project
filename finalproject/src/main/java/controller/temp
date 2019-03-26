@@ -1,0 +1,47 @@
+@RequestMapping("/adminMemberInsert.do")
+	public ModelAndView adminMemberInsertProcess(MemberDTO dto) {
+		ModelAndView mav = new ModelAndView();
+		System.out.println(dto.getMembername());
+		mav.addObject("menu", "1");
+
+		if (!dto.equals(null) || mservice.checkProcess(dto) == 0) {
+			mservice.insertProcess(dto);
+		}
+		mav.addObject("count", mservice.countProcess());
+		mav.addObject("list", mservice.listProcess());
+		mav.setViewName("admin");
+		return mav;
+	}
+
+	@RequestMapping("/adminMemberDelete.do")
+	public ModelAndView adminMemberDeleteProcess(String menu, String[] chk) {
+		ModelAndView mav = new ModelAndView();
+		System.out.println(chk[0]);
+		mservice.deleteProcess(chk);
+		mav.addObject("menu", menu);
+		mav.addObject("count", mservice.countProcess());
+		mav.addObject("list", mservice.listProcess());
+		mav.setViewName("admin");
+		return mav;
+	}
+
+	@RequestMapping("/adminMemberContent.do")
+	public ModelAndView adminUpdateProcess(String menu, MemberDTO dto) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("dto", mservice.contentProcess(dto));
+		mav.addObject("menu", menu);
+		mav.setViewName("update");
+		return mav;
+	}
+
+	@RequestMapping("/adminMemberUpdate.do")
+	public ModelAndView adminMemberUpdateProcess(String menu, MemberDTO dto) {
+		ModelAndView mav = new ModelAndView();
+		mservice.updateProcess(dto);
+		mav.addObject("menu", menu);
+		mav.addObject("count", mservice.countProcess());
+		mav.addObject("list", mservice.listProcess());
+		mav.setViewName("admin");
+		return mav;
+
+	}
