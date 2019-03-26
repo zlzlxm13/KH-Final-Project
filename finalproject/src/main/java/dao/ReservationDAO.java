@@ -5,7 +5,6 @@ import java.util.List;
 import dto.ReservationDTO;
 
 
-
 public interface ReservationDAO {
 	
 	public void save(ReservationDTO dto);
@@ -23,6 +22,6 @@ public interface ReservationDAO {
 	public ReservationDTO content(ReservationDTO dto);
 	public int check(ReservationDTO dto);
 	
-	
+
 	
 }//end interface

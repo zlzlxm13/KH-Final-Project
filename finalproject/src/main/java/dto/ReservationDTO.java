@@ -1,5 +1,6 @@
 package dto;
 
+
 import java.util.Date;
 
 public class ReservationDTO {
@@ -31,6 +32,7 @@ public class ReservationDTO {
 	}
 
 	public java.util.Date getRes_date() {
+
 		return res_date;
 	}
 

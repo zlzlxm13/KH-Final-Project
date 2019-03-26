@@ -6,6 +6,7 @@
 <mapper namespace="reservation">
 	
 	<insert id="save" parameterType="dto.ReservationDTO">
+
 	    insert into reservation
 	    values(res_seq.nextval, #{res_date}, #{hospital_hosnum,jdbcType=INTEGER}, #{member_id,jdbcType=VARCHAR})
 	</insert>

@@ -20,6 +20,7 @@
 			<header id="header" class="alt">
 				<div class="logo"><a href="index.do">SooCut animal hospital <span>by KHfamily</span></a></div>
 
+
 						<a href="#menu" class="toggle" style="float:right"><span>Menu</span></a>
 		<%if(session.getAttribute("id") == null){ %>
 						<a href="signup.do" class="button alt icon" style="width: 5%;float: right;color:white !important;">Sign up</a>						
@@ -29,7 +30,6 @@
 				<%} else {%>
 				${sessionScope.id }님 환영합니다
 			<a href="logout.do">로그아웃</a><%} %>
-		
 
 			</header>
 
@@ -52,13 +52,9 @@
 								</ul>
 							</li>			
 							<%} %>
-
 					<li><a href="admin.do">admin</a></li>
 					<li><a href="main.do">Reservation</a></li>
-
-
-					
-				</ul>
+					</ul>
 			</nav>
 
 		<!-- Banner -->
@@ -105,29 +101,29 @@
 					<div id="flexgrid">
 						<div>
 							<header>
-								<h3>바꾸세요</h3>
+								<h3>자유게시판</h3>
 							</header>
-							<p>바꾸세요 내용 바꾸세요 내용 바꾸세요 내용 바꾸세요 내용 바꾸세요 내용 바꾸세요 내용 바꾸세요 내용 바꾸세요 내용 바꾸세요 내용 바꾸세요 내용 바꾸세요 내용 </p>
+							<p>boardkind_canum=1</p>
 							<ul class="actions">
-								<li><a href="#" class="button alt">더보기</a></li>
+								<li><a href="board/list.do?boardkind_canum=1" class="button alt">더보기</a></li>
 							</ul>
 						</div>
 						<div>
 							<header>
-								<h3>바꾸세요</h3>
+								<h3>상담게시판</h3>
 							</header>
-							<p>바꾸세요 내용 바꾸세요 내용 바꾸세요 내용 바꾸세요 내용 바꾸세요 내용 바꾸세요 내용 바꾸세요 내용 바꾸세요 내용 바꾸세요 내용 바꾸세요 내용 바꾸세요 내용 </p>
+							<p>boardkind_canum=2 </p>
 							<ul class="actions">
-								<li><a href="#" class="button alt">더보기</a></li>
+								<li><a href="board/list.do?boardkind_canum=2" class="button alt">더보기</a></li>
 							</ul>
 						</div>
 						<div>
 							<header>
-								<h3>바꾸세요</h3>
+								<h3>공지사항</h3>
 							</header>
-							<p>바꾸세요 내용 바꾸세요 내용 바꾸세요 내용 바꾸세요 내용 바꾸세요 내용 바꾸세요 내용 바꾸세요 내용 바꾸세요 내용 바꾸세요 내용 바꾸세요 내용 바꾸세요 내용</p>
+							<p>boardkind_canum=3</p>
 							<ul class="actions">
-								<li><a href="#" class="button alt">더보기</a></li>
+								<li><a href="board/list.do?boardkind_canum=3" class="button alt">더보기</a></li>
 							</ul>
 						</div>
 					</div>

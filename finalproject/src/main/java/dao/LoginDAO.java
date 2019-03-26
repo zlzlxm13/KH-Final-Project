@@ -14,7 +14,6 @@ public interface LoginDAO {
 
 public int IdChk(String id);
 
-
 public String idsearch(MemDTO dto);
 
 public String passsearch(MemDTO dto);

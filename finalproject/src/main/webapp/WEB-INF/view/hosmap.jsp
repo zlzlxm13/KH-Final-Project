@@ -52,6 +52,7 @@
 		
 <body>
 <!-- Header -->
+
 			<script src="js/login.js" type="text/javascript"></script>
 	<header id="header">
 			<div class="logo"><a href="index.do">SooCut animal hospital <span>by KHfamily</span></a></div>
@@ -92,6 +93,7 @@
 			</nav>
 
 			
+
 <div class="map_wrap">
     <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
 
@@ -117,7 +119,6 @@
 <script src="js/skel.min.js"></script>
 <script src="js/util.js"></script>
 <script src="js/main.js"></script>
-
 
 </body>
 </html>

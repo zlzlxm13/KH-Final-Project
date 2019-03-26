@@ -16,5 +16,5 @@ public interface ReservationService {
 	public void deleteProcess(String[] chk);
 	public int checkProcess(ReservationDTO dto);
 	public ReservationDTO contentProcess(ReservationDTO dto);
-	
+
 }//end interface

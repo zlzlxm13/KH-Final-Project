@@ -170,7 +170,6 @@ function displayPlaces(search) {
 
 			itemEl.onclick = function() {
 
-
 						displayInfowindow(marker, title, searchs);
 			};
 
@@ -200,7 +199,9 @@ function displayPlaces(search) {
 
 function javascript(){
     //현재창에서 다른페이지로 이동합니다.
+
     window.location.href="http://localhost:8090/pet/reservation.do";
+
 }
 
 // 검색결과 항목을 Element로 반환하는 함수입니다
@@ -299,8 +300,6 @@ function displayInfowindow(marker, title, searchs) {
 	
 	var content = '<div class ="f_main"><div id="f_image">' + searchs.hosname + '</div>'
 			+ '<div class="f_header">' + searchs.petkind_kind
-
-
 			+ '</div>' + '<div id="f_number">'
 			+ searchs.hosaddress + '</div></div>'; 
 

@@ -1,6 +1,7 @@
 package dao;
 
 
+
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,7 +28,9 @@ public void setSession(SqlSessionTemplate session) {
  private static final String NameSpace="login.";
  
 	@Override
+
 	public int signUpMethod(MemDTO dto){
+
 		 //위에 선언된 Id_Check(m)의 결과값을 Id_Check_Result에 담는다.
         int Id_Check_Result = IdChk(dto.getId());
         //Id_Check_Result값이 0이 아니라면 Id_Check_Result값을 반환
@@ -59,6 +62,7 @@ public void setSession(SqlSessionTemplate session) {
 	public int IdChk(String id) {		
 		System.out.println("daoID:"+id);
 		return session.selectOne("login.Idchk",id);
+
 	
 	}
 	@Override
@@ -81,8 +85,5 @@ public void setSession(SqlSessionTemplate session) {
 	
 		return session.selectOne("login.signlogin",dto);
 	}
-
-
-	
 
 }

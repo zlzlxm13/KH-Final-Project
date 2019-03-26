@@ -1,3 +1,4 @@
+    
 package controller;
 
 
@@ -33,6 +34,7 @@ public class IndexController {
 	private LoginDAO l_dao;
 
 
+
 	private LoginService lservice;	
 	//private JavaMailSender mailSender;
 	@Autowired 
@@ -66,6 +68,8 @@ public JavaMailSenderImpl getMailSender() {
 
 	}
 
+
+
 	@RequestMapping("/generic.do")
 	public String process1() {
 		return "generic";
@@ -76,10 +80,8 @@ public JavaMailSenderImpl getMailSender() {
 		return "elements";
 	}
 
-
-
 	@RequestMapping("/index.do")
-	public String index() {
+	public String index() {		
 		return "index";
 	}
 
@@ -89,12 +91,12 @@ public JavaMailSenderImpl getMailSender() {
 		return "login";
 	}
 
-
 	@RequestMapping(value = "/login.do", method = RequestMethod.POST)
 	// login이라는 메소드명을 가지고 매개변수는 member m, Httpsession session
 	public @ResponseBody int login(MemDTO dto, HttpSession session) {
 		// m_dao.Login(m, session)을 호출하고 반환한다.
 		int lchk = lservice.loginprocess(dto, session);
+
 		
 		if (lchk == 1) {
 			MemDTO mdto = lservice.signloginprocess(dto);
@@ -109,6 +111,8 @@ public JavaMailSenderImpl getMailSender() {
 			// session.setAttribute("dto",dto);
 		}
 		// if()
+
+
 
 		return lchk;
 	}
@@ -128,9 +132,11 @@ public JavaMailSenderImpl getMailSender() {
 		int echk = lservice.emailChkprocess(email);
 		System.out.println("emailchk:" + echk);
 		return echk;
+
 	}
 
 	@RequestMapping("/logout.do")
+
 	public String logoutProcess(MemDTO dto, HttpSession session) {
 
 		session.removeAttribute("id");
@@ -140,21 +146,30 @@ public JavaMailSenderImpl getMailSender() {
 		session.removeAttribute("grade");
 		session.removeAttribute("phonenum");
 		// session.removeAttribute("dto");
+
 		return "redirect:/index.do";
 	}
 
-	@RequestMapping(value = "/signup.do", method = RequestMethod.GET)
+	@RequestMapping(value="/signup.do", method=RequestMethod.GET)
 	public void signupprocess() {
-
+		
 	}
+	   @RequestMapping(value="/signup.do", method=RequestMethod.POST)
+       public String signupPOST(MemDTO dto) {
 
-	@RequestMapping(value = "/signup.do", method = RequestMethod.POST)
-	public String signupPOST(MemDTO dto) {
+           lservice.insertMember(dto);
+           
+           return "index";
+       }
+	   @RequestMapping("/admin.do")
+		public ModelAndView adminProcess() {
 
-		lservice.insertMember(dto);
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("admin");
+			return mav;
 
-		return "index";
-	}
+		}
+
 
 	@RequestMapping(value = "/memsearch.do", method = RequestMethod.GET)
 	public String memsearchProcess() {
@@ -246,6 +261,5 @@ public JavaMailSenderImpl getMailSender() {
 		return mav;
 
 	}
-
 
 }
