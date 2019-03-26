@@ -10,8 +10,13 @@
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />  
 <script src="https://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
 <script src="//code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
-<link rel="stylesheet" href="css/hosmap.css" />
+<script src="js/jquery-ui-timepicker-addon.js"></script>
+<link rel="stylesheet" type="text/css" href="css/datedropper.css"> 
 <style>
+
+#frm{
+  margin-top:100px;
+}
 #menu_wrap {position:absolute;top:0;left:0;bottom:0;width:250px;margin:10px 0 30px 10px;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 0.7);z-index: 1;font-size:12px;border-radius: 10px;}
 .bg_white {background:#fff;}
 #menu_wrap hr {display: block; height: 1px;border: 0; border-top: 2px solid #5F5F5F;margin:3px 0;}
@@ -46,30 +51,32 @@
 #pagination a {display:inline-block;margin-right:10px;}
 #pagination .on {font-weight: bold; cursor: default;color:#777;}
 #res {
-  width: 610px;
-  height: 800px;
-  padding: 40px;
-  margin: 0 auto;	
+  width: 550px;
+  height: 400px;
+  padding: 100px 40px;
+  margin: 0 20px 0 400px;	
   border: 1px solid #eee;
   border-top-width: 2px;
   }
   
   
 #res_num {font-size:20px;height:40px;line-height:40px; margin: 0 0 20px; }
-#date {font-size:20px;height:40px;line-height:40px; margin: 0 0 20px;}
+#datepi {font-size:20px;height:40px;line-height:40px; margin: 0 0 20px;}
 #hospital_hosnum {font-size:20px;height:40px;line-height:40px; margin: 0 0 20px;}
 #mem_id {font-size:20px;height:40px;line-height:40px; margin: 0 0 20px;}
 
 
-/* .ui-datepicker-week-end {color:red;}
+ .ui-datepicker-week-end {color:red;}
 .ui-datepicker-week-end .ui-state-default {color:red;} 
- */
+ 
 
 
 </style>
 
 <script type="text/javascript">
  $(document).ready(function () {
+
+	 		
 	 jQuery.browser = {};
 	 (function () {
 	     jQuery.browser.msie = false;
@@ -81,7 +88,7 @@
 	 })();
   	$(function(){
 
-		    $("#datepi").datepicker({  
+		    $("#datepi").datetimepicker({  
 		    	dateFormat: 'yy-mm-dd' //Input Display Format 변경
                 ,showOtherMonths: true //빈 공간에 현재월의 앞뒤월의 날짜를 표시
                 ,showMonthAfterYear:true //년도 먼저 나오고, 뒤에 월 표시
@@ -92,15 +99,23 @@
                 ,dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'] //달력의 요일 부분 Tooltip 텍스트
                 ,minDate: "today" //최소 선택일자(-1D:하루전, -1M:한달전, -1Y:일년전)
                 ,maxDate: "+1M" //최대 선택일자(+1D:하루후, -1M:한달후, -1Y:일년후)    
-		    	,beforeShowDay: noSundays 
+		    	,beforeShowDay: noSundays,
+		    	
+		        timeFormat:'HH:mm',
+		        controlType:'select',
+		        oneLine:true,
+
 		    });
-		    $('#datepicker').datepicker('setDate', 'today');
+		    $('#datepicker').datetimepicker('setDate', 'today');
 		    
 		    function noSundays(date) {
 		      return [date.getDay() != 0, ''];
 		    }
   		});
+  	
  });
+ 
+ 
 </script>
 
 </head>
@@ -145,61 +160,52 @@
 				</ul>
 			</nav>
 
+<h2 class="align-center">Reservation</h2>
+ <hr />
+
+
 <form method="post" action="reservation.do">
 
+<div id="res" style="float:left;">
 
-
-<div id="res">
 <table>
 <tr>
-<!-- <td width="20%" align="center"> 예약 번호  :</td>
-<td> <input type="text" id = "res_num" name="res_num"/> </td>
-</tr> -->
-
-<tr>
-<td width="30%" align="center"> 예약 날짜</td>
-<td> <input type="text" id = "datepi" name="res_date" readonly /></td>
+<td width="20%" align="center"> 품종  :</td>
+<td> <input type="text" id = "pet_pet" name="petpet" placeholder="품종을 입력하세요." required/> </td>
 </tr>
 
 <tr>
-<td width="20%" align="center"> 병원 번호</td>
-<td> <input type="text" id = "hospital_hosnum" name="hospital_hosnum" value="${HosmapDTO.hosnum}" /> </td>
+<td width="30%" align="center"> 예약 날짜  :</td>
+<td> <input type="text" id = "datepi" name="red" required ></td>
 </tr>
 
 <tr>
-<td width="20%" align="center"> 고객 ID</td>
-<td><input type="text" id = "mem_id" name="member_id" readonly value="${sessionScope.id }" /></td>
+<td width="20%" align="center"> 병원 이름  :</td>
+<td> <input type="text" id = "hos_num"  value=<%=request.getParameter("hosname")%> readonly/></td>
+</tr>
+
+<input type="hidden" id = "hos_num"  name="hospital_hosnum" value=<%=request.getParameter("hos_num")%> readonly />
+
+
+<tr>
+<td width="20%" align="center"> 고객 ID  :</td>
+<td><input type="text" id = "mem_id" name="member_id" readonly value="${sessionScope.id }"/></td>
 </tr>
 </table>
-<input type="submit" id="btnSave" value="저장" />
+
+<input value="예약하기" class="button alt icon fa-check"
+	   type="submit" id="btnSave" style="color: black;" />
+	    
+<input value="취소하기" class="button alt icon fa-check"
+	   type="button" onclick="location.href='index.do'" style="color: black;" />	   
+	  
 </div>
 </form>
-	<!-- Four -->
-	<section id="four" class="wrapper style3">
-		<div class="inner">
 
-			<header class="align-center">
-				<h2>Morbi interdum mollis sapien</h2>
-				<p>Cras aliquet urna ut sapien tincidunt, quis malesuada elit
-					facilisis. Vestibulum sit amet tortor velit. Nam elementum nibh a
-					libero pharetra elementum. Maecenas feugiat ex purus, quis volutpat
-					lacus placerat malesuada. Praesent in sem ex. Morbi mattis sapien
-					pretium tellus venenatis, at egestas urna ornare.</p>
-			</header>
+<div class="6u 12u$(medium)" style="float:left;">
+	<img src="images/monkey.jpg" />
+</div>
 
-		</div>
-	</section>
-
-	<!-- Footer -->
-	<footer id="footer" class="wrapper">
-		<div class="inner">
-			<div class="copyright">
-				&copy; Untitled Design: <a href="https://templated.co/">TEMPLATED</a>.
-				Images <a href="https://unsplash.com/">Unsplash</a> Video <a
-					href="http://coverr.co/">Coverr</a>.
-			</div>
-		</div>
-	</footer>
 
 	<!-- Scripts -->
 	<script src="js/jquery.scrolly.min.js"></script>

@@ -1,6 +1,8 @@
 package controller;
 
 import java.sql.Date;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
@@ -18,15 +20,16 @@ import org.springframework.web.servlet.ModelAndView;
 
 import dao.ReservationDAO;
 import dto.ReservationDTO;
-//http://localhost:8090/pet/main.do
 import service.ReservationService;
 
 @Controller
 
 //http://localhost:8090/pet/main.do
+//http://localhost:8090/pet/reservationok.do
 public class Reservationcontroller {
 	
 	private ReservationService rservice;
+	
 	
 	public Reservationcontroller() {
 		
@@ -37,6 +40,7 @@ public class Reservationcontroller {
 		this.rservice = rservice;
 	}
 
+    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm");
 
 	@RequestMapping("/main.do")
 	public ModelAndView listMethod() {
@@ -50,23 +54,36 @@ public class Reservationcontroller {
 	@RequestMapping(value = "/reservation.do", method = RequestMethod.GET)
 	public ModelAndView reservation() {
 		ModelAndView mav = new ModelAndView();
-		
-		
 		mav.setViewName("reservation");
 		return mav;
 	
 	}
 	
 	@RequestMapping(value="/reservation.do", method = RequestMethod.POST)
-	public String reservationpro(ReservationDTO dto ) {	
+	public String reservationpro(ReservationDTO dto, String red ) {	
 		
-		
-		System.out.println("예약 날짜 : " + dto.getRes_date());
+		/* System.out.println("예약 날짜 : " + dto.getRes_date()); */
 		System.out.println("병원 번호 : " + dto.getHospital_hosnum());
 		System.out.println("아이디 : " + dto.getMember_id());
-		rservice.saveProcess(dto);
+		
+		try {
+			System.out.println("예약 날짜 : " + dateFormat.parse(red));
+			dto.setRes_date(dateFormat.parse(red));
 
-		return "redirect:main.do";
+			rservice.saveProcess(dto);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return "redirect:reservationok.do";
+	}
+	
+
+	@RequestMapping("/reservationok.do")
+	public ModelAndView reservationokMethod() {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("reservationok");
+		return mav;
+		
 	}
 	
 	@RequestMapping("/search.do")

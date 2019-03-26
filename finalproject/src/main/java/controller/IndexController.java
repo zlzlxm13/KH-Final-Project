@@ -20,7 +20,6 @@ import mail.TempKey;
 import service.LoginService;
 
 //http://localhost:8090/pet/index.do
-//
 @Controller
 public class IndexController {
 

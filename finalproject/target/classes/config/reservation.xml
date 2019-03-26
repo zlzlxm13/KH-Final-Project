@@ -7,7 +7,7 @@
 	
 	<insert id="save" parameterType="dto.ReservationDTO">
 	    insert into reservation
-	    values(res_seq.nextval, #{res_date}, #{hospital_hosnum,jdbcType=INTEGER}, #{member_id,jdbcType=VARCHAR})
+	    values(res_seq.nextval, #{res_date}, #{hospital_hosnum,jdbcType=INTEGER}, #{member_id,jdbcType=VARCHAR}, #{petpet})
 	</insert>
 	
 	<select id="r_list" resultType="dto.ReservationDTO">
@@ -18,7 +18,7 @@
 	</select>
 	
  	<select id="r_search" parameterType="String" resultType="dto.ReservationDTO">
-		select res_num, res_date, hospital_hosnum, member_id
+		select res_num, res_date, hospital_hosnum, member_id, petpet
 		from reservation
 		where member_id=#{member_id}
 	</select> 

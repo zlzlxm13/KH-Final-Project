@@ -1,6 +1,6 @@
 package dto;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class ReservationDTO {
 
@@ -8,6 +8,7 @@ public class ReservationDTO {
 	private Date res_date;
 	private int hospital_hosnum;
 	private String member_id;
+	private String petpet;
 	
 	public ReservationDTO() {
 		
@@ -43,6 +44,14 @@ public class ReservationDTO {
 
 	public void setMember_id(String member_id) {
 		this.member_id = member_id;
+	}
+
+	public String getPetpet() {
+		return petpet;
+	}
+
+	public void setPetpet(String petpet) {
+		this.petpet = petpet;
 	}
 
 	

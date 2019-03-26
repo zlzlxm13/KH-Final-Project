@@ -1,15 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>​
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=a328a3aa73a3d31430a2aa26a4ea5fe5"></script>    
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />  
+<script src="https://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
+<script src="//code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 <link rel="stylesheet" href="css/hosmap.css" />
 <style>
-
 #menu_wrap {position:absolute;top:0;left:0;bottom:0;width:250px;margin:10px 0 30px 10px;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 0.7);z-index: 1;font-size:12px;border-radius: 10px;}
 .bg_white {background:#fff;}
 #menu_wrap hr {display: block; height: 1px;border: 0; border-top: 2px solid #5F5F5F;margin:3px 0;}
@@ -44,104 +46,51 @@
 #pagination a {display:inline-block;margin-right:10px;}
 #pagination .on {font-weight: bold; cursor: default;color:#777;}
 
-#search {
-  width: 1000px;
-  height: 800px;
-  padding: 40px;
-  margin: 0 auto;	
-  border: 1px solid #eee;
-  border-top-width: 2px;
-  }
+ .ui-datepicker-week-end {color:red;}
+.ui-datepicker-week-end .ui-state-default {color:red;} 
+ 
+#reservationwrap{ 	
+          
+           	width: 800px;
+ 			height: 600px;
+            margin-top : auto;
+            margin-left: auto; 
+            margin-right: auto;
+            margin-bottom : auto;
+            text-align:center;
+        }
+        
+        td {
+        	width : 800px;
+        	height : 400px;
+            text-align:center;
+            margin-top : auto;
+            margin-left: auto; 
+            margin-right: auto;
+            margin-bottom : auto;
+            
+            border : 5px solid black;
+        }
+   
 
-#member_id{
-
-  text-align : center;
-  margin-top : 30px;
-}
-
-#wrap {
-  margin: 0 auto;	
-  border-top-width: 2px;
-  text-align : center;
-  }
 </style>
 
 <script type="text/javascript">
+ $(document).ready(function () {
+		
 
-$(document)
-		.ready(
-			function() {
-				
-				$('#btnsearch').bind("click",function(){
-					$.ajax({
-						type : 'GET',
-						dataType : 'json',
-						url : 'searchpro.do?member_id=' + $('#member_id').val(),
-						success : viewMessage
-					});	
-				});
-				
-				$("#btnsearch").trigger("click");
-			});
-
-			function viewMessage(res){
-				
-				$('#wrap').empty();
-				$('#wrap').append('<table><tr><td> 예약 번호  </td><td> 예약 날짜   </td><td> 병원 번호  </td><td> 예약 아이디 </td><td> 진찰 동물 </td><td> 예약 취소  </td></tr></table>');
-				
-				
-				
-				$.each(res,function(index,value){
-					var sdata=new Date(value.res_date);
-					var sm=sdata.getFullYear()+"-";
-					sm+=(sdata.getMonth()+1)+"-";
-					sm+=sdata.getDate()+"  ";
-					sm+=sdata.getHours()+" : ";
-					if(sdata.getMinutes() != 30){
-						sm+=sdata.getMinutes() + "0";	
-					} else if (sdata.getMinutes() == 30 ){
-						sm+=sdata.getMinutes();
-					}
-					
-					var tr = '<tr><td>'+value.res_num+'</td><td>'+sm+'</td><td>'+value.hospital_hosnum+'</td><td>'+value.member_id+'</td>';
-					tr += '<td>'+value.petpet+'</td><td><button id='+value.res_num+'>delete</button>';
-					$('#wrap table').append(tr);
-				});
-				
-				$(document).on('click', 'button', r_delete);
-				
-				function r_delete(){
-					confirm("취소하시겠습니까?")
-					if($(this).text() == 'delete'){
-						var drno=$(this).prop("id")
-						alert(drno);
-						$.ajax({
-							type : 'POST',
-							dataType : 'json',
-							url : 'delete.do',
-							data : 'res_num=' + drno,
-							success : viewMessage
-						
-						});
-						alert("취소 완료")
-						location.reload();
-					}	
-				
-			}
-			
-			
-				
-			}
-			
-				
-
+  	
+ });
+ 
+ 
 </script>
-
 
 </head>
 <body>
 <!-- Header -->
-			<script src="js/login.js" type="text/javascript"></script>
+
+		<form id="frm" name="frm" method="get" action="reservationok.do">
+		<script src="js/login.js" type="text/javascript"></script>
 	<header id="header">
 			<div class="logo"><a href="index.do">SooCut animal hospital <span>by KHfamily</span></a></div>
 						<a href="#menu" class="toggle" style="float:right"><span>Menu</span></a>
@@ -178,25 +127,20 @@ $(document)
 
 					
 				</ul>
-			</nav>
-	<div id = "search" class="box">
+			</nav> 
+
+
 	
+		<div id=reservationwrap>
+		
 	
- 	<header class="align-center">
- 	<p> 검색 ID 명 : 
-	<input type="text" name="member_id" id="member_id" value="${sessionScope.id }" readonly/>
-	<input type="submit" value="찾기" id="btnsearch" /> </p>
-	</header>
-	<hr/>
-	<div id="wrap">
-	
-	</div>
-	</div>
-	
-	
-	
-	
-	
+		<td><font size="6"> 예약이 완료되었습니다. </font></td>
+
+        
+        </div>
+
+
+
 	<!-- Four -->
 	<section id="four" class="wrapper style3">
 		<div class="inner">
@@ -223,14 +167,14 @@ $(document)
 			</div>
 		</div>
 	</footer>
+	</form>
 
 	<!-- Scripts -->
-	<script src="js/jquery.min.js"></script>
 	<script src="js/jquery.scrolly.min.js"></script>
 	<script src="js/jquery.scrollex.min.js"></script>
 	<script src="js/skel.min.js"></script>
 	<script src="js/util.js"></script>
-	<script src="js/main.js"></script>
+	<script src="js/main.js"></script> 
 
  </body>
 </html>
