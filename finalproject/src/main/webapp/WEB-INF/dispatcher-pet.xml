@@ -4,12 +4,10 @@
 	xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xmlns:aop="http://www.springframework.org/schema/aop"
 	xmlns:tx="http://www.springframework.org/schema/tx"
-
 	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
 
 	xmlns:websocket="http://www.springframework.org/schema/websocket"
 	xsi:schemaLocation="http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket-4.3.xsd
-
 		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
 		http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
@@ -19,7 +17,7 @@
 
 
 	<mvc:annotation-driven></mvc:annotation-driven>
-
+	
 
 	<!-- WebSocket 등록 -->
 	<bean id="chatWebSocketHandler"
@@ -54,7 +52,6 @@
 				<value>classpath:config/reservation.xml</value>
 				<value>classpath:config/AdminMapper.xml</value>
 				<value>classpath:config/boardMapper.xml</value>
-
 			</list>
 		</property>
 	</bean>
@@ -90,9 +87,7 @@
 		<constructor-arg ref="sqlSessionFactory" />
 	</bean>
 
-	<bean id="bsession" class="org.mybatis.spring.SqlSessionTemplate">
-		<constructor-arg ref="sqlSessionFactory" />
-	</bean>
+
 
 	<!--[4]Spring jdbc나 mybatis를 이용해서 DB연동을 처리하는 경우 DataSourceTransactionManager가 
 		트랜잭션 관리자로 사용된다. -->
@@ -121,7 +116,6 @@
 
 	<!-- [6]DaoImp빈 선언 -->
 
-
 	<bean id="ldao" class="dao.LoginDAOImp">
 		<property name="session" ref="session" />
 		<!-- <constructor-arg><ref bean = "sqlSession"/></constructor-arg> -->
@@ -135,10 +129,10 @@
 		<property name="sqlSession" ref="sqlSession" />
 
 	</bean>
-
-
-
-
+<bean id="bdao" class="dao.BoardDaoImp">
+		<property name="sqlSession" ref="sqlSession" />
+	</bean>
+	
 	<bean class="dao.PetKindDAOImp" id="pkdao">
 		<property name="sqlSession" ref="sqlSession" />
 	</bean>
@@ -154,9 +148,7 @@
 		<property name="sqlSession" ref="sqlSession" />
 
 	</bean>
-	<bean id="bdao" class="dao.BoardDaoImp">
-		<property name="sqlSession" ref="sqlSession" />
-	</bean>
+
 
 	<!-- [7] ServiceImp Bean 선언 -->
 
@@ -169,16 +161,9 @@
 		<property name="dao" ref="dao" />
 
 	</bean>
-	<bean id="bservice" class="service.BoardServiceImp">
-		<property name="bdao" ref="bdao" />
-	</bean>
-
 	<bean class="service.ReservationServiceImp" id="rservice">
 		<property name="dao" ref="Reservationdao" />
 	</bean>
-
-
-
 
 	<bean class="service.PetImpService" id="pservice">
 		<property name="dao" ref="pdao" />
@@ -192,6 +177,10 @@
 	</bean>
 	<bean class="service.MemberImpService" id="mservice">
 		<property name="dao" ref="mdao" />
+	</bean>
+
+<bean id="bservice" class="service.BoardServiceImp">
+		<property name="bdao" ref="bdao" />
 	</bean>
 
 
@@ -214,9 +203,7 @@
 	<bean class="controller.Reservationcontroller">
 		<property name="dao" ref="Reservationdao" />
 	</bean>
-	<bean class="controller.BoardController">
-		<property name="bservice" ref="bservice" />
-	</bean>
+
 
 	<bean class="controller.AdminController">
 		<property name="hservice" ref="hservice" />
@@ -226,7 +213,9 @@
 		<property name="rservice" ref="rservice" />
 
 	</bean>
-
+<bean class="controller.BoardController">
+		<property name="bservice" ref="bservice" />
+	</bean>
 	<!-- [7] View -->
 	<bean
 		class="org.springframework.web.servlet.view.json.MappingJackson2JsonView"
@@ -245,11 +234,11 @@
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 
 
-		
-			<property name="prefix" value="/WEB-INF/view/" />
-			<property name="suffix" value=".jsp" />
-			<property name="order" value="2" />
-		</bean>
+		<property name="prefix" value="/WEB-INF/view/" />
+		<property name="suffix" value=".jsp" />
+		<property name="order" value="2" />
+	</bean>
+
+
 
 </beans>
-
