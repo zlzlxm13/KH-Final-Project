@@ -36,14 +36,13 @@
 				<value>classpath:config/LoginMapper.xml</value>
 				<value>classpath:config/reservation.xml</value>
 				<value>classpath:config/AdminMapper.xml</value>				
-				
+				<value>classpath:config/boardMapper.xml</value>	
 			</list>
 		</property>
 	</bean>
 
 	<!-- [3] SqlSessionTemplate -->
-	<bean id="sqlSession"
-		class="org.mybatis.spring.SqlSessionTemplate">
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg ref="sqlSessionFactory" />
 	</bean>
 
@@ -51,7 +50,9 @@
 		<constructor-arg ref="sqlSessionFactory" />
 	</bean>
 
-
+	<bean id="bsession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSessionFactory" />
+	</bean>
 
 	<!--[4]Spring jdbc나 mybatis를 이용해서 DB연동을 처리하는 경우 DataSourceTransactionManager가 
 		트랜잭션 관리자로 사용된다. -->
@@ -87,6 +88,9 @@
 	<bean id="Reservationdao" class="dao.ReservationDaoImp">
 		<property name="sqlSession" ref="sqlSession" />
 	</bean>
+	<bean id="bdao" class="dao.BoardDaoImp">
+		<property name="bsession" ref="bsession" />
+	</bean>
 
 	<!-- [7] ServiceImp Bean 선언 -->
 
@@ -98,6 +102,9 @@
 		<property name="dao" ref="Reservationdao" />
 	</bean>
 
+	<bean id="bservice" class="service.BoardServiceImp">
+		<property name="bdao" ref="bdao" />
+	</bean>
 
 	<!-- [9] Controller 빈 선언 -->
 
@@ -107,19 +114,17 @@
 
 
 	<bean class="controller.IndexController">
-
 		<property name="lservice" ref="lservice"></property>
 	</bean>
 	<bean class="controller.Reservationcontroller">
 		<property name="service" ref="rservice" />
 	</bean>
-	<bean
-		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-
+	<bean class="controller.BoardController">
+		<property name="bservice" ref="bservice"/>
+	</bean>
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/view/" />
 		<property name="suffix" value=".jsp" />
 		<property name="order" value="2" />
 	</bean>
-
-
 </beans>

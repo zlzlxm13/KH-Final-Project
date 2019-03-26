@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="board">
+	<select id="boardCount" parameterType="dto.BoardDTO" resultType="int">
+		select count(*)
+		from board
+		where boardkind_canum=#{boardkind_canum}
+	</select>
+	
+	<select id="boardList" parameterType="dto.BoardDTO" resultType="dto.BoardDTO">
+		select *
+		from board
+		where boardkind_canum=#{boardkind_canum}
+		order by bnum desc
+	</select>
+	
+	<update id="readCount" parameterType="dto.BoardDTO">
+		update board
+		set	readcount=readcount+1
+		where boardkind_canum=#{boardkind_canum} AND bnum=#{bnum}
+	</update>
+	
+	<select id="boardView" parameterType="dto.BoardDTO" resultType="dto.BoardDTO">
+		select *
+		from board
+		where boardkind_canum=#{boardkind_canum} AND bnum=#{bnum}
+	</select>
+	
+	<insert id="boardInsert" parameterType="dto.BoardDTO">
+	    insert into board(boardkind_canum,bnum,btitle,bcontent,reg_date,readcount,member_id,bpath,col)
+		values(#{boardkind_canum},
+	    <choose>
+	    	<when test="boardkind_canum==3">
+		    	board3_seq.nextval
+		    </when>
+		    <when test="boardkind_canum==2">
+		    	board2_seq.nextval
+		    </when>
+		    <otherwise>
+		    	board1_seq.nextval
+		    </otherwise>
+	    </choose>
+	    ,#{btitle},#{bcontent},sysdate,0,#{member_id},#{bpath,jdbcType=VARCHAR},0)
+	</insert>
+	
+	
+	
+	<select id="uploadFile" parameterType="dto.BoardDTO" resultType="String">
+		select bpath
+		from board
+		where boardkind_canum=#{boardkind_canum} AND bnum=#{bnum}
+	</select>
+
+	<select id="kind" parameterType="int">
+		select *
+		from boardkind
+		where canum=#{canum}
+	</select>
+</mapper>
