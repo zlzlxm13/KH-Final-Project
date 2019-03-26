@@ -94,6 +94,7 @@ public JavaMailSenderImpl getMailSender() {
 			session.setAttribute("name", mdto.getName());
 			session.setAttribute("grade", mdto.getGrade());
 			session.setAttribute("phonenum", mdto.getPhonenum());
+			
 			System.out.println("logindoemail:!!!!!"+mdto.getEmail());
 			// session.setAttribute("dto",dto);
 		}
@@ -206,7 +207,27 @@ public JavaMailSenderImpl getMailSender() {
 	public String mypage() {	
 		return "mypage";
 	}
+	@RequestMapping(value = "/membermodify.do", method = RequestMethod.GET)
+	public String membermodify(HttpSession session) {	
+		
+		return "membermodify";
+	}
+	
 
+	@RequestMapping(value = "/petinsert.do", method = RequestMethod.GET)
+	public void petinsert() {
+
+	}
+
+/*	@RequestMapping(value = "/petinsert.do", method = RequestMethod.POST)
+	public String petinsertPost(MemDTO dto) {
+
+		lservice.insertMember(dto);
+
+		return "index";
+	}
+	*/
+	
 	@RequestMapping("/admin.do")
 	public ModelAndView adminProcess() {
 

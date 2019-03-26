@@ -20,8 +20,9 @@
 			<header id="header" class="alt">
 				<div class="logo"><a href="index.do">SooCut animal hospital <span>by KHfamily</span></a></div>
 						<a href="#menu" class="toggle" style="float:right"><span>Menu</span></a>
-		<%if(session.getAttribute("id") == null){ %>	
-						<input value="Login" class="button alt icon fa-check" type="submit" id = "login_process"style="float:right;">		
+		<%if(session.getAttribute("id") == null){ %>
+						<a href="signup.do" class="button alt icon" style="width: 5%;float: right;color:white !important;">Sign up</a>						
+						<input value="Login" class="button alt icon fa-check" type="submit" id = "login_process" style="float:right;margin-right: 10px;color:white !important;">		
 						<input name="pass" id="pass" type="password" placeholder="Pass" style="width: 10%;float: right;margin-right: 10px;">				
 				<input name="id" id="id" type="text" placeholder="id" style="width: 10%;float: right;margin-right: 10px;">
 				<%} else {%>
@@ -37,10 +38,11 @@
 					<li><a href="generic.do">Notice</a></li>
 		   <!--  --><li><a href="elements.do">element</a></li>	
 					<li><a href="hosmap.do">Hospital</a></li>					
+					
 					<%if(session.getAttribute("id") == null){ %>	
 							<li><a href="login.do">Login</a></li>
 							<%} else {%>
-							<li>${sessionScope.id }님 환영합니다
+							<li><p style="color:white !important;">${sessionScope.id }님 환영합니다</p>
 								<ul class="links">
 									<li><a href="mypage.do">마이페이지</a></li>
 									<li><a href="logout.do">로그아웃</a></li>
