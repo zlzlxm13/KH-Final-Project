@@ -252,14 +252,6 @@ public JavaMailSenderImpl getMailSender() {
 		return "index";
 	}
 	*/
-	
-	@RequestMapping("/admin.do")
-	public ModelAndView adminProcess() {
 
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("admin");
-		return mav;
-
-	}
 
 }
