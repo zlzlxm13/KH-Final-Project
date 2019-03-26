@@ -1,6 +1,7 @@
 package controller;
 
 
+
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -8,16 +9,21 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
+
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+
 import dao.LoginDAO;
 import dto.MemDTO;
 import mail.TempKey;
 import service.LoginService;
+
+
 
 //http://localhost:8090/pet/index.do
 //
@@ -25,6 +31,7 @@ import service.LoginService;
 public class IndexController {
 
 	private LoginDAO l_dao;
+
 
 	private LoginService lservice;	
 	//private JavaMailSender mailSender;
@@ -56,7 +63,9 @@ public JavaMailSenderImpl getMailSender() {
 
 	public void setLservice(LoginService lservice) {
 		this.lservice = lservice;
+
 	}
+
 	@RequestMapping("/generic.do")
 	public String process1() {
 		return "generic";
@@ -66,6 +75,7 @@ public JavaMailSenderImpl getMailSender() {
 	public String process2() {
 		return "elements";
 	}
+
 
 
 	@RequestMapping("/index.do")
@@ -236,5 +246,6 @@ public JavaMailSenderImpl getMailSender() {
 		return mav;
 
 	}
+
 
 }

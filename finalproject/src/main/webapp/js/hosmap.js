@@ -170,6 +170,7 @@ function displayPlaces(search) {
 
 			itemEl.onclick = function() {
 
+
 						displayInfowindow(marker, title, searchs);
 			};
 
@@ -298,6 +299,7 @@ function displayInfowindow(marker, title, searchs) {
 	
 	var content = '<div class ="f_main"><div id="f_image">' + searchs.hosname + '</div>'
 			+ '<div class="f_header">' + searchs.petkind_kind
+
 
 			+ '</div>' + '<div id="f_number">'
 			+ searchs.hosaddress + '</div></div>'; 

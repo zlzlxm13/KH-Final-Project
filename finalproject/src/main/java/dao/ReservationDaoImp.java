@@ -1,15 +1,12 @@
 package dao;
 
-import java.sql.Date;
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
+
 
 import dto.ReservationDTO;
+
 
 public class ReservationDaoImp implements ReservationDAO{
 	SqlSessionTemplate sqlSession;
@@ -42,6 +39,52 @@ public class ReservationDaoImp implements ReservationDAO{
 		sqlSession.delete("reservation.r_delete",num);
 		
 	}
+	
+	
+	@Override
+	public int count() {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("admin.reservation_count");
+	}
+
+	@Override
+	public List<ReservationDTO> list() {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("admin.reservation_list");
+	}
+
+	@Override
+	public void insert(ReservationDTO dto) {
+		// TODO Auto-generated method stub
+		sqlSession.insert("admin.reservation_insert", dto);
+	}
+
+	@Override
+	public void update(ReservationDTO dto) {
+		// TODO Auto-generated method stub
+		sqlSession.update("admin.reservation_update", dto);
+	}
+
+	@Override
+	public void delete(String[] chk) {
+		// TODO Auto-generated method stub
+		sqlSession.delete("admin.reservation_delete", chk);
+	}
+
+	@Override
+	public ReservationDTO content(ReservationDTO dto) {
+		// TODO Auto-generated method stub
+		
+		return sqlSession.selectOne("admin.reservation_content", dto);
+		
+	}
+
+	@Override
+	public int check(ReservationDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("admin.reservation_check", dto);
+	}
+
 
 
 }

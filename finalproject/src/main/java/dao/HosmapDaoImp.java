@@ -6,9 +6,11 @@ import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
 
 import dto.HosmapDTO;
+import dto.HosmapDTO;
 
 public class HosmapDaoImp implements HosmapDAO {
 	private SqlSessionTemplate sqlSession;
+
 	//
 	public HosmapDaoImp() {
 		
@@ -29,16 +31,5 @@ public class HosmapDaoImp implements HosmapDAO {
 	}
 
 
-	@Override
-	public List<HosmapDTO> list() {
-		// TODO Auto-generated method stub
-		return sqlSession.selectList("admin.hos_list");
-	}
-
-	@Override
-	public int count() {
-		// TODO Auto-generated method stub
-		return sqlSession.selectOne("admin.hos_count");
-	}
 	
 }//end class

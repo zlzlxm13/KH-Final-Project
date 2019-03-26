@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.tiles.request.Request;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
@@ -18,11 +19,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import dao.ReservationDAO;
 import dto.ReservationDTO;
+import service.ReservationService;
+
 //http://localhost:8090/pet/main.do
 
 @Controller
 public class Reservationcontroller {
-	
+	private ReservationService rservice;
 	private ReservationDAO dao;
 	
 	public Reservationcontroller() {
@@ -34,8 +37,9 @@ public class Reservationcontroller {
 		this.dao = dao;
 	}
 	
-	
-
+	public void setRservice(ReservationService rservice) {
+		this.rservice = rservice;
+	}
 
 	@RequestMapping("/main.do")
 	public ModelAndView listMethod() {
@@ -53,6 +57,7 @@ public class Reservationcontroller {
 		
 		mav.setViewName("reservation");
 		return mav;
+		
 	
 	}
 	
@@ -64,7 +69,7 @@ public class Reservationcontroller {
 		System.out.println("병원 번호 : " + dto.getHospital_hosnum());
 		System.out.println("아이디 : " + dto.getMember_id());
 		dao.save(dto);
-		
+		//
 
 		return "redirect:main.do";
 	}

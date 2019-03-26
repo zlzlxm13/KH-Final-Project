@@ -19,6 +19,7 @@
 		<script src="js/login.js" type="text/javascript"></script>
 			<header id="header" class="alt">
 				<div class="logo"><a href="index.do">SooCut animal hospital <span>by KHfamily</span></a></div>
+
 						<a href="#menu" class="toggle" style="float:right"><span>Menu</span></a>
 		<%if(session.getAttribute("id") == null){ %>
 						<a href="signup.do" class="button alt icon" style="width: 5%;float: right;color:white !important;">Sign up</a>						
@@ -29,6 +30,7 @@
 				${sessionScope.id }님 환영합니다
 			<a href="logout.do">로그아웃</a><%} %>
 		
+
 			</header>
 
 		<!-- Nav -->
@@ -36,6 +38,7 @@
 				<ul class="links">
 					<li><a href="index.do">Home</a></li>
 					<li><a href="generic.do">Notice</a></li>
+
 		   <!--  --><li><a href="elements.do">element</a></li>	
 					<li><a href="hosmap.do">Hospital</a></li>					
 					
@@ -53,6 +56,7 @@
 					<li><a href="admin.do">admin</a></li>
 					<li><a href="main.do">Reservation</a></li>
 
+
 					
 				</ul>
 			</nav>
@@ -67,7 +71,7 @@
 				<div class="inner">
 					<h1>愁Cut</h1>
 					<p>당신의 가족, 아프지 않게.<br /></p>
-				
+
 					<a href="#one" class="button scrolly">Get Started</a>
 				</div>
 			</section>
