@@ -193,6 +193,25 @@ public JavaMailSenderImpl getMailSender() {
 		    }
 		return key;
 	}
+	
+	@RequestMapping(value = "/mypage.do", method = RequestMethod.GET)
+	public String mypage() {	
+		return "mypage";
+	}
+	
+	
+	@RequestMapping(value = "/membermodify.do", method = RequestMethod.GET)
+	public String membermodify(HttpSession session) {	
+		
+		return "membermodify";
+	}
+	
+	@RequestMapping(value = "/petinsert.do", method = RequestMethod.GET)
+	public void petinsert() {
+
+	}
+	
+	
 
 	@RequestMapping("/admin.do")
 	public ModelAndView adminProcess() {

@@ -6,7 +6,8 @@
 <title>Insert title here</title>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=a328a3aa73a3d31430a2aa26a4ea5fe5"></script>    
+<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=a328a3aa73a3d31430a2aa26a4ea5fe5"></script>   
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"> 
 <link rel="stylesheet" href="css/hosmap.css" />
 <style>
 
@@ -46,7 +47,7 @@
 
 #search {
   width: 1000px;
-  height: 800px;
+  height: 1200px;
   padding: 40px;
   margin: 0 auto;	
   border: 1px solid #eee;
@@ -64,6 +65,12 @@
   border-top-width: 2px;
   text-align : center;
   }
+  
+ #wrap2 {
+  border-top-width: 2px;
+  text-align : center;
+ }
+ 
 </style>
 
 <script type="text/javascript">
@@ -86,16 +93,20 @@ $(document)
 
 			function viewMessage(res){
 				
+
+				$('#wrap2').empty();
+				$('#wrap2').append('<table><tr><td> 예약 번호  </td><td> 예약 날짜   </td><td> 병원 번호  </td><td> 예약 아이디 </td><td> 진찰 동물 </td><td> 예약 상황  </td><td> 삭제 </tr></table>');
+				
+
 				$('#wrap').empty();
-				$('#wrap').append('<table><tr><td> 예약 번호  </td><td> 예약 날짜   </td><td> 병원 번호  </td><td> 예약 아이디 </td><td> 진찰 동물 </td><td> 예약 취소  </td></tr></table>');
-				
-				
+				$('#wrap').append('<table><tr><td> 예약 번호  </td><td> 예약 날짜   </td><td> 병원 번호  </td><td> 예약 아이디 </td><td> 진찰 동물 </td><td> 예약 상황  </td><td> 취소 </tr></table>');
 				
 				$.each(res,function(index,value){
+					
 					var sdata=new Date(value.res_date);
-					var sm=sdata.getFullYear()+"-";
-					sm+=(sdata.getMonth()+1)+"-";
-					sm+=sdata.getDate()+"  ";
+					var sm=sdata.getFullYear()+"년 ";
+					sm+=(sdata.getMonth()+1)+"월 ";
+					sm+=sdata.getDate()+"일  ";
 					sm+=sdata.getHours()+" : ";
 					if(sdata.getMinutes() != 30){
 						sm+=sdata.getMinutes() + "0";	
@@ -103,18 +114,48 @@ $(document)
 						sm+=sdata.getMinutes();
 					}
 					
-					var tr = '<tr><td>'+value.res_num+'</td><td>'+sm+'</td><td>'+value.hospital_hosnum+'</td><td>'+value.member_id+'</td>';
-					tr += '<td>'+value.petpet+'</td><td><button id='+value.res_num+'>delete</button>';
-					$('#wrap table').append(tr);
+					var hdata = new Date();
+					
+					for(var i = 0 ; i <= index ; i++){
+						if(hdata > sdata){
+
+ 							var tr = '<tr><td>'+value.res_num+'</td><td>'+sm+'</td><td>'+value.hospital_hosnum+'</td><td>'+value.member_id+'</td>';
+							tr += '<td>'+value.petpet+'</td><td> 기간 만료 </td><td><button class="btn btn-success" id='+value.res_num+' style="color: #FFFFFF;" selected> 기록 삭제 </button>';
+							$('#wrap2 table').append(tr); 
+							return;
+						}else if(hdata < sdata){
+
+							var tr = '<tr><td>'+value.res_num+'</td><td>'+sm+'</td><td>'+value.hospital_hosnum+'</td><td>'+value.member_id+'</td>';
+							tr += '<td>'+value.petpet+'</td><td> 예약 중 </td><td><button class="btn btn-secondary" id='+value.res_num+' name="delete" style="color: #FFFFFF;" selected> 예약 취소 </button>';
+							$('#wrap table').append(tr); 
+							return;
+						}
+					}
+						
 				});
 				
 				$(document).on('click', 'button', r_delete);
 				
 				function r_delete(){
-					confirm("취소하시겠습니까?")
-					if($(this).text() == 'delete'){
+
+					if($(this).text() == ' 예약 취소 '){
+
+						if(confirm(" 예약을 취소하시겠습니까? ")){
+							
 						var drno=$(this).prop("id")
-						alert(drno);
+						$.ajax({
+							type : 'POST',
+							dataType : 'json',
+							url : 'delete.do',
+							data : 'res_num=' + drno,
+							success : viewMessage
+						});
+						alert("취소 완료")
+						location.reload();
+						}
+					}else if($(this).text() == ' 기록 삭제 '){
+						if(confirm(" 기록을 삭제하시겠습니까? ")){
+						var drno=$(this).prop("id")
 						$.ajax({
 							type : 'POST',
 							dataType : 'json',
@@ -123,9 +164,15 @@ $(document)
 							success : viewMessage
 						
 						});
-						alert("취소 완료")
+						alert("기록 삭제 완료")
 						location.reload();
-					}	
+						}
+					}else{
+						return false;
+					}
+					
+					 
+				
 				
 			}
 			
@@ -185,10 +232,16 @@ $(document)
  	<header class="align-center">
  	<p> 검색 ID 명 : 
 	<input type="text" name="member_id" id="member_id" value="${sessionScope.id }" readonly/>
-	<input type="submit" value="찾기" id="btnsearch" /> </p>
+	<input type="hidden" value="찾기" id="btnsearch" /> </p>
 	</header>
 	<hr/>
+	<h2 class="align-center"> 예약 확인 </h2>
 	<div id="wrap">
+	
+	</div>
+	
+	<h2 class="align-center"> 예약 기록 확인 </h2>
+	<div id="wrap2">
 	
 	</div>
 	</div>

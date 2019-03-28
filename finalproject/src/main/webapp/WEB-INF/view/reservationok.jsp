@@ -52,7 +52,7 @@
 #reservationwrap{ 	
           
            	width: 800px;
- 			height: 600px;
+ 			height: 500px;
             margin-top : auto;
             margin-left: auto; 
             margin-right: auto;
@@ -133,9 +133,9 @@
 	
 		<div id=reservationwrap>
 		
-	
+		<div>
 		<td><font size="6"> 예약이 완료되었습니다. </font></td>
-
+		</div>
         
         </div>
 

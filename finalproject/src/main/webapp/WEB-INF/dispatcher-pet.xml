@@ -156,7 +156,19 @@
 	
 	<bean class="controller.Reservationcontroller">
 		<property name="rservice" ref="rservice"></property>
+		<property name="mailSender" ref="mailSender"></property>
 	</bean>
+	
+	
+	
+	<!-- interceptor -->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/reservation.do"/>
+			<bean class="reservationinterceptor.ReservationInterceptor"/>
+		</mvc:interceptor>
+	</mvc:interceptors>
+	
 	
 	
 	<!-- [7] View -->

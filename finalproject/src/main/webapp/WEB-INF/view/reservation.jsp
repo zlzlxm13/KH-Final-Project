@@ -59,12 +59,14 @@
   border-top-width: 2px;
   }
   
-  
-#res_num {font-size:20px;height:40px;line-height:40px; margin: 0 0 20px; }
-#datepi {font-size:20px;height:40px;line-height:40px; margin: 0 0 20px;}
-#hospital_hosnum {font-size:20px;height:40px;line-height:40px; margin: 0 0 20px;}
-#mem_id {font-size:20px;height:40px;line-height:40px; margin: 0 0 20px;}
+#pet_pet {height:40px;line-height:40px; margin: 0 0 20px;}
+#res_num {height:40px;line-height:40px; margin: 0 0 20px;}
+#datepi {height:40px;line-height:40px; margin: 0 0 20px;}
+#hos_num {height:40px;line-height:40px; margin: 0 0 20px;}
+#mem_id {height:40px;line-height:40px; margin: 0 0 20px;}
 
+
+#btnSave{margin-top : 50px; margin-left : 180px;}
 
  .ui-datepicker-week-end {color:red;}
 .ui-datepicker-week-end .ui-state-default {color:red;} 
@@ -91,8 +93,7 @@
 		    $("#datepi").datetimepicker({  
 		    	dateFormat: 'yy-mm-dd' //Input Display Format 변경
                 ,showOtherMonths: true //빈 공간에 현재월의 앞뒤월의 날짜를 표시
-                ,showMonthAfterYear:true //년도 먼저 나오고, 뒤에 월 표시
-                ,changeMonth: true //콤보박스에서 월 선택 가능                
+                ,showMonthAfterYear:true //년도 먼저 나오고, 뒤에 월 표시             
                 ,yearSuffix: "년" //달력의 년도 부분 뒤에 붙는 텍스트
                 ,monthNamesShort: ['1','2','3','4','5','6','7','8','9','10','11','12'] //달력의 월 부분 텍스트
                 ,dayNamesMin: ['일','월','화','수','목','금','토'] //달력의 요일 부분 텍스트
@@ -120,6 +121,9 @@
 
 </head>
 <body>
+
+
+
 <!-- Header -->
 			<script src="js/login.js" type="text/javascript"></script>
 	<header id="header">
@@ -130,7 +134,7 @@
 						<input name="pass" id="pass" type="password" placeholder="Pass" style="width: 10%;float: right;margin-right: 10px;">				
 				<input name="id" id="id" type="text" placeholder="id" style="width: 10%;float: right;margin-right: 10px;">
 				<%} else {%>
-				${sessionScope.id }님 환영합니다
+				${sessionScope.id}님 환영합니다.
 			<a href="logout.do">로그아웃</a><%} %>
 		
 			</header>
@@ -163,25 +167,24 @@
 <h2 class="align-center">Reservation</h2>
  <hr />
 
-
 <form method="post" action="reservation.do">
 
 <div id="res" style="float:left;">
-
+	
 <table>
 <tr>
 <td width="20%" align="center"> 품종  :</td>
-<td> <input type="text" id = "pet_pet" name="petpet" placeholder="품종을 입력하세요." required/> </td>
+<td> <input type="text" id = "pet_pet" name="petpet" placeholder="품종을 입력해주십시오." required/> </td>
 </tr>
 
 <tr>
-<td width="30%" align="center"> 예약 날짜  :</td>
-<td> <input type="text" id = "datepi" name="red" required ></td>
+<td width="20%" align="center"> 예약 날짜  :</td>
+<td> <input type="text" id = "datepi" name="red" placeholder="클릭해주십시오." required ></td>
 </tr>
 
 <tr>
 <td width="20%" align="center"> 병원 이름  :</td>
-<td> <input type="text" id = "hos_num"  value=<%=request.getParameter("hosname")%> readonly/></td>
+<td> <input type="text" id = "hos_num" name="hosname"  value=<%=request.getParameter("hosname")%> readonly/></td>
 </tr>
 
 <input type="hidden" id = "hos_num"  name="hospital_hosnum" value=<%=request.getParameter("hos_num")%> readonly />
@@ -191,12 +194,17 @@
 <td width="20%" align="center"> 고객 ID  :</td>
 <td><input type="text" id = "mem_id" name="member_id" readonly value="${sessionScope.id }"/></td>
 </tr>
+
+<tr>
+<td width="20%" align="center"> 고객 email  :</td>
+<td><input type="text" id="${dto.email}" name="email" readonly value="zlzlxm13@naver.com"/></td>
+</tr>
 </table>
 
 <input value="예약하기" class="button alt icon fa-check"
 	   type="submit" id="btnSave" style="color: black;" />
 	    
-<input value="취소하기" class="button alt icon fa-check"
+<input value="취소하기" class="button alt icon fa-check" id="indexbtn"
 	   type="button" onclick="location.href='index.do'" style="color: black;" />	   
 	  
 </div>

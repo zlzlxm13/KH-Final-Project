@@ -42,7 +42,7 @@
 							<%} else {%>
 							<li>${sessionScope.id }님 환영합니다
 								<ul class="links">
-									<li><a href="#">마이페이지</a></li>
+									<li><a href="mypage.do">마이페이지</a></li>
 									<li><a href="logout.do">로그아웃</a></li>
 								</ul>
 							</li>			

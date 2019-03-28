@@ -102,7 +102,6 @@
         minTime: null,
         hour: 0,
         minute: 0,
-        timezone: null,
         hourMinOriginal: null,
         minuteMinOriginal: null,
         secondMinOriginal: null,
@@ -207,8 +206,7 @@
             }
 
             // prep the timezone options
-            var timezoneList = [-720, -660, -600, -570, -540, -480, -420, -360, -300, -270, -240, -210, -180, -120, -60,
-					0, 60, 120, 180, 210, 240, 270, 300, 330, 345, 360, 390, 420, 480, 525, 540, 570, 600, 630, 660, 690, 720, 765, 780, 840];
+            var timezoneList = [ 0 ]
             if (tp_inst._defaults.timezoneList !== null) {
                 timezoneList = tp_inst._defaults.timezoneList;
             }
@@ -1558,7 +1556,7 @@
     /*
      * override "Today" button to also grab the time and set it to input field.
      */
-    $.datepicker._base_gotoToday = $.datepicker._gotoToday;
+   /* $.datepicker._base_gotoToday = $.datepicker._gotoToday;
     $.datepicker._gotoToday = function (id) {
         var inst = this._getInst($(id)[0]);
         this._base_gotoToday(id);
@@ -1573,7 +1571,7 @@
         this._setTime(inst, now);
         this._setDate(inst, now);
         tp_inst._onSelectHandler();
-    };
+    };*/
 
     /*
      * Disable & enable the Time in the datetimepicker
@@ -1697,14 +1695,14 @@
         // object will only return the timezone offset for the current locale, so we
         // adjust it accordingly.  If not using timezone option this won't matter..
         // If a timezone is different in tp, keep the timezone as is
-        if (tp_inst && tp_date) {
+     /*   if (tp_inst && tp_date) {
             // look out for DST if tz wasn't specified
             if (!tp_inst.support.timezone && tp_inst._defaults.timezone === null) {
                 tp_inst.timezone = tp_date.getTimezoneOffset() * -1;
             }
             date = $.timepicker.timezoneAdjust(date, $.timepicker.timezoneOffsetString(-date.getTimezoneOffset()), tp_inst.timezone);
             tp_date = $.timepicker.timezoneAdjust(tp_date, $.timepicker.timezoneOffsetString(-tp_date.getTimezoneOffset()), tp_inst.timezone);
-        }
+        }*/
 
         this._updateDatepicker(inst);
         this._base_setDateDatepicker.apply(this, arguments);

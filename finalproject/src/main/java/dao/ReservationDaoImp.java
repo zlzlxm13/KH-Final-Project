@@ -32,10 +32,6 @@ public class ReservationDaoImp implements ReservationDAO{
 		return sqlSession.selectList("reservation.r_search",member_id);
 	}
 
-	@Override
-	public List<ReservationDTO> r_list() {
-		return sqlSession.selectList("reservation.r_list");
-	}
 
 	@Override
 	public void r_delete(int num) {

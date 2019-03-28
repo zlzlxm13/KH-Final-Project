@@ -30,10 +30,6 @@ public class ReservationServiceImp implements ReservationService {
 		return rdao.r_search(member_id);
 	}
 
-	@Override
-	public List<ReservationDTO> r_list() {
-		return rdao.r_list();
-	}
 
 
 
