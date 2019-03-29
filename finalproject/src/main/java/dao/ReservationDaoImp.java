@@ -39,6 +39,11 @@ public class ReservationDaoImp implements ReservationDAO{
 		
 	}
 
+	@Override
+	public ReservationDTO r_fsearch(int num) {
+		return sqlSession.selectOne("reservation.r_fsearch",num);
+	}
+
 
 
 }

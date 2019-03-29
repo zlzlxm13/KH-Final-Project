@@ -84,16 +84,16 @@ public class Reservationcontroller {
 	@RequestMapping(value="/reservation.do", method = RequestMethod.POST)
 	public String reservationpro(ReservationDTO dto, String red, String email,  HttpServletRequest request) {	
 		
-		
 		System.out.println("동물 : " + dto.getPetpet());
-		System.out.println("병원 이름 : " + request.getParameter("hosname"));
+		System.out.println("병원 이름 : " + dto.getHospital_hosname());
 		System.out.println("이메일 : " + email);
 		System.out.println("병원 번호 : " + dto.getHospital_hosnum());
 		System.out.println("아이디 : " + dto.getMember_id());
+		System.out.println("증상 : " + dto.getPetinfo());
 		
 		String text;
-		text = " 안녕하십니까, SooCut 예약서비스 입니다. 고객님의 예약이 성공적으로 완료되었습니다.\n";
-		text += " 예약하신 병원의 이름은 " + request.getParameter("hosname") + " 이며 진찰받으실 동물의 품종은 " + dto.getPetpet() + " 입니다.\n ";
+		text = " 안녕하십니까, SooCut 예약서비스 입니다. 고객님의 예약이 성공적으로 완료되었습니다. \n";
+		text += " 예약하신 병원의 이름은 " + dto.getHospital_hosname() + " 이며 진찰받으실 동물의 품종은 " + dto.getPetpet() + " 입니다.\n ";
 		text += " 이전 예약 고객분에 의해 진료의 시간이 길어질 수가 있으니 유의하시기 바랍니다. ";
 		
 		try {
@@ -142,6 +142,14 @@ public class Reservationcontroller {
 	@RequestMapping("/delete.do")
 	public @ResponseBody List<ReservationDTO> delete(ReservationDTO dto) {
 		return rservice.r_deleteProcess(dto);
+	}
+	
+	@RequestMapping("/fsearch.do")
+	public ModelAndView fsearchMethod(ReservationDTO dto) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject(rservice.r_fsearch(dto));
+		mav.setViewName("reservation_fsearch");
+		return mav;
 	}
 	
 }

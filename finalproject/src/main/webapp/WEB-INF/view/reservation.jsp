@@ -50,6 +50,12 @@
 #pagination {margin:10px auto;text-align: center;}
 #pagination a {display:inline-block;margin-right:10px;}
 #pagination .on {font-weight: bold; cursor: default;color:#777;}
+
+
+body{
+ margin-top: 60px;
+}
+
 #res {
   width: 550px;
   height: 400px;
@@ -59,14 +65,19 @@
   border-top-width: 2px;
   }
   
+table{
+   margin-top:-60px;
+   margin-bottom: 20px;
+  }
+  
 #pet_pet {height:40px;line-height:40px; margin: 0 0 20px;}
 #res_num {height:40px;line-height:40px; margin: 0 0 20px;}
 #datepi {height:40px;line-height:40px; margin: 0 0 20px;}
 #hos_num {height:40px;line-height:40px; margin: 0 0 20px;}
 #mem_id {height:40px;line-height:40px; margin: 0 0 20px;}
+#petinfo {margin: 0 0 20px;}
 
-
-#btnSave{margin-top : 50px; margin-left : 180px;}
+#btnSave{margin-top : 10px; margin-left : 120px;}
 
  .ui-datepicker-week-end {color:red;}
 .ui-datepicker-week-end .ui-state-default {color:red;} 
@@ -173,32 +184,38 @@
 	
 <table>
 <tr>
-<td width="20%" align="center"> 품종  :</td>
+<td width="50%" align="center"> 품종   :</td>
 <td> <input type="text" id = "pet_pet" name="petpet" placeholder="품종을 입력해주십시오." required/> </td>
 </tr>
 
 <tr>
-<td width="20%" align="center"> 예약 날짜  :</td>
+<td width="50%" align="center"> 예약 날짜   :</td>
 <td> <input type="text" id = "datepi" name="red" placeholder="클릭해주십시오." required ></td>
 </tr>
 
 <tr>
-<td width="20%" align="center"> 병원 이름  :</td>
-<td> <input type="text" id = "hos_num" name="hosname"  value=<%=request.getParameter("hosname")%> readonly/></td>
+<td width="50%" align="center"> 병원 이름   :</td>
+<td> <input type="text" id = "hos_name" name="hospital_hosname"  value=<%=request.getParameter("hosname")%> readonly/></td>
 </tr>
 
 <input type="hidden" id = "hos_num"  name="hospital_hosnum" value=<%=request.getParameter("hos_num")%> readonly />
 
 
 <tr>
-<td width="20%" align="center"> 고객 ID  :</td>
+<td width="50%" align="center"> ID  :</td>
 <td><input type="text" id = "mem_id" name="member_id" readonly value="${sessionScope.id }"/></td>
 </tr>
 
 <tr>
-<td width="20%" align="center"> 고객 email  :</td>
-<td><input type="text" id="${dto.email}" name="email" readonly value="zlzlxm13@naver.com"/></td>
+<td width="50%" align="center"> email  :</td>
+<td><input type="text" id="email" name="email" readonly value="zlzlxm13@naver.com"/></td>
 </tr>
+
+<tr>
+<td width="50%" align="center"> 증상  :</td>
+<td><TEXTAREA name="petinfo" id="petinfo" cols=20 rows=4 style="resize: none;" font-size=1px; placeholder="ex)건강 검진, 심장사상충 접종..." ></TEXTAREA></td>
+</tr>
+
 </table>
 
 <input value="예약하기" class="button alt icon fa-check"

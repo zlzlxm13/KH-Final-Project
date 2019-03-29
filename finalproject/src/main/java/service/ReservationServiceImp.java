@@ -30,13 +30,17 @@ public class ReservationServiceImp implements ReservationService {
 		return rdao.r_search(member_id);
 	}
 
-
-
-
 	@Override
 	public List<ReservationDTO> r_deleteProcess(ReservationDTO dto) {
 		rdao.r_delete(dto.getRes_num());
 		return null;
+	}
+
+
+
+	@Override
+	public ReservationDTO r_fsearch(ReservationDTO dto) {
+		return rdao.r_fsearch(dto.getRes_num());
 	}
 
 }

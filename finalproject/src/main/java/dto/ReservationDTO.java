@@ -2,13 +2,19 @@ package dto;
 
 import java.util.Date;
 
+/**
+ * @author user2
+ *
+ */
 public class ReservationDTO {
 
 	private int res_num;
 	private Date res_date;
+	private String hospital_hosname;
 	private int hospital_hosnum;
 	private String member_id;
 	private String petpet;
+	private String petinfo;
 	
 	public ReservationDTO() {
 		
@@ -53,6 +59,24 @@ public class ReservationDTO {
 	public void setPetpet(String petpet) {
 		this.petpet = petpet;
 	}
+
+	public String getPetinfo() {
+		return petinfo;
+	}
+
+	public void setPetinfo(String petinfo) {
+		this.petinfo = petinfo;
+	}
+
+	public String getHospital_hosname() {
+		return hospital_hosname;
+	}
+
+	public void setHospital_hosname(String hospital_hosname) {
+		this.hospital_hosname = hospital_hosname;
+	}
+	
+	
 
 	
 	

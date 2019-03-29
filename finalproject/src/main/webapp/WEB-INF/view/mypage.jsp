@@ -174,8 +174,7 @@
 										</dl>
 									</div>
 									<p class="btn_area_btm">
-										<a
-											href="/user2/help/changeUserInfo.nhn?menu=nid&amp;lang=ko_KR"
+										<a href="search.do"
 											onclick="clickcr(this,'imn.cntmodify','','',event);"
 											class="btn_model"><b class="btn2">수정</b></a>
 									</p>
