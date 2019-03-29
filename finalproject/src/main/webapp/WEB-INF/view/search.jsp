@@ -95,11 +95,11 @@ $(document)
 				
 
 				$('#wrap2').empty();
-				$('#wrap2').append('<table><tr><td> 상세 확인  </td><td> 예약 날짜   </td><td> 병원 번호  </td><td> 예약 아이디 </td><td> 진찰 동물 </td><td> 예약 상황  </td><td> 삭제 </tr></table>');
+				$('#wrap2').append('<table><tr><td> 상세 확인  </td><td> 예약 날짜   </td><td> 예약 병원  </td><td> 예약 아이디 </td><td> 진찰 동물 </td><td> 예약 상황  </td><td> 삭제 </tr></table>');
 				
 
 				$('#wrap').empty();
-				$('#wrap').append('<table><tr><td> 상세 확인  </td><td> 예약 날짜   </td><td> 병원 번호  </td><td> 예약 아이디 </td><td> 진찰 동물 </td><td> 예약 상황  </td><td> 취소 </tr></table>');
+				$('#wrap').append('<table><tr><td> 상세 확인  </td><td> 예약 날짜   </td><td> 예약 병원  </td><td> 예약 아이디 </td><td> 진찰 동물 </td><td> 예약 상황  </td><td> 취소 </tr></table>');
 				
 				$.each(res,function(index,value){
 					
@@ -119,13 +119,13 @@ $(document)
 					for(var i = 0 ; i <= index ; i++){
 						if(hdata > sdata){
 
- 							var tr = '<tr><td>'+value.res_num+'</td><td>'+sm+'</td><td>'+value.hospital_hosnum+'</td><td>'+value.member_id+'</td>';
+ 							var tr = '<tr><td><button class="btn btn-secondary" id='+value.res_num+' style="color: #FFFFFF;" selected> 상세 확인 </button></td><td>'+sm+'</td><td>'+value.hospital_hosname+'</td><td>'+value.member_id+'</td>';
 							tr += '<td>'+value.petpet+'</td><td> 기간 만료 </td><td><button class="btn btn-success" id='+value.res_num+' style="color: #FFFFFF;" selected> 기록 삭제 </button>';
 							$('#wrap2 table').append(tr); 
 							return;
 						}else if(hdata < sdata){
 
-							var tr = '<tr><td><button class="btn btn-secondary" id='+value.res_num+' style="color: #FFFFFF;" selected> 상세 확인 </button></td><td>'+sm+'</td><td>'+value.hospital_hosnum+'</td><td>'+value.member_id+'</td>';
+							var tr = '<tr><td><button class="btn btn-secondary" id='+value.res_num+' style="color: #FFFFFF;" selected> 상세 확인 </button></td><td>'+sm+'</td><td>'+value.hospital_hosname+'</td><td>'+value.member_id+'</td>';
 							tr += '<td>'+value.petpet+'</td><td> 예약 중 </td><td><button class="btn btn-secondary" id='+value.res_num+' name="delete" style="color: #FFFFFF;" selected> 예약 취소 </button>';
 							$('#wrap table').append(tr); 
 							return;
@@ -133,6 +133,8 @@ $(document)
 					}
 						
 				});
+				
+				
 				
 				$(document).on('click', 'button', r_delete);
 				
@@ -170,35 +172,32 @@ $(document)
 					}else if($(this).text() == ' 상세 확인 '){
 						
 							var drno=$(this).prop("id")
-							$.ajax({
+	 							$.ajax({
 								type : 'POST',
 								dataType : 'json',
-								url : 'fsearch.do',
+								url : 'rfsearch.do',
 								data : 'res_num=' + drno,
 								success : viewMessage
-							});
+							}); 
+								  var screenW = screen.availWidth; 
+								  var screenH = screen.availHeight; 
+								  var popW = 450; 
+								  var popH = 550; 
+								  var posL=( screenW-popW ) / 2;   
+								  var posT=( screenH-popH ) / 2;   
+								
+								window.open("rfsearch.do?res_num=" + drno,"상세 확인",'width='+ popW +',height='+ popH +',top='+ posT +',left='+ posL +',resizable=no,scrollbars=no');
+							 
 							
-						  var screenW = screen.availWidth; 
-						  var screenH = screen.availHeight; 
-						  var popW = 450; 
-						  var popH = 550; 
-						  var posL=( screenW-popW ) / 2;   
-						  var posT=( screenH-popH ) / 2;   
 						
-
-						window.open("reservation_fsearch","상세 확인",'width='+ popW +',height='+ popH +',top='+ posT +',left='+ posL +',resizable=no,scrollbars=no');
-					}else{
+						}else{
 						return false;
 					}
-					
-					 
+			}		
+		}
+		
 				
-				
-			}
 			
-			
-				
-			}
 			
 				
 

@@ -39,8 +39,8 @@ public class ReservationServiceImp implements ReservationService {
 
 
 	@Override
-	public ReservationDTO r_fsearch(ReservationDTO dto) {
-		return rdao.r_fsearch(dto.getRes_num());
+	public ReservationDTO r_fsearch(int res_num) {
+		return rdao.r_fsearch(res_num);
 	}
 
 }

@@ -17,6 +17,7 @@ import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -144,10 +145,12 @@ public class Reservationcontroller {
 		return rservice.r_deleteProcess(dto);
 	}
 	
-	@RequestMapping("/fsearch.do")
-	public ModelAndView fsearchMethod(ReservationDTO dto) {
+	@RequestMapping("/rfsearch.do")
+	public ModelAndView fsearchMethod(int res_num) {
+		
 		ModelAndView mav = new ModelAndView();
-		mav.addObject(rservice.r_fsearch(dto));
+		System.out.println(res_num); // 받아온 예약 번호
+		mav.addObject("dto",rservice.r_fsearch(res_num));
 		mav.setViewName("reservation_fsearch");
 		return mav;
 	}
