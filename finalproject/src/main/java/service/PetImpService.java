@@ -3,6 +3,7 @@ package service;
 import java.util.List;
 
 import dao.PetDAO;
+import dto.MemDTO;
 import dto.PetDTO;
 
 public class PetImpService implements PetService{
@@ -61,6 +62,12 @@ public class PetImpService implements PetService{
 	public PetDTO contentProcess(PetDTO dto) {
 		// TODO Auto-generated method stub
 		return dao.content(dto);
+	}
+
+	@Override
+	public List<PetDTO> petinfoProcess(MemDTO dto) {
+		// TODO Auto-generated method stub
+		return dao.petinfo(dto);
 	}
 
 	

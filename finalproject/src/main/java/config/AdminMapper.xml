@@ -119,6 +119,9 @@
 		select count(*) from pet where petnum = #{petnum}
 	</select>
 
+	<select id="pet_info" parameterType="dto.MemDTO" resultType="dto.PetDTO">
+		select * from pet where member_id =#{id}
+	</select>
 
 
 	<!-- member -->

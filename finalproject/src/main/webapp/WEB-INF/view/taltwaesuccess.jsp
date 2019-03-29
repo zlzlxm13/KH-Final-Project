@@ -1,16 +1,47 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
-<title>Login</title>
+<title>Thank you</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="stylesheet" href="css/main.css" />
+<style type="text/css">
+.section_home .column+.column {
+	float: none;
+	overflow: hidden;
+	width: auto;
+}
+
+.section_home .column {
+	float: left;
+	width: 50%;
+}
+
+#content.section_home {
+	line-height: 14px;
+	zoom: 1;
+	padding: 16px 12px 94px;
+}
+
+.sh_group {
+	min-height: 185px;
+}
+
+.sh_group, .sh_group2, .sh_group3, .sh_group4 {
+	margin: 16px 8px 0;
+	padding: 32px 29px 32px;
+	text-align: left;
+	border: 1px solid #dadada;
+	-webkit-border-radius: 2px;
+	border-radius: 2px;
+	background: #fff;
+}
+</style>
 
 </head>
 <body class="subpage">
@@ -59,7 +90,7 @@
 			%>
 			<li>${sessionScope.id }님환영합니다
 				<ul class="links">
-					<li><a href="mypage.do">마이페이지</a></li>
+					<li><a href="#">마이페이지</a></li>
 					<li><a href="logout.do">로그아웃</a></li>
 				</ul>
 			</li>
@@ -74,6 +105,7 @@
 		</ul>
 	</nav>
 
+
 	<!-- One -->
 	<section id="one" class="wrapper style2">
 		<div class="inner">
@@ -81,48 +113,16 @@
 				<div class="image fit">
 					<img src="images/pic01.jpg" alt="" />
 				</div>
+
 				<div class="content">
-					<h2 class="align-center">Get in Touch</h2>
+				
 					<hr />
-
-
-					<div class="row 200%">
-						<div class="6u 12u$(medium)">
-							<form action="#" method="post">
-
-								<div class="field">
-									<label for="id">ID</label> <input name="id" id="id" type="text"
-										placeholder="id" style="width: 100%; margin-bottom: 100px;">
-
-								</div>
-								<div class="field">
-									<label for="pass">Password</label> <input name="password" id="pass"
-										type="password" placeholder="Pass"
-										style="width: 100%; margin-bottom: 100px;">
-								</div>
-							</form>
-
-							<script src="js/login.js" type="text/javascript"></script>
-							<ul class="actions align-center">
-								<li><a href="memsearch.do"
-									class="button special icon fa-search">아이디,비밀번호 찾기</a></li>	
-								<li><input value="Login" class="button alt icon fa-check"
-									type="submit" id="login_process" style="color: black;">
-								</li>
-								<li><a href="signup.do" class="button">회원가입</a></li>
-							</ul>
-							<!-- 네아로 카로 -->
-						</div>
-						<!-- <span class="image right"></span> -->
-						<div class="6u 12u$(medium)">
-							<img src="images/pay1.jpeg" alt=""
-								style="width: 80%; position: relative;" />
-						</div>
-
+					<div class="column">
+					그동안 수컷을 사용해주셔서 감사합니다.
+					<a href="index.do" class="button">Home</a>
 					</div>
 				</div>
 			</div>
-			<!--  -->
 		</div>
 	</section>
 

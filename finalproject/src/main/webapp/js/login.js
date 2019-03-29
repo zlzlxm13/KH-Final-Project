@@ -6,9 +6,8 @@ $(document).ready(function(){
         var json = {
             //m_id의 이름을 가지고 m_id의 id를 가지는 태그의 벨류값을 가져옴 아래도 동일
            id : $("#id").val(),
-           pass : $("#pass").val()
-        };
-    
+           password : $("#pass").val()
+        };        
         //json을 포이치문 돌림
         for(var str in json){
             //json[m_id or m_pw]를 돌릴때 길이가 0이면 아래 출력
@@ -42,9 +41,9 @@ $(document).ready(function(){
                     break;
                 }
             },
-            error : function(error) { //404 500등 오류 발생시 
+           /* error : function(error) { //404 500등 오류 발생시 
                 alert("오류 발생"+ error);
-            }
+            }*/
         });
     });
 });

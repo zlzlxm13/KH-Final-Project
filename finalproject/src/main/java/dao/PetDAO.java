@@ -2,6 +2,7 @@ package dao;
 
 import java.util.List;
 
+import dto.MemDTO;
 import dto.PetDTO;
 
 public interface PetDAO {
@@ -12,5 +13,5 @@ public interface PetDAO {
 	public void delete(String[] chk);
 	public PetDTO content(PetDTO dto);
 	public int check(PetDTO dto);
-	
+	public List<PetDTO> petinfo(MemDTO dto);
 }

@@ -32,7 +32,7 @@
 
 					var phonenum = hp1.value + hp2.value + hp3.value;
 					var modiemailq = "<%=session.getAttribute("email")%>"
-					var modipassq="<%=session.getAttribute("pass")%>"
+					var modipassq="<%=session.getAttribute("password")%>"
 					$('#modifybtn').click(
 							function() {
 
@@ -202,8 +202,8 @@
 											document.getElementById("phonep").innerHTML = "번호를 올바르게 입력해주세요.";
 											phoneValidation = false;
 										}
-									});// end phoneKeyUp()
-
+									});// end phoneKeyUp() defalutpass
+					
 				});
 	
 </script>
@@ -238,7 +238,7 @@
 						<a href="#menu" class="toggle" style="float:right"><span>Menu</span></a>
 		<%if(session.getAttribute("id") == null){ %>	
 						<input value="Login" class="button alt icon fa-check" type="submit" id = "login_process"style="float:right;">		
-						<input name="pass" id="pass" type="password" placeholder="Pass" style="width: 10%;float: right;margin-right: 10px;">				
+						<input name="password" id="pass" type="password" placeholder="Pass" style="width: 10%;float: right;margin-right: 10px;">				
 				<input name="id" id="id" type="text" placeholder="id" style="width: 10%;float: right;margin-right: 10px;">
 				<%} else {%>
 				${sessionScope.id }님 환영합니다
@@ -296,7 +296,8 @@
 								</div>
 								<div class="field">
 									<label for="pass">Defalut Password</label> <input name="defalutpass" id="defalutpass"
-										type="password" placeholder="Pass" style="width: 68%;">									
+										type="password" placeholder="Pass" style="width: 68%;">
+																			
 								</div>
 								<div class="field">
 									<label for="pass">Change Password</label> <input name="modipass" id="modipass"

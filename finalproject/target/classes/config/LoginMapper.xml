@@ -6,14 +6,14 @@
 
 <mapper namespace="login">
 	<insert id="signup" parameterType="dto.MemDTO">
-		insert into member values(#{id},#{pass},#{name},'Bronze',#{phonenum},#{email})
+		insert into member values(#{id},#{password},#{name},'Bronze',#{phonenum},#{email})
 	</insert>
 
 	<select id="signin" parameterType="dto.MemDTO" resultType="int">
-		select count(*) from member where id = #{id} and password=#{pass}
+		select count(*) from member where id = #{id} and password=#{password}
 	</select>
 	<select id="signlogin" parameterType="dto.MemDTO" resultType="dto.MemDTO">
-		select * from member where id=#{id} and password=#{pass}
+		select * from member where id=#{id} and password=#{password}
 	</select>
 	<select id="Idchk" resultType="int">
 		select count(*) from member where id = #{id}
@@ -27,7 +27,7 @@
 	<select id="Login_Info" resultType="dto.MemDTO">
 		select * from member
 		where id
-		= #{id} and pw = #{pw}
+		= #{id} and password = #{password}
 	</select>
 
 

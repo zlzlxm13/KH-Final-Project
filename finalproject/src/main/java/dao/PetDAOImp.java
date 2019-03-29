@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
+import dto.MemDTO;
 import dto.PetDTO;
 
 public class PetDAOImp implements PetDAO {
@@ -62,6 +63,12 @@ public class PetDAOImp implements PetDAO {
 	public int check(PetDTO dto) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("admin.pet_check", dto);
+	}
+
+	@Override
+	public List<PetDTO> petinfo(MemDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("admin.pet_info",dto);
 	}
 
 }

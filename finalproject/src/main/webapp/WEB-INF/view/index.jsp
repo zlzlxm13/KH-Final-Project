@@ -14,6 +14,7 @@
 		<link rel="stylesheet" href="css/main.css" />
 	</head>
 	<body>
+	
 
 		<!-- Header -->
 		<script src="js/login.js" type="text/javascript"></script>
@@ -25,7 +26,7 @@
 		<%if(session.getAttribute("id") == null){ %>
 						<a href="signup.do" class="button alt icon" style="width: 5%;float: right;color:white !important;">Sign up</a>						
 						<input value="Login" class="button alt icon fa-check" type="submit" id = "login_process" style="float:right;margin-right: 10px;color:white !important;">		
-						<input name="pass" id="pass" type="password" placeholder="Pass" style="width: 10%;float: right;margin-right: 10px;">				
+						<input name="password" id="pass" type="password" placeholder="Pass" style="width: 10%;float: right;margin-right: 10px;">				
 				<input name="id" id="id" type="text" placeholder="id" style="width: 10%;float: right;margin-right: 10px;">
 				<%} else {%>
 				${sessionScope.id }님 환영합니다

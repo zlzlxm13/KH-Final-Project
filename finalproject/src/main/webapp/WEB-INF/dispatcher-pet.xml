@@ -188,9 +188,11 @@
 
 	<bean class="controller.IndexController">
 		<property name="lservice" ref="lservice"></property>
-
 		<property name="mailSender" ref="mailSender"></property>
-
+		<property name="pservice" ref="pservice" />
+		<property name="pkservice" ref="pkservice" />
+		<property name="mservice" ref="mservice" />
+				
 	</bean>
 
 

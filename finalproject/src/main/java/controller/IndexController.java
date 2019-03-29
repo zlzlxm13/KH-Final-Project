@@ -20,9 +20,14 @@ import org.springframework.web.servlet.ModelAndView;
 
 
 import dao.LoginDAO;
+import dao.PetDAO;
 import dto.MemDTO;
+import dto.PetDTO;
 import mail.TempKey;
 import service.LoginService;
+import service.MemberService;
+import service.PetKindService;
+import service.PetService;
 
 
 
@@ -32,10 +37,12 @@ import service.LoginService;
 public class IndexController {
 
 	private LoginDAO l_dao;
+	private PetDAO p_dao;
+	private LoginService lservice;
+	private PetService pservice;
+	private PetKindService pkservice;
+	private MemberService mservice;
 
-
-
-	private LoginService lservice;	
 	//private JavaMailSender mailSender;
 	@Autowired 
 	private JavaMailSenderImpl mailSender;
@@ -67,12 +74,41 @@ public JavaMailSenderImpl getMailSender() {
 		this.lservice = lservice;
 
 	}
+	public PetDAO getP_dao() {
+		return p_dao;
+	}
 
+	public void setP_dao(PetDAO p_dao) {
+		this.p_dao = p_dao;
+	}
+
+	public PetService getPservice() {
+		return pservice;
+	}
+
+	public void setPservice(PetService pservice) {
+		this.pservice = pservice;
+	}
+	public PetKindService getPkservice() {
+		return pkservice;
+	}
+
+	public void setPkservice(PetKindService pkservice) {
+		this.pkservice = pkservice;
+	}
 
 
 	@RequestMapping("/generic.do")
 	public String process1() {
 		return "generic";
+	}
+
+	public MemberService getMservice() {
+		return mservice;
+	}
+
+	public void setMservice(MemberService mservice) {
+		this.mservice = mservice;
 	}
 
 	@RequestMapping("/elements.do")
@@ -93,22 +129,25 @@ public JavaMailSenderImpl getMailSender() {
 
 	@RequestMapping(value = "/login.do", method = RequestMethod.POST)
 	// login이라는 메소드명을 가지고 매개변수는 member m, Httpsession session
-	public @ResponseBody int login(MemDTO dto, HttpSession session) {
+	public @ResponseBody int login(MemDTO dto,HttpSession session) {
 		// m_dao.Login(m, session)을 호출하고 반환한다.
 		int lchk = lservice.loginprocess(dto, session);
 
 		
 		if (lchk == 1) {
 			MemDTO mdto = lservice.signloginprocess(dto);
+			pservice.petinfoProcess(dto);
 			session.setAttribute("id", mdto.getId());
-			session.setAttribute("pass", mdto.getPass());
+			session.setAttribute("password", mdto.getPassword());			
 			session.setAttribute("email", mdto.getEmail());
 			session.setAttribute("name", mdto.getName());
 			session.setAttribute("grade", mdto.getGrade());
 			session.setAttribute("phonenum", mdto.getPhonenum());
-			
+			session.setAttribute("petprofile",pservice.petinfoProcess(dto));
+			System.out.println("paspapsapspaspa:  "+mdto.getPassword());
 			System.out.println("logindoemail:!!!!!"+mdto.getEmail());
 			// session.setAttribute("dto",dto);
+			System.out.println("petinfopesersifhaskdjfhlaksdjfhlas:   "+pservice.petinfoProcess(dto));
 		}
 		// if()
 
@@ -140,11 +179,12 @@ public JavaMailSenderImpl getMailSender() {
 	public String logoutProcess(MemDTO dto, HttpSession session) {
 
 		session.removeAttribute("id");
-		session.removeAttribute("pass");
+		session.removeAttribute("password");
 		session.removeAttribute("name");
 		session.removeAttribute("email");
 		session.removeAttribute("grade");
 		session.removeAttribute("phonenum");
+		session.removeAttribute("petprofile");
 		// session.removeAttribute("dto");
 
 		return "redirect:/index.do";
@@ -228,8 +268,33 @@ public JavaMailSenderImpl getMailSender() {
 		return key;
 	}
 	
-	@RequestMapping(value = "/mypage.do", method = RequestMethod.GET)
-	public String mypage() {	
+	@RequestMapping("/mypage.do")
+	public String mypage(MemDTO dto,HttpSession session) {
+		MemDTO tdto = new MemDTO();
+		tdto.setId((String)session.getAttribute("id"));
+		tdto.setPassword((String)session.getAttribute("password"));
+		System.out.println("qdididid  :  "+session.getAttribute("id"));
+		System.out.println("dndld:   "+session.getAttribute("password"));
+		MemDTO mdto = lservice.signloginprocess(tdto);		
+		pservice.petinfoProcess(tdto);
+		
+		session.removeAttribute("id");
+		session.removeAttribute("password");
+		session.removeAttribute("name");
+		session.removeAttribute("email");
+		session.removeAttribute("grade");
+		session.removeAttribute("phonenum");
+		session.removeAttribute("petprofile");
+		
+
+		session.setAttribute("id", mdto.getId());
+		session.setAttribute("password", mdto.getPassword());
+		session.setAttribute("email", mdto.getEmail());
+		session.setAttribute("name", mdto.getName());
+		session.setAttribute("grade", mdto.getGrade());
+		session.setAttribute("phonenum", mdto.getPhonenum());
+		session.setAttribute("petprofile",pservice.petinfoProcess(tdto));
+		System.out.println();
 		return "mypage";
 	}
 	@RequestMapping(value = "/membermodify.do", method = RequestMethod.GET)
@@ -240,18 +305,55 @@ public JavaMailSenderImpl getMailSender() {
 	
 
 	@RequestMapping(value = "/petinsert.do", method = RequestMethod.GET)
-	public void petinsert() {
-
+	public ModelAndView petinsert() {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("petkind", pkservice.listProcess());
+		mav.setViewName("petinsert");
+		return mav;
 	}
 
-/*	@RequestMapping(value = "/petinsert.do", method = RequestMethod.POST)
-	public String petinsertPost(MemDTO dto) {
-
-		lservice.insertMember(dto);
-
-		return "index";
+	@RequestMapping(value = "/petinsert.do", method = RequestMethod.POST)
+	public ModelAndView petinsertPost(PetDTO pdto,MemDTO dto, HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		pservice.insertProcess(pdto);
+		session.removeAttribute("petprofile");
+		session.setAttribute("petprofile",pservice.petinfoProcess(dto));	
+		mav.setViewName("redirect:mypage.do");
+		return mav;
 	}
-	*/
-
-
+	@RequestMapping("/taltwaesuccess.do")
+	public ModelAndView taltwaesuccess(String[] id,HttpSession session) {
+		ModelAndView mav = new ModelAndView();		
+		mservice.deleteProcess(id);
+		mav.addObject("count", mservice.countProcess());
+		mav.addObject("list", mservice.listProcess());		
+		session.removeAttribute("id");
+		session.removeAttribute("password");
+		session.removeAttribute("name");
+		session.removeAttribute("email");
+		session.removeAttribute("grade");
+		session.removeAttribute("phonenum");
+		session.removeAttribute("petprofile");
+		return mav;
+	}
+	@RequestMapping("/memtaltwae.do")
+	public String memtaltwae() {		
+		return "memtaltwae";
+	}
+	@RequestMapping("/thankyou.do")
+	public String thankyou() {		
+		return "taltwaesuccess";
+	}
+	@RequestMapping("/MypagePetDelete.do")
+	public ModelAndView adminPetDeleteProcess(MemDTO dto,HttpSession session,String[] chk) {
+		ModelAndView mav = new ModelAndView();		
+		MemDTO tdto = new MemDTO();
+		tdto.setId((String)session.getAttribute("id"));
+		tdto.setPassword((String)session.getAttribute("password"));	
+		pservice.deleteProcess(chk);		
+		session.removeAttribute("petprofile");
+		session.setAttribute("petprofile",pservice.petinfoProcess(tdto));
+		mav.setViewName("redirect:mypage.do");
+		return mav;
+	}
 }

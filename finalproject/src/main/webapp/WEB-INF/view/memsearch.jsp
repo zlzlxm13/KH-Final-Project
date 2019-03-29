@@ -124,7 +124,7 @@
 						<a href="#menu" class="toggle" style="float:right"><span>Menu</span></a>
 		<%if(session.getAttribute("id") == null){ %>	
 						<input value="Login" class="button alt icon fa-check" type="submit" id = "login_process"style="float:right;">		
-						<input name="pass" id="pass" type="password" placeholder="Pass" style="width: 10%;float: right;margin-right: 10px;">				
+						<input name="password" id="pass" type="password" placeholder="Pass" style="width: 10%;float: right;margin-right: 10px;">				
 				<input name="id" id="id" type="text" placeholder="id" style="width: 10%;float: right;margin-right: 10px;">
 				<%} else {%>
 				${sessionScope.id }님 환영합니다

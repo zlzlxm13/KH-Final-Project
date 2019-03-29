@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -41,6 +42,34 @@
 	background: #fff;
 }
 </style>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('input.dbbox').on('click', function() {
+			if ($(this).is(":checked")) {
+				$(this).attr('name', 'chk');
+			} else {
+
+				$(this).removeAttr('name');
+			}
+		});
+
+		$('#checkall').on('click', function() {
+			if ($('#checkall').is(":checked")) {
+
+				$('input.dbbox').each(function() {
+					this.checked = true;
+					$(this).attr('name', 'chk');
+				});
+
+			} else {
+				$('input.dbbox').each(function() {
+					this.checked = false;
+					$(this).removeAttr('name', 'chk');
+				});
+			}
+		});
+	});
+</script>
 </head>
 <body class="subpage">
 
@@ -56,8 +85,8 @@
 			if (session.getAttribute("id") == null) {
 		%>
 		<input value="Login" class="button alt icon fa-check" type="submit"
-			id="login_process" style="float: right;"> <input name="pass"
-			id="pass" type="password" placeholder="Pass"
+			id="login_process" style="float: right;"> <input
+			name="password" id="pass" type="password" placeholder="Pass"
 			style="width: 10%; float: right; margin-right: 10px;"> <input
 			name="id" id="id" type="text" placeholder="id"
 			style="width: 10%; float: right; margin-right: 10px;">
@@ -138,8 +167,6 @@
 									</div>
 									<div class="sh_content">
 										<dl class="sh_lst">
-											<dt class="nic_tit">아이디</dt>
-											<dd class="nic_desc">${sessionScope.id}</dd>
 											<dt>연락처 이메일</dt>
 											<dd>${sessionScope.email}</dd>
 											<dt>이름</dt>
@@ -148,16 +175,13 @@
 											<dd>${sessionScope.grade }</dd>
 											<dt>번호</dt>
 											<dd>${sessionScope.phonenum }</dd>
-
 										</dl>
 									</div>
 									<p class="btn_area_btm">
-										<a href="membermodify.do"
-											onclick="changeImage();clickcr(this,'imn.prfmodify','','',event);"
-											class="btn_model"><b class="btn2">회원정보 변경</b></a>
+										<a href="membermodify.do" class="button">회원정보 변경</a>
 									</p>
 									<p>더이상 수컷을 사용하지 않는다면</p>
-									<a href="#">회원탈퇴</a>
+									<a href="memtaltwae.do" class="button">회원탈퇴</a>
 								</div>
 								<!-- 예약관리  -->
 								<div class="sh_group ">
@@ -198,23 +222,40 @@
 											나의 애완동물 정보를<br> 관리할 수 있습니다.
 										</p>
 									</div>
-									<div class="sh_content">
-										<dl class="sh_lst">
-											<dt class="nic_tit">아이디</dt>
-											<dd class="nic_desc">${sessionScope.id}</dd>
-											<dt>애완동물 이름</dt>
-											<dd></dd>
-											<dt>이름</dt>
-											<dd>${sessionScope.name }</dd>
-											<dt>등급</dt>
-											<dd>${sessionScope.grade }</dd>
-											<dt>번호</dt>
-											<dd>${sessionScope.phonenum }</dd>
+									<div class="sh_content" style="font-size: 11pt;">
+										<form id="frm" method="post">
+											<table>
+												<tr>												
+													<td>PETNAME</td>
+													<td>PETAGE</td>
+													<td>PETSEX</td>
+													<td>PETKIND_KIND</td>
+													<td>PETINFO</td>
+													<td><input type="checkbox" id="checkall"
+														value="checkall"></input> <label for="checkall"></label></td>
+												</tr>
 
-										</dl>
+												<c:forEach var="pdto" items="${sessionScope.petprofile}"
+													varStatus="status">
+													<tr>
+														<td>${pdto.petname}</td>
+														<td>${pdto.petage}</td>
+														<td>${pdto.petsex}</td>
+														<td>${pdto.petkind_kind}</td>
+														<td>${pdto.petinfo}</td>
+														<td><input type="checkbox" class="dbbox"
+															id=${pdto.petname } value="${pdto.petnum}" ></input> 
+														<label for="${pdto.petname}"></label></td>
+
+													</tr>
+												</c:forEach>
+											</table>
+										</form>
 									</div>
 									<p class="btn_area_btm">
-										<a href="petinsert.do" class="btn_model"><b class="btn2">등록하기</b></a>
+										<a href="petinsert.do" class="button">등록하기</a> <a href="#"
+										onclick="$('#frm').attr('action', 'MypagePetDelete.do').submit();"  
+											class="button">삭제하기</a>
 									</p>
 								</div>
 								<!-- 상담 관리 -->

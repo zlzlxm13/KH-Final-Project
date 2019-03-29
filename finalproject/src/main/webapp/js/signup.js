@@ -210,7 +210,7 @@ $(document)
 					$('#signpass')
 							.keyup(
 									function() {
-										var pass = $(this).val();
+										var fpass = $(this).val();
 										var re1 = /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/; // 패스워드
 										// 정규식
 										var result = re1.test(fpass);
