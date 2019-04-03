@@ -203,7 +203,7 @@ public class Reservationcontroller {
 	}
 	
 	@RequestMapping(value="/reupdatepro.do", method=RequestMethod.POST)
-	public ModelAndView updatepro(ReservationDTO dto, String red, String email) {
+	public ModelAndView updatepro(ReservationDTO dto, String red, String email, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		
 		String text;
@@ -232,6 +232,12 @@ public class Reservationcontroller {
 			e.printStackTrace();
 			System.out.println(e);
 		}
+		
+		// 세션 삭제
+		session.removeAttribute("res_date");
+		session.removeAttribute("res_petpet");
+		session.removeAttribute("res_petinfo");
+		
 		mav.setViewName("redirect:/search.do");
 		return mav;
 	}
