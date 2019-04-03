@@ -28,6 +28,14 @@
 		from reservation
 		where res_num = #{res_num}
 	</delete>
+	
+	<update id="r_update" parameterType="dto.ReservationDTO">
+	 update reservation set res_date=#{res_date}, hospital_hosname=#{hospital_hosname},hospital_hosnum=#{hospital_hosnum},petpet=#{petpet}
+	 <if test="petinfo=null">
+			,petinfo=#{petinfo}
+	 </if>
+	 where res_num = #{res_num}
+	</update>
 
 
 </mapper>

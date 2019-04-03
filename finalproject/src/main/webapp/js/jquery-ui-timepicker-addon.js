@@ -10,7 +10,7 @@
 }(function ($) {
 
     /*
-     * Lets not redefine timepicker, Prevent "Uncaught RangeError: Maximum call stack size exceeded"
+     * Lets not r	edefine timepicker, Prevent "Uncaught RangeError: Maximum call stack size exceeded"
      */
     $.ui.timepicker = $.ui.timepicker || {};
     if ($.ui.timepicker.version) {

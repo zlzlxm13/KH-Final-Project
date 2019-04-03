@@ -1,11 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>​
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title> 예약 수정 </title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />  
 <script src="https://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
@@ -127,13 +129,10 @@ table{
   	
  });
  
- 
 </script>
 
 </head>
 <body>
-
-
 
 <!-- Header -->
 			<script src="js/login.js" type="text/javascript"></script>
@@ -175,22 +174,25 @@ table{
 				</ul>
 			</nav>
 
-<h2 class="align-center">Reservation</h2>
+<h2 class="align-center"> modify </h2>
  <hr />
 
-<form method="post" action="reservation.do">
+<form method="post" action="reupdatepro.do">
 
 <div id="res" style="float:left;">
 	
 <table>
+<input type="hidden" name="res_num" value="${res_num}"/>
 <tr>
 <td width="50%" align="center"> 품종   :</td>
-<td> <input type="text" id = "pet_pet" name="petpet" placeholder="품종을 입력해주십시오." required/> </td>
+<td> <input type="text" id = "pet_pet" name="petpet" placeholder="품종을 입력해주십시오." value="${sessionScope.petpet}" /> </td>
 </tr>
 
 <tr>
 <td width="50%" align="center"> 예약 날짜   :</td>
-<td> <input type="text" id = "datepi" name="red" placeholder="클릭해주십시오." required ></td>
+
+<fmt:formatDate var="res" value="${sessionScope.res_date}" pattern="yyyy-MM-dd HH:mm"/>
+<td> <input type="text" id = "datepi" name="red" placeholder="클릭해주십시오." value="${res}" required ></td>
 </tr>
 
 <tr>
@@ -213,7 +215,7 @@ table{
 
 <tr>
 <td width="50%" align="center"> 증상  :</td>
-<td><TEXTAREA name="petinfo" id="petinfo" cols=20 rows=4 style="resize: none;" font-size=1px; placeholder="ex)건강 검진, 심장사상충 접종..." ></TEXTAREA></td>
+<td><TEXTAREA name="petinfo" id="petinfo" cols=20 rows=4 style="resize: none;" font-size=1px; placeholder="ex)건강 검진, 심장사상충 접종..." >${sessionScope.petinfo}</TEXTAREA></td>
 </tr>
 
 </table>
@@ -222,13 +224,13 @@ table{
 	   type="submit" id="btnSave" style="color: black;" />
 	    
 <input value="취소하기" class="button alt icon fa-check" id="indexbtn"
-	   type="button" onclick="location.href='index.do'" style="color: black;" />	   
+	   type="button" onclick="location.href='search.do'" style="color: black;" />	   
 	  
 </div>
 </form>
 
 <div class="6u 12u$(medium)" style="float:left;">
-	<img src="images/monkey.jpg" />
+	<img src="images/updog.jpg" />
 </div>
 
 

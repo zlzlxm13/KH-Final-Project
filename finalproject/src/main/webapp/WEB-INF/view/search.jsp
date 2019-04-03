@@ -46,8 +46,8 @@
 #pagination .on {font-weight: bold; cursor: default;color:#777;}
 
 #search {
-  width: 1000px;
-  height: 1200px;
+  width: 1300px;
+  height: 1400px;
   padding: 40px;
   margin: 0 auto;	
   border: 1px solid #eee;
@@ -75,9 +75,12 @@
 
 <script type="text/javascript">
 
+
 $(document)
 		.ready(
 			function() {
+				
+				/* $('#search_update').attr('action','rupdate.do').submit(); */
 				
 				$('#btnsearch').bind("click",function(){
 					$.ajax({
@@ -93,15 +96,15 @@ $(document)
 
 			function viewMessage(res){
 				
-
+				// 예약 기록
 				$('#wrap2').empty();
-				$('#wrap2').append('<table><tr><td> 상세 확인  </td><td> 예약 날짜   </td><td> 예약 병원  </td><td> 예약 아이디 </td><td> 진찰 동물 </td><td> 예약 상황  </td><td> 삭제 </tr></table>');
+				$('#wrap2').append('<table><tr><td> 상세 확인  </td><td> 예약 날짜   </td><td> 예약 병원  </td><td> 진찰 동물 </td><td> 예약 상황  </td><td> 삭제 </tr></table>');
 				
-
+				// 예약 확인
 				$('#wrap').empty();
-				$('#wrap').append('<table><tr><td> 상세 확인  </td><td> 예약 날짜   </td><td> 예약 병원  </td><td> 예약 아이디 </td><td> 진찰 동물 </td><td> 예약 상황  </td><td> 취소 </tr></table>');
+				$('#wrap').append('<table><tr><td> 상세 확인  </td><td> 예약 날짜   </td><td> 예약 병원  </td><td> 진찰 동물 </td><td> 예약 상황  </td><td> 수정 </td><td> 취소 </tr></table>');
 				
-				$.each(res,function(index,value){
+				$.each(res,function(index,value){	
 					
 					var sdata=new Date(value.res_date);
 					var sm=sdata.getFullYear()+"년 ";
@@ -119,16 +122,16 @@ $(document)
 					for(var i = 0 ; i <= index ; i++){
 						if(hdata > sdata){
 
- 							var tr = '<tr><td><button class="btn btn-secondary" id='+value.res_num+' style="color: #FFFFFF;" selected> 상세 확인 </button></td><td>'+sm+'</td><td>'+value.hospital_hosname+'</td><td>'+value.member_id+'</td>';
+ 							var tr = '<tr><td><button class="btn btn-secondary" id='+value.res_num+' style="color: #FFFFFF;" selected> 상세 확인 </button></td><td>'+sm+'</td><td>'+value.hospital_hosname+'</td>';
 							tr += '<td>'+value.petpet+'</td><td> 기간 만료 </td><td><button class="btn btn-success" id='+value.res_num+' style="color: #FFFFFF;" selected> 기록 삭제 </button>';
 							$('#wrap2 table').append(tr); 
 							return;
 						}else if(hdata < sdata){
 
-							var tr = '<tr><td><button class="btn btn-secondary" id='+value.res_num+' style="color: #FFFFFF;" selected> 상세 확인 </button></td><td>'+sm+'</td><td>'+value.hospital_hosname+'</td><td>'+value.member_id+'</td>';
-							tr += '<td>'+value.petpet+'</td><td> 예약 중 </td><td><button class="btn btn-secondary" id='+value.res_num+' name="delete" style="color: #FFFFFF;" selected> 예약 취소 </button>';
+							var tr = '<tr><td><button class="btn btn-secondary" id='+value.res_num+' style="color: #FFFFFF;" selected> 상세 확인 </button></td><td>'+sm+'</td><td>'+value.hospital_hosname+'</td><td>'+value.petpet+'</td>';
+							tr += '<td> 예약 중 </td><td><button class="btn btn-secondary" id='+value.res_num+' name="update" style="color: #FFFFFF;" selected> 예약 수정 </button></td><td><button class="btn btn-secondary" id='+value.res_num+' name="delete" style="color: #FFFFFF;" selected> 예약 취소 </button>';
 							$('#wrap table').append(tr); 
-							return;
+							return; 
 						}
 					}
 						
@@ -164,7 +167,6 @@ $(document)
 							url : 'delete.do',
 							data : 'res_num=' + drno,
 							success : viewMessage
-						
 						});
 						alert("기록 삭제 완료")
 						location.reload();
@@ -181,18 +183,36 @@ $(document)
 							}); 
 								  var screenW = screen.availWidth; 
 								  var screenH = screen.availHeight; 
-								  var popW = 450; 
-								  var popH = 550; 
+								  var popW = 637; 
+								  var popH = 842; 
 								  var posL=( screenW-popW ) / 2;   
 								  var posT=( screenH-popH ) / 2;   
 								
-								window.open("rfsearch.do?res_num=" + drno,"상세 확인",'width='+ popW +',height='+ popH +',top='+ posT +',left='+ posL +',resizable=no,scrollbars=no');
-							 
+								window.open("rfsearch.do?res_num=" + drno,"상세 확인",'width='+ popW +',height='+ popH +',top='+ posT +',left='+ posL);
 							
-						
+						 }else if($(this).text() == ' 예약 수정 '){
+							var drno = $(this).prop("id");
+							if(confirm(" 예약을 수정하시겠습니까? ")){
+							 $.ajax({
+								type : 'POST',
+								dataType : 'json',
+								url : 'rupdate.do',
+								data : 'resnum=' + drno,
+								success : function(dto){
+									alert(dto.res_num);
+									location.href = "updatemap.do?res_num="+dto.res_num;
+									
+									/* $("#search_update").attr('action','updatemap.do').submit(); */
+								}
+							}); 
+							
+						   }else{
+							   return false;
+						   } 
 						}else{
-						return false;
-					}
+							return false;
+						}
+						
 			}		
 		}
 		
@@ -254,14 +274,15 @@ $(document)
 	<input type="hidden" value="찾기" id="btnsearch" /> </p>
 	</header>
 	<hr/>
+	<form id="search_update" method="POST">
+	<input type="hidden" name="res_num" value="${dto.res_num}"/>
 	<h2 class="align-center"> 예약 확인 </h2>
 	<div id="wrap">
-	
+	</form>
 	</div>
 	
 	<h2 class="align-center"> 예약 기록 </h2>
 	<div id="wrap2">
-	
 	</div>
 	</div>
 	

@@ -10,5 +10,6 @@ public interface ReservationService {
 	public List<ReservationDTO> search(String member_id);
 	public List<ReservationDTO> r_deleteProcess(ReservationDTO dto);
 	public ReservationDTO r_fsearch(int res_num);
+	public void updateProcess(ReservationDTO dto);
 
 }//end class

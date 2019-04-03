@@ -43,6 +43,13 @@ public class ReservationServiceImp implements ReservationService {
 		return rdao.r_fsearch(res_num);
 	}
 
+
+
+	@Override
+	public void updateProcess(ReservationDTO dto) {
+		rdao.r_update(dto);
+	}
+
 }
 
 	

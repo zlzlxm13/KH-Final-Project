@@ -85,6 +85,8 @@ public JavaMailSenderImpl getMailSender() {
 		// m_dao.Login(m, session)을 호출하고 반환한다.
 		int lchk = lservice.loginprocess(dto, session);
 		if (lchk == 1) {
+			
+			System.out.println(dto.getEmail());
 			session.setAttribute("id", dto.getId());
 			session.setAttribute("pass", dto.getPass());
 			session.setAttribute("email", dto.getEmail());

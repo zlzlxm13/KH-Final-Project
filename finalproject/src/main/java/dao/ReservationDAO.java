@@ -11,6 +11,7 @@ public interface ReservationDAO {
 	public List<ReservationDTO> r_search(String member_id);
 	public ReservationDTO r_fsearch(int res_num);
 	public void r_delete(int num);
+	public void r_update(ReservationDTO dto);
 	
 	
 	
