@@ -1,4 +1,4 @@
-<c:if test="${menu == 4}">
+<c:if test="${menu == 2}">
 		<form method="post">
 			<table>
 				<thead>
@@ -8,35 +8,43 @@
 				</thead>
 				<tbody>
 					<tr>
-						<td>hospital_hosnum</td>
-						<td><input type="text" name="hospital_hosnum" id="hospital_hosnum" value=""
-							placeholder="hospital_hosnum"></input></td>
+						<td>petname</td>
+						<td><input type="text" name="petname" id="petname" value=""
+							placeholder="petname"></input></td>
+					</tr>
+					<tr>
+						<td>petage</td>
+						<td><input type="text" name="petage" id="petage"
+							value="" placeholder="petage"></input></td>
+					</tr>
+
+
+
+					<tr>
+						<td>petsex</td>
+						<td><input type="text" petsex="petsex" id="petsex" value=""
+							placeholder="petsex"></input></td>
 					</tr>
 					<tr>
 						<td>member_id</td>
-						<td><input type="text" name="member_id" id="member_id"
-							value="" placeholder="member_id"></input></td>
+						<td><input type="text" name="member_id" id="member_id" value=""
+							placeholder="member_id"></input></td>
+					</tr>
+					<tr>
+						<td>petinfo</td>
+						<td><input type="text" name="petinfo" id="petinfo"
+							value="" placeholder="petinfo"></input></td>
 					</tr>
 
-
-
 					<tr>
-						<td>res_date</td>
-						<td><input type="text" name="res_date" id="res_date" value=""
-							placeholder="res_date"></input></td>
-					</tr>
-				
-					<tr>
-						<td><input type="button" class="add" id="add" name="add"
-							value="ADD"></input></td>
-						<td><input type="button" class="del" id="del" name="del"
-							value="del"></input></td>
-
+						<td>petkind_kind</td>
+						<td><input type="text" name="petkind_kind" id="petkind_kind"
+							value="" placeholder="petkind_kind"></input></td>
 					</tr>
 				</tbody>
 			</table>
 
 			<a href="#" class="button"
-				onclick="$('form').attr('action', 'adminReservationInsert.do').submit();">Insert</a>
+				onclick="$('form').attr('action', 'adminMemberInsert.do').submit();">Insert</a>
 		</form>
 	</c:if>

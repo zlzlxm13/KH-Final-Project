@@ -10,6 +10,9 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="js/login.js" type="text/javascript"></script>
 
+
+<script src="http://code.jquery.com/jquery.min.js"></script>
+
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="stylesheet" href="css/main.css" />
@@ -27,16 +30,112 @@
 <script src="js/util.js"></script>
 <script src="js/main.js"></script>
 
+
+<script type="text/javascript"
+	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d0a984e7e6b73a9984c04ff2a0f0da1c&libraries=services,clusterer,drawing"></script>
+
 <script type="text/javascript">
+
+
 $(document).ready(function(){
+	
 	if(${menu} != "") {
 		$("li[value="+${menu}+"]").addClass('active');
-	}
-	if(${menu} == '4') {
+	} else if(${menu} == '4') {
 		document.getElementById('rdate').valueAsDate = new Date();
+	} else if(${menu} == '3') {
+var locPosition = new daum.maps.LatLng(33.450701, 126.570667);
+	
+	var geocoder = new daum.maps.services.Geocoder();
+	if (navigator.geolocation) {
+	    
+	navigator.geolocation.getCurrentPosition(function(position) {
+		locPosition = new daum.maps.LatLng(position.coords.latitude, position.coords.longitude);
+         // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
+		map.panTo(locPosition);
+		 marker.setPosition(locPosition);
+      });
+	} else {
+
 	}
 	
-	$("#add").on('click',function(){
+	
+
+  	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+   	mapOption = { 
+        center: locPosition, // 지도의 중심좌표
+        level: 3 // 지도의 확대 레벨
+    };
+ 	var map = new daum.maps.Map(mapContainer, mapOption);
+ 	
+ 	
+ 	var marker = new daum.maps.Marker({
+ 		position : locPosition
+ 	}), // 클릭한 위치를 표시할 마커입니다
+ 	    infowindow = new daum.maps.InfoWindow({zindex:1}); // 클릭한 위치에 대한 주소를 표시할 인포윈도우입니다
+ 	    marker.setMap(map);
+ 	// 현재 지도 중심좌표로 주소를 검색해서 지도 좌측 상단에 표시합니다
+ 	searchAddrFromCoords(map.getCenter(), displayCenterInfo);
+
+
+// 지도를 클릭했을 때 클릭 위치 좌표에 대한 주소정보를 표시하도록 이벤트를 등록합니다
+daum.maps.event.addListener(map, 'click', function(mouseEvent) {
+    searchDetailAddrFromCoords(mouseEvent.latLng, function(result, status) {
+        if (status === daum.maps.services.Status.OK) {
+            var detailAddr = !!result[0].road_address ? '<div>도로명주소 : ' + result[0].road_address.address_name + '</div>' : '';
+            detailAddr += '<div>지번 주소 : ' + result[0].address.address_name + '</div>';
+            
+            var content = '<div class="bAddr">' +
+                            '<span class="title">법정동 주소정보</span>' + 
+                            detailAddr + 
+                        '</div>';
+
+            // 마커를 클릭한 위치에 표시합니다 
+            marker.setPosition(mouseEvent.latLng);
+            marker.setMap(map);
+            $('#latitude').attr("value", mouseEvent.latLng.getLat());
+        	$('#longitude').attr("value", mouseEvent.latLng.getLng());
+
+            // 인포윈도우에 클릭한 위치에 대한 법정동 상세 주소정보를 표시합니다
+            infowindow.setContent(content);
+            infowindow.open(map, marker);
+        }   
+    });
+});
+
+// 중심 좌표나 확대 수준이 변경됐을 때 지도 중심 좌표에 대한 주소 정보를 표시하도록 이벤트를 등록합니다
+daum.maps.event.addListener(map, 'idle', function() {
+    searchAddrFromCoords(map.getCenter(), displayCenterInfo);
+});
+
+function searchAddrFromCoords(coords, callback) {
+    // 좌표로 행정동 주소 정보를 요청합니다
+    geocoder.coord2RegionCode(coords.getLng(), coords.getLat(), callback);         
+}
+
+function searchDetailAddrFromCoords(coords, callback) {
+    // 좌표로 법정동 상세 주소 정보를 요청합니다
+    geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
+}
+
+// 지도 좌측상단에 지도 중심좌표에 대한 주소정보를 표출하는 함수입니다
+function displayCenterInfo(result, status) {
+    if (status === daum.maps.services.Status.OK) {
+        var infoDiv = document.getElementById('centerAddr');
+             
+
+        for(var i = 0; i < result.length; i++) {
+            // 행정동의 region_type 값은 'H' 이므로
+            if (result[i].region_type === 'H') {
+                infoDiv.innerHTML = result[i].address_name;
+                break;
+            }
+        }
+    }    
+}
+}
+	
+	$("#kind").on('change',function(){
 		if ($('#kind option:selected').val() != ""){
 			if ($('#petkind_kind').attr("value") == ""){
 				$('#petkind_kind').attr("value", $('#kind option:selected').val());
@@ -61,6 +160,16 @@ $(document).ready(function(){
 		$('#petkind_kind').attr("value", str);
 
 	});
+	 $.fn.inputdata = function() {
+		var empty = "";
+		$('form').find("input").each(function(){
+			
+			if($(this).val() == "") {
+				empty = empty + $(this).attr("id") + ", ";
+			}
+		});
+		return empty;
+	}	
 });
 </script>
 
@@ -203,6 +312,45 @@ main {
 	margin-top: 30px;
 	margin-left: 30px;
 }
+
+.map_wrap {
+	position: absolute;
+	width: 500px;
+	height: 615px;
+	top: 0;
+	left: 750px;
+}
+
+#map {
+	position: static;
+	width: 500px;
+	height: 415px;
+	top: 0;
+	left: 0;
+}
+
+.hAddr {
+	position: absolute;
+	left: 10px;
+	top: 10px;
+	border-radius: 2px;
+	background: #fff;
+	background: rgba(255, 255, 255, 0.8);
+	z-index: 1;
+	padding: 5px;
+}
+
+.title {
+	font-weight: bold;
+	display: block;
+	font-size: 10px;
+}
+
+#centerAddr {
+	display: block;
+	margin-top: 2px;
+	font-weight: normal;
+}
 </style>
 </head>
 
@@ -319,34 +467,117 @@ main {
 			</a></li>
 		</ul>
 	</nav>
-	<main> <c:if test="${menu == 1}">
+	<c:if test="${menu == 1}">
+		<main>
 		<form method="post">
-			<input type="text" name="id" id="id" value="" placeholder="ID">
-			<input type="text" name="password" id="password" value=""
-				placeholder="PASSWORD"> <input type="text" name="name"
-				id="name" value="" placeholder="NAME"> <input type="text"
-				name="grade" id="grade" value="" placeholder="GRADE"> <input
-				type="text" name="phonenum" id="phonenum" value=""
-				placeholder="PHONENUM"> <input type="text" name="email"
-				id="email" placeholder="EMAIL"> <a href="#" class="button"
-				onclick="$('form').attr('action', 'adminMemberInsert.do').submit();">Insert</a>
-		</form>
-	</c:if> <c:if test="${menu == 2}">
-		<form method="post">
-			<input type="text" name="petname" id="petname" value=""
-				placeholder="PETNAME"> <input type="text" name="petage"
-				id="petage" value="" placeholder="PETAGE"> <input
-				type="text" name="petsex" id="petsex" value="" placeholder="PETSEX">
-			<input type="text" name="member_id" id="member_id" value=""
-				placeholder="MEMBER_ID"> <input type="text"
-				name="petkind_kind" id="petkind_kind" value=""
-				placeholder="PETKIND_KIND">
-			<textarea type="text" name="petinfo" id="petinfo"
-				placeholder="PETINFO"></textarea>
+			<table>
+				<thead>
+					<tr>
+						<th>INSERT</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>ID</td>
+						<td><input type="text" name="id" id="id" value=""
+							placeholder="ID"></input></td>
+					</tr>
+					<tr>
+						<td>password</td>
+						<td><input type="text" name="password" id="password" value=""
+							placeholder="password"></input></td>
+					</tr>
+
+
+
+					<tr>
+						<td>name</td>
+						<td><input type="text" name="name" id="name" value=""
+							placeholder="name"></input></td>
+					</tr>
+					<tr>
+						<td>grade</td>
+						<td><input type="text" name="grade" id="grade" value=""
+							placeholder="grade"></input></td>
+					</tr>
+					<tr>
+						<td>phonenum</td>
+						<td><input type="text" name="phonenum" id="phonenum" value=""
+							placeholder="phonenum"></input></td>
+					</tr>
+
+					<tr>
+						<td>email</td>
+						<td><input type="text" name="email" id="email" value=""
+							placeholder="email"></input></td>
+					</tr>
+				</tbody>
+			</table>
+			<!--  -->
+
 			<a href="#" class="button"
-				onclick="$('form').attr('action', 'adminPetInsert.do').submit();">Insert</a>
+				onclick="if($.fn.inputdata() == '') {$('form').attr('action', 'adminMemberInsert.do').submit();} else{alert($.fn.inputdata().substr(0, $.fn.inputdata().length - 2)+'가 비었습니다.');}">Insert</a>
 		</form>
-	</c:if> <c:if test="${menu == 3}">
+		</main>
+	</c:if>
+
+	<c:if test="${menu == 2}">
+		<main>
+		<form method="post">
+			<table>
+				<thead>
+					<tr>
+						<th>INSERT</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>petname</td>
+						<td><input type="text" name="petname" id="petname" value=""
+							placeholder="petname"></input></td>
+					</tr>
+					<tr>
+						<td>petage</td>
+						<td><input type="text" name="petage" id="petage" value=""
+							placeholder="petage"></input></td>
+					</tr>
+					<tr>
+						<td>petsex</td>
+						<td><input type="text" name="petsex" id="petsex" value=""
+							placeholder="petsex"></input></td>
+					</tr>
+					<tr>
+						<td>member_id</td>
+						<td><input type="text" name="member_id" id="member_id"
+							value="" placeholder="member_id"></input></td>
+					</tr>
+					<tr>
+						<td>petkind_kind</td>
+
+						<td><select name="petkind_kind" id="petkind_kind">
+								<option value="">- PetKind -</option>
+								<c:forEach var="petkind" items="${petkind}" varStatus="status">
+									<option value="${petkind.kind}">${petkind.kind}</option>
+								</c:forEach>
+						</select></td>
+					</tr>
+					<tr>
+						<td>petinfo</td>
+						<td><input type="text" name="petinfo" id="petinfo" value=""
+							placeholder="petinfo"></input></td>
+					</tr>
+
+
+				</tbody>
+			</table>
+
+			<a href="#" class="button"
+				onclick="if($.fn.inputdata() == '') {$('form').attr('action', 'adminPetInsert.do').submit();} else{alert($.fn.inputdata().substr(0, $.fn.inputdata().length - 2)+'가 비었습니다.');}">Insert</a>
+		</form>
+		</main>
+	</c:if>
+	<c:if test="${menu == 3}">
+		<main>
 		<form method="post">
 			<table>
 				<thead>
@@ -365,9 +596,6 @@ main {
 						<td><input type="text" name="hosaddress" id="hosaddress"
 							value="" placeholder="HOSADDRESS"></input></td>
 					</tr>
-
-
-
 					<tr>
 						<td>HOSAREA</td>
 						<td><input type="text" name="hosarea" id="hosarea" value=""
@@ -387,16 +615,14 @@ main {
 					<tr>
 						<td>PETKIND</td>
 						<td><input type="text" class="petkind_kind" id="petkind_kind"
-							value="" name="petkind_kind"></input></td>
+							value="" name="petkind_kind" readonly></input></td>
 						<td><select name="kind" id="kind">
 								<option value="">- PetKind -</option>
 								<c:forEach var="petkind" items="${petkind}" varStatus="status">
 									<option value="${petkind.kind}">${petkind.kind}</option>
 								</c:forEach>
-
 						</select></td>
-						<td><input type="button" class="add" id="add" name="add"
-							value="ADD"></input></td>
+
 						<td><input type="button" class="del" id="del" name="del"
 							value="del"></input></td>
 
@@ -404,11 +630,31 @@ main {
 				</tbody>
 			</table>
 
+
 			<a href="#" class="button"
-				onclick="$('form').attr('action', 'adminHospitalInsert.do').submit();">Insert</a>
+				onclick="if($.fn.inputdata() == '') {$('form').attr('action', 'adminHospitalInsert.do').submit();} else{alert($.fn.inputdata().substr(0, $.fn.inputdata().length - 2)+'가 비었습니다.');}">Insert</a>
+
 		</form>
+		<div class="map_wrap">
+			<div id="map"></div>
+
+			<table>
+				<thead>
+					<tr>
+						<td><span class="title"></span> <span id="centerAddr"></span>
+						</td>
+					</tr>
+
+				</thead>
+			</table>
+
+
+
+		</div>
+		</main>
 	</c:if>
 	<c:if test="${menu == 4}">
+		<main>
 		<form method="post">
 			<table>
 				<thead>
@@ -418,35 +664,71 @@ main {
 				</thead>
 				<tbody>
 					<tr>
-						<td>hospital_hosnum</td>
+						<TD>HOSPITAL_HOSNUM</TD>
 						<td><input type="text" name="hospital_hosnum"
 							id="hospital_hosnum" value="" placeholder="hospital_hosnum"></input></td>
 					</tr>
 					<tr>
-						<td>member_id</td>
+						<TD>HOSPITAL_HOSNAME</TD>
+						<td><input type="text" name="hospital_hosname"
+							id="hospital_hosname" value="" placeholder="hospital_hosname"></input></td>
+					</tr>
+					<tr>
+						<TD>MEMBER_ID</TD>
 						<td><input type="text" name="member_id" id="member_id"
 							value="" placeholder="member_id"></input></td>
 					</tr>
-
-
-
 					<tr>
-						<td>res_date</td>
+						<TD>RES_DATE</TD>
 						<td><input type="date" name="rdate" id="rdate" value=""
 							placeholder="res_date"></input></td>
+					</tr>
+					<tr>
+						<TD>PETKIND</TD>
+						<td><select name="petpet" id="kind">
+								<option value="">- PetKind -</option>
+								<c:forEach var="petkind" items="${petkind}" varStatus="status">
+									<option value="${petkind.kind}">${petkind.kind}</option>
+								</c:forEach>
+						</select></td>
+					</tr>
+					<tr>
+						<TD>PETINFO</TD>
+						<td><input type="text" name="petinfo" id="petinfo" value=""
+							placeholder="PET"></input></td>
 					</tr>
 				</tbody>
 			</table>
 
 			<a href="#" class="button"
-				onclick="$('form').attr('action', 'adminReservationInsert.do').submit();">Insert</a>
+			onclick="if($.fn.inputdata() == '') {$('form').attr('action', 'adminReservationInsert.do').submit();} else{alert($.fn.inputdata().substr(0, $.fn.inputdata().length - 2)+'가 비었습니다.');}">Insert</a>
+				
 		</form>
-	</c:if> <c:if test="${menu == 6}">
+		</main>
+	</c:if>
+	<c:if test="${menu == 6}">
+		<main>
 		<form method="post">
-			<input type="text" name="kind" id="kind" value="" placeholder="kind">
+			<table>
+				<thead>
+					<tr>
+						<th>INSERT</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>kind</td>
+						<td><input type="text" name="kind" id="kind" value=""
+							placeholder="kind"></input></td>
+					</tr>
+				</tbody>
+			</table>
 			<a href="#" class="button"
-				onclick="$('form').attr('action', 'adminPetKindInsert.do').submit();">Insert</a>
+			onclick="if($.fn.inputdata() == '') {$('form').attr('action', 'adminPetKindInsert.do').submit();} else{alert($.fn.inputdata().substr(0, $.fn.inputdata().length - 2)+'가 비었습니다.');}">Insert</a>
+			
 		</form>
-	</c:if> </main>
+		</main>
+	</c:if>
+
 </body>
 </html>

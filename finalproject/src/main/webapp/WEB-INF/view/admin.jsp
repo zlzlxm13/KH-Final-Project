@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 
@@ -12,10 +13,14 @@
 
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
 <link rel="stylesheet" href="css/main.css" />
 
 <link rel="stylesheet"
 	href="http://netdna.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
 
 <head>
 <title>SooCut animal hospital</title>
@@ -25,7 +30,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="stylesheet" href="css/main.css" />
-</head>
+<link rel="stylesheet" href="css/sb-admin.css" />
 </head>
 <script src="js/jquery.min.js"></script>
 <script src="js/jquery.scrolly.min.js"></script>
@@ -34,32 +39,45 @@
 <script src="js/util.js"></script>
 <script src="js/main.js"></script>
 
+
+<script src="js/jquery.dataTables.js"></script>
+<script src="js/dataTables.bootstrap4.js"></script>
+
+
+
+
 <script type="text/javascript">
 $(document).ready(function(){
+
+	$('#dataTable').DataTable({
+		 "lengthMenu": [5, 10, 15],
+		 "language": {"zeroRecords": "데이터가 없습니다."},
+		 "columnDefs": [
+			    { "orderable": false, "targets": -1 }
+			  ]
+	});
 	$("li[value="+${menu}+"]").addClass('active');
-	$('input.dbbox').on('click', function(){
+	
+	
+	$(document).on("click",'.dbbox',function(){
+		
 		if ($(this).is(":checked")){
 			$(this).attr('name', 'chk');
 		} else {
-			
 			$(this).removeAttr('name');
 		}
 	});
 	
-	$('#checkall').on('click', function(){
-		if($('#checkall').is(":checked")){
-
-			$('input.dbbox').each(function(){
-				this.checked = true;
-				$(this).attr('name', 'chk');
-			});
-			
-		} else {
-			$('input.dbbox').each(function(){
-				this.checked = false;
-				$(this).removeAttr('name', 'chk');
-			});
+	$(document).on("click", "#checkall", function(){
+		$(".dbbox").prop( 'checked', this.checked );
+		if($(this).is(":checked") == true){		
+			$(".dbbox").attr('name', 'chk');
+		} else if($(this).is(":checked") == false){
+			$(".dbbox").removeAttr('name');
 		}
+	});
+	$(document).on("click",'#delete',function(){
+	alert($('input[name=chk]').attr('name'));
 	});
 });
 </script>
@@ -93,6 +111,12 @@ input[type="checkbox"]:checked ~ nav.admin ul li a span {
 
 input[type="checkbox"]:checked ~ main {
 	left: 250px;
+}
+
+input[type="checkbox"] + label:before,
+			input[type="radio"] + label:before {
+ top: -11px;
+ left: 10px;
 }
 
 nav.admin {
@@ -198,18 +222,21 @@ nav.admin  ul li a span {
 main {
 	position: absolute;
 	transition: all 0.15s ease-in-out;
+	width: 1000px;
 	top: 100px;
 	left: 50px;
 	margin-top: 30px;
 	margin-left: 30px;
+	top: 100px;
 }
 </style>
 </head>
 
-<script src="js/login.js" type="text/javascript"></script>
 
 <body>
 
+
+	<script src="js/login.js" type="text/javascript"></script>
 	<header id="header" class="alt"
 		style="background-color: rgba(0, 0, 0, 0.75);">
 		<div class="logo">
@@ -229,32 +256,7 @@ main {
 		<%
 			} else {
 		%>
-		${sessionScope.id }님 환영합니다 <a href="logout.do">로그아웃</a>
-		<%
-			}
-		%>
-
-	</header>
-	<script src="js/login.js" type="text/javascript"></script>
-	<header id="header" class="alt">
-		<div class="logo">
-			<a href="index.do">SooCut animal hospital <span>by
-					KHfamily</span></a>
-		</div>
-		<a href="#menu" class="toggle" style="float: right"><span>Menu</span></a>
-		<%
-			if (session.getAttribute("id") == null) {
-		%>
-		<input value="Login" class="button alt icon fa-check" type="submit"
-			id="login_process" style="float: right;"> <input name="pass"
-			id="pass" type="password" placeholder="Pass"
-			style="width: 10%; float: right; margin-right: 10px;"> <input
-			name="id" id="id" type="text" placeholder="id"
-			style="width: 10%; float: right; margin-right: 10px;">
-		<%
-			} else {
-		%>
-		${sessionScope.id }님 환영합니다 <a href="logout.do">로그아웃</a>
+		${sessionScope.id }"님 환영합니다 <a href="logout.do">로그아웃</a>
 		<%
 			}
 		%>
@@ -275,7 +277,7 @@ main {
 			<%
 				} else {
 			%>
-			<li>${sessionScope.id }님환영합니다
+			<li>${sessionScope.id }"님환영합니다
 				<ul>
 					<li><a href="#">마이페이지</a></li>
 					<li><a href="logout.do">로그아웃</a></li>
@@ -319,208 +321,234 @@ main {
 			</a></li>
 		</ul>
 	</nav>
-	<main> <c:if test="${menu == 1}">
-		<a href="#"
-			onclick="$('#frm').attr('action', 'adminInsert.do').submit();"
-			class="button">Insert</a>
-		<a href="#"
-			onclick="$('#frm').attr('action', 'adminMemberDelete.do').submit();"
-			class="button">delete</a>
-		<p></p>
+	<c:if test="${menu == 1}">
+
+		<main>
 		<form id="frm" method="post">
-			<table>
-				<tr>
-					<td>No.</td>
-					<td>id</td>
-					<td>password</td>
-					<td>name</td>
-					<td>grade</td>
-					<td>phonenum</td>
-					<td>email</td>
-					<td><input type="checkbox" id="checkall" value="checkall"></input>
-						<label for="checkall"></label></td>
-				</tr>
-
-				<c:forEach var="dto" items="${list}" varStatus="status">
+			<input type="hidden" name="menu" value="${menu }" />
+			<table class="table table-bordered" id="dataTable">
+				<thead>
 					<tr>
-						<td><a href="#"
-							onclick='location.href="adminMemberContent.do?menu=${menu}&id=${dto.id}";'>${status.count}</a></td>
-						<td>${dto.id}</td>
-						<td>${dto.password}</td>
-						<td>${dto.name}</td>
-						<td>${dto.grade}</td>
-						<td>${dto.phonenum}</td>
-						<td>${dto.email}</td>
-						<td><input type="checkbox" class="dbbox" id=${dto.id }
-							value=${dto.id} ></input> <label for=${dto.id}></label></td>
-						<input type="hidden" name="id" value=${dto.id }></input>
+						<TD>NO.</TD>
+						<TD>ID</TD>
+						<TD>PASSWORD</TD>
+						<TD>NAME</TD>
+						<TD>GRADE</TD>
+						<TD>PHONENUM</TD>
+						<TD>EMAIL</TD>
+						<td><input type="checkbox" id="checkall" value="checkall"></input>
+							<label for="checkall"></label></td>
 					</tr>
-				</c:forEach>
-				<input type="hidden" name="menu" value=${menu } />
+				</thead>
+				<tbody>
 
+					<c:forEach var="dto" items="${list}" varStatus="status">
+						<tr>
+							<td><a href="#"
+								onclick='location.href="adminMemberContent.do?menu=${menu}&id=${dto.id}";'>
+								${status.count}</a></td>
+							<td>${dto.id}</td>
+							<td>${dto.password}</td>
+							<td>${dto.name}</td>
+							<td>${dto.grade}</td>
+							<td>${dto.phonenum}</td>
+							<td>${dto.email}</td>
+							<td><input type="checkbox" class="dbbox" id="${dto.id }"
+								value="${dto.id}"></input> <label for="${dto.id}"></label></td>
+							<input type="hidden" name="id" value="${dto.id }"></input>
+						</tr>
+					</c:forEach>
 
+				</tbody>
+			</table>
+			<a href="#"
+				onclick="$('#frm').attr('action', 'adminInsert.do').submit();"
+				class="button">Insert</a> <a href="#"
+				onclick="if($('input[name=chk]').attr('name') != undefined) {$('#frm').attr('action', 'adminMemberDelete.do').submit();}"
+				class="button" style="float: right">delete</a>
+		</form>
+		</main>
+	</c:if>
+	<c:if test="${menu == 2}">
+		<main>
+		<form id="frm" method="post">
+			<input type="hidden" name="menu" value="${menu }" />
+			<table class="table table-bordered" id="dataTable">
+				<thead>
+					<tr>
+						<td>No.</td>
+						<td>PETNAME</td>
+						<td>PETAGE</td>
+						<td>PETSEX</td>
+						<td>MEMBER_ID</td>
+						<td>PETKIND_KIND</td>
+						<td>PETINFO</td>
+						<td><input type="checkbox" id="checkall" value="checkall"></input>
+							<label for="checkall"></label></td>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach var="dto" items="${list}" varStatus="status">
+						<tr>
+							<td><a href="#"
+								onclick='location.href="adminPetContent.do?menu=${menu}&petnum=${dto.petnum}";'>${status.count}</a></td>
+							<td>${dto.petname}</td>
+							<td>${dto.petage}</td>
+							<td>${dto.petsex}</td>
+							<td>${dto.member_id}</td>
+							<td>${dto.petkind_kind}</td>
+							<td>${dto.petinfo}</td>
+							<td><input type="checkbox" class="dbbox" id="${dto.petnum }"
+								value="${dto.petnum}"></input> <label for="${dto.petnum}"></label></td>
+							<input type="hidden" name="petnum" value="${dto.petnum }"></input>
+						</tr>
+					</c:forEach>
+
+				</tbody>
+			</table>
+			<a href="#"
+				onclick="$('#frm').attr('action', 'adminInsert.do').submit();"
+				class="button">Insert</a> <a href="#"
+				onclick="if($('input[name=chk]').attr('name') != undefined) {$('#frm').attr('action', 'adminPetDelete.do').submit();}"
+				class="button" style="float: right">delete</a>
+		</form>
+		</main>
+	</c:if>
+	<c:if test="${menu == 3}">
+		<main>
+		<form id="frm" method="post">
+			<input type="hidden" name="menu" value="${menu }" />
+			<table class="table table-bordered" id="dataTable">
+				<thead>
+					<tr>
+						<TD>No.</TD>
+						<TD>HOSNAME</TD>
+						<TD>HOSADDRESS</TD>
+						<TD>HOSAREA</TD>
+						<td>PETKIND_KIND</td>
+						<td><input type="checkbox" id="checkall" value="checkall"></input>
+							<label for="checkall"></label></td>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach var="dto" items="${list}" varStatus="status">
+						<tr>
+							<td><a href="#"
+								onclick='location.href="adminHospitalContent.do?menu=${menu}&hosnum=${dto.hosnum}";'>${status.count}</a></td>
+							<td>${dto.hosname}</td>
+							<td>${dto.hosaddress}</td>
+							<td>${dto.hosarea}</td>
+							<td>${dto.petkind_kind}</td>
+							<td><input type="checkbox" class="dbbox" id="${dto.hosnum }"
+								value="${dto.hosnum}"></input> <label for="${dto.hosnum}"></label></td>
+							<input type="hidden" name="hosnum" value="${dto.hosnum }"></input>
+						</tr>
+					</c:forEach>
+
+				</tbody>
+			</table>
+			<a href="#"
+				onclick="$('#frm').attr('action', 'adminInsert.do').submit();"
+				class="button">Insert</a> <a href="#"
+				onclick="if($('input[name=chk]').attr('name') != undefined) {$('#frm').attr('action', 'adminHospitalDelete.do').submit();}"
+				class="button" style="float: right">delete</a>
+
+		</form>
+		</main>
+	</c:if>
+	<c:if test="${menu == 4}">
+		<main>
+		<form id="frm" method="post">
+			<input type="hidden" name="menu" value="${menu }" />
+			<table class="table table-bordered" id="dataTable">
+				<thead>
+					<tr>
+						<TD>NO.</TD>
+						<TD>HOSNUM</TD>
+						<TD>HOSNAME</TD>
+						<TD>MEMBER_ID</TD>
+						<TD style="width: 200px;">RES_DATE</TD>
+						<TD>PETKIND</TD>
+						<TD>PETINFO</TD>
+
+						<td><input type="checkbox" id="checkall" value="checkall"></input>
+							<label for="checkall"></label></td>
+					</tr>
+				</thead>
+				<tbody>
+
+					<c:forEach var="dto" items="${list}" varStatus="status">
+
+						<tr>
+
+							<td><a href="#"
+								onclick='location.href="adminReservationContent.do?menu=${menu}&res_num=${dto.res_num}";'>${status.count}</a></td>
+							<td>${dto.hospital_hosnum}</td>
+							<TD>${dto.hospital_hosname}</TD>
+							<td>${dto.member_id}</td>
+							<fmt:formatDate var="rdate" value="${dto.res_date}"
+								pattern="yyyy-MM-dd hh:mm" />
+							<td>${rdate}</td>
+							<td>${dto.petpet}</td>
+							<td>${dto.petinfo}</td>
+							<td><input type="checkbox" class="dbbox"
+								id="${dto.res_num }" value="${dto.res_num}"></input> <label
+								for="${dto.res_num}"></label></td>
+							<input type="hidden" name="res_num" value="${dto.res_num }"></input>
+						</tr>
+					</c:forEach>
+
+				</tbody>
 
 			</table>
+			<a href="#"
+				onclick="$('#frm').attr('action', 'adminInsert.do').submit();"
+				class="button">Insert</a> <a href="#"
+				onclick="if($('input[name=chk]').attr('name') != undefined) {$('#frm').attr('action', 'adminReservationDelete.do').submit();}"
+				class="button" style="float: right">delete</a>
+
 		</form>
-	</c:if> <c:if test="${menu == 2}">
-		<a href="#"
-			onclick="$('#frm').attr('action', 'adminInsert.do').submit();"
-			class="button">Insert</a>
-		<a href="#"
-			onclick="$('#frm').attr('action', 'adminPetDelete.do').submit();"
-			class="button">delete</a>
-		<p></p>
+		</main>
+	</c:if>
+	<c:if test="${menu == 6}">
+
+		<main style="width: 600px;">
 		<form id="frm" method="post">
-			<table>
-				<tr>
-					<td>No.</td>
-					<td>PETNAME</td>
-					<td>PETAGE</td>
-					<td>PETSEX</td>
-					<td>MEMBER_ID</td>
-					<td>PETKIND_KIND</td>
-					<td>PETINFO</td>
-					<td><input type="checkbox" id="checkall" value="checkall"></input>
-						<label for="checkall"></label></td>
-				</tr>
-
-				<c:forEach var="dto" items="${list}" varStatus="status">
+			<input type="hidden" name="menu" value="${menu }" />
+			<table class="table table-bordered" id="dataTable">
+				<thead>
 					<tr>
-						<td><a href="#"
-							onclick='location.href="adminPetContent.do?menu=${menu}&petnum=${dto.petnum}";'>${status.count}</a></td>
-						<td>${dto.petname}</td>
-						<td>${dto.petage}</td>
-						<td>${dto.petsex}</td>
-						<td>${dto.member_id}</td>
-						<td>${dto.petkind_kind}</td>
-						<td>${dto.petinfo}</td>
-						<td><input type="checkbox" class="dbbox" id=${dto.petname }
-							value=${dto.petnum} ></input> <label for=${dto.petname}></label></td>
-						<input type="hidden" name="petnum" value=${dto.petnum }></input>
+						<td>No.</td>
+						<td>KIND</td>
+						<td><input type="checkbox" id="checkall" value="checkall"></input>
+							<label for="checkall"></label></td>
 					</tr>
-				</c:forEach>
-				<input type="hidden" name="menu" value=${menu } />
-
-
+				</thead>
+				<tbody>
+					<c:forEach var="dto" items="${list}" varStatus="status">
+						<tr>
+							<td>${status.count}</td>
+							<td>${dto.kind}</td>
+							<td><input type="checkbox" class="dbbox" id="${dto.kind }"
+								value="${dto.kind}"></input> <label for="${dto.kind}"></label></td>
+							<input type="hidden" name="kind" value="${dto.kind }"></input>
+						</tr>
+					</c:forEach>
+				</tbody>
 
 			</table>
+			<a href="#"
+				onclick="$('#frm').attr('action', 'adminInsert.do').submit();"
+				class="button">Insert</a> <a href="#"
+				onclick="if($('input[name=chk]').attr('name') != undefined) {$('#frm').attr('action', 'adminPetKindDelete.do').submit();}"
+				class="button" style="float: right">delete</a>
 		</form>
-	</c:if> <c:if test="${menu == 3}">
-		<a href="#"
-			onclick="$('#frm').attr('action', 'adminInsert.do').submit();"
-			class="button">Insert</a>
-		<a href="#"
-			onclick="$('#frm').attr('action', 'adminHospitalDelete.do').submit();"
-			class="button">delete</a>
-		<p></p>
-		<form id="frm" method="post">
-			<table>
-				<tr>
-					<TD>No.</TD>
-					<TD>HOSNAME</TD>
-					<TD>HOSADDRESS</TD>
-					<TD>HOSAREA</TD>
-					<TD>LATITUDE</TD>
-					<TD>LONGITUDE</TD>
-					<td><input type="checkbox" id="checkall" value="checkall"></input>
-						<label for="checkall"></label></td>
-				</tr>
-
-				<c:forEach var="dto" items="${list}" varStatus="status">
-					<tr>
-						<td><a href="#"
-							onclick='location.href="adminHospitalContent.do?menu=${menu}&hosnum=${dto.hosnum}";'>${status.count}</a></td>
-						<td>${dto.hosname}</td>
-						<td>${dto.hosaddress}</td>
-						<td>${dto.hosarea}</td>
-						<td>${dto.latitude}</td>
-						<td>${dto.longitude}</td>
-						<td><input type="checkbox" class="dbbox" id=${dto.hosnum }
-							value=${dto.hosnum} ></input> <label for=${dto.hosnum}></label></td>
-						<input type="hidden" name="hosnum" value=${dto.hosnum }></input>
-					</tr>
-				</c:forEach>
-				<input type="hidden" name="menu" value=${menu } />
+		</main>
+	</c:if>
+	<c:if test="${menu==5}">
 
 
 
-			</table>
-		</form>
-	</c:if> <c:if test="${menu == 4}">
-		<a href="#"
-			onclick="$('#frm').attr('action', 'adminInsert.do').submit();"
-			class="button">Insert</a>
-		<a href="#"
-			onclick="$('#frm').attr('action', 'adminReservationDelete.do').submit();"
-			class="button">delete</a>
-		<p></p>
-		<form id="frm" method="post">
-			<table>
-				<tr>
-					<TD>NO.</TD>
-					<TD>MEMBER_ID</TD>
-					<TD>RES_DATE</TD>
-					<TD>HOSPITAL_HOSNUM</TD>
-			
-					<td><input type="checkbox" id="checkall" value="checkall"></input>
-						<label for="checkall"></label></td>
-				</tr>
-
-				<c:forEach var="dto" items="${list}" varStatus="status">
-					<tr>
-						<td><a href="#"
-							onclick='location.href="adminReservationContent.do?menu=${menu}&res_num=${dto.res_num}";'>${status.count}</a></td>
-						<td>${dto.member_id}</td>
-						<td>${dto.res_date}</td>
-						<td>${dto.hospital_hosnum}</td>
-						<td><input type="checkbox" class="dbbox"
-							id=${dto.res_num } value=${dto.res_num} ></input>
-							<label for=${dto.res_num}></label></td>
-						<input type="hidden" name="res_num"
-							value=${dto.res_num }></input>
-					</tr>
-				</c:forEach>
-				<input type="hidden" name="menu" value=${menu } />
-
-
-
-			</table>
-		</form>
-	</c:if> <c:if test="${menu == 6}">
-		<a href="#"
-			onclick="$('#frm').attr('action', 'adminInsert.do').submit();"
-			class="button">Insert</a>
-		<a href="#"
-			onclick="$('#frm').attr('action', 'adminPetKindDelete.do').submit();"
-			class="button">delete</a>
-		<p></p>
-		<form id="frm" method="post">
-			<table>
-				<tr>
-					<td>No.</td>
-					<td>KIND</td>
-					<td><input type="checkbox" id="checkall" value="checkall"></input>
-						<label for="checkall"></label></td>
-				</tr>
-
-
-
-				<c:forEach var="dto" items="${list}" varStatus="status">
-					<tr>
-						<td>${status.count}</td>
-						<td>${dto.kind}</td>
-						<td><input type="checkbox" class="dbbox" id=${dto.kind }
-							value=${dto.kind} ></input> <label for=${dto.kind} ></label></td>
-
-						<input type="hidden" name="kind" value=${dto.kind }></input>
-					</tr>
-				</c:forEach>
-				<input type="hidden" name="menu" value=${menu } />
-
-
-
-			</table>
-		</form>
-	</c:if></main>
+	</c:if>
 </body>
 </html>

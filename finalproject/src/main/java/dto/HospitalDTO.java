@@ -1,15 +1,29 @@
 package dto;
 
-public class HosmapDTO {
+public class HospitalDTO {
 	private int hosnum;
 	private String hosname;
-	private String petkind_kind;
+	private String[] petkind_kind;
 	private String hosaddress;
 	private String hosarea;
 	private String latitude;
 	private String longitude;
 	
-	public HosmapDTO() {
+	
+	
+	public HospitalDTO(int hosnum, String hosname, String[] petkind_kind, String hosaddress, String hosarea,
+			String latitude, String longitude) {
+		super();
+		this.hosnum = hosnum;
+		this.hosname = hosname;
+		this.petkind_kind = petkind_kind;
+		this.hosaddress = hosaddress;
+		this.hosarea = hosarea;
+		this.latitude = latitude;
+		this.longitude = longitude;
+	}
+
+	public HospitalDTO() {
 		
 	}
 
@@ -29,11 +43,13 @@ public class HosmapDTO {
 		this.hosname = hosname;
 	}
 	
-	public String getPetkind_kind() {
+
+
+	public String[] getPetkind_kind() {
 		return petkind_kind;
 	}
 
-	public void setPetkind_kind(String petkind_kind) {
+	public void setPetkind_kind(String[] petkind_kind) {
 		this.petkind_kind = petkind_kind;
 	}
 

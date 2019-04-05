@@ -4,6 +4,7 @@ import java.util.List;
 
 import dao.HospitalDAO;
 import dto.HosmapDTO;
+import dto.HospitalDTO;
 
 
 public class HospitalServiceImp implements HospitalService {
@@ -29,7 +30,7 @@ public class HospitalServiceImp implements HospitalService {
 		return dao.count();
 	}
 	@Override
-	public void insertProcess(HosmapDTO dto) {
+	public void insertProcess(HospitalDTO dto) {
 		// TODO Auto-generated method stub
 		dao.insert(dto);
 	}
@@ -56,6 +57,12 @@ public class HospitalServiceImp implements HospitalService {
 	public HosmapDTO contentProcess(HosmapDTO dto) {
 		// TODO Auto-generated method stub
 		return dao.content(dto);
+	}
+
+	@Override
+	public int hos_seq() {
+		// TODO Auto-generated method stub
+		return dao.hos_seq();
 	}
 
 

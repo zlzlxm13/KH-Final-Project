@@ -7,9 +7,35 @@ public class ReservationDTO {
 	private int res_num;
 	private Date res_date;
 	private int hospital_hosnum;
+	private String hospital_hosname;
 	private String member_id;
+	private String petpet;
+	private String petinfo;
 	
-	
+	public String getHospital_hosname() {
+		return hospital_hosname;
+	}
+
+	public void setHospital_hosname(String hospital_hosname) {
+		this.hospital_hosname = hospital_hosname;
+	}
+
+	public String getPetpet() {
+		return petpet;
+	}
+
+	public void setPetpet(String petpet) {
+		this.petpet = petpet;
+	}
+
+	public String getPetinfo() {
+		return petinfo;
+	}
+
+	public void setPetinfo(String petinfo) {
+		this.petinfo = petinfo;
+	}
+
 	public ReservationDTO() {
 		
 	}

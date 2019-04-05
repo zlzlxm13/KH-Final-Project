@@ -147,6 +147,12 @@
 		<property name="sqlSession" ref="sqlSession" />
 
 	</bean>
+	
+	<bean id="hndao" class="dao.HosnameDaoImp">
+		<property name="sqlSession" ref="sqlSession" />
+
+	</bean>
+	
 
 
 	<!-- [7] ServiceImp Bean 선언 -->
@@ -180,6 +186,9 @@
 	<bean class="service.MemberImpService" id="mservice">
 		<property name="dao" ref="mdao" />
 	</bean>
+	<bean class="service.HosnameServiceImp" id="hnservice">
+		<property name="dao" ref="hndao" />
+	</bean>
 
 
 	<!-- [9] Controller 빈 선언 -->
@@ -204,11 +213,13 @@
 
 
 	<bean class="controller.AdminController">
+		<property name="service" ref="service" />
 		<property name="hservice" ref="hservice" />
 		<property name="pkservice" ref="pkservice" />
 		<property name="pservice" ref="pservice" />
 		<property name="mservice" ref="mservice" />
 		<property name="rservice" ref="rservice" />
+		<property name="hnservice" ref="hnservice" />
 
 	</bean>
 

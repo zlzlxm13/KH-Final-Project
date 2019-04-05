@@ -6,6 +6,7 @@ import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
 
 import dto.HosmapDTO;
+import dto.HospitalDTO;
 
 
 
@@ -44,7 +45,7 @@ public class HospitalDaoImp implements HospitalDAO {
 	}
 
 	@Override
-	public void insert(HosmapDTO dto) {
+	public void insert(HospitalDTO dto) {
 		// TODO Auto-generated method stub
 		sqlSession.insert("admin.hospital_insert", dto);
 	}
@@ -71,6 +72,13 @@ public class HospitalDaoImp implements HospitalDAO {
 	public int check(HosmapDTO dto) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("admin.hospital_check", dto);
+	}
+
+
+	@Override
+	public int hos_seq() {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("admin.hospital_seq");
 	}
 
 	

@@ -2,7 +2,10 @@ package controller;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -11,26 +14,48 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import dao.HosnameDAO;
 import dto.HosmapDTO;
+import dto.HosnameDTO;
+import dto.HospitalDTO;
 import dto.MemberDTO;
 import dto.PetDTO;
 import dto.PetKindDTO;
 import dto.ReservationDTO;
+import service.HosService;
+import service.HosnameService;
 import service.HospitalService;
 import service.MemberService;
 import service.PetKindService;
 import service.PetService;
 import service.ReservationService;
 
-
 @Controller
 public class AdminController {
+	private HosService service;
 	private PetService pservice;
 	private PetKindService pkservice;
 	private HospitalService hservice;
 	private MemberService mservice;
 	private ReservationService rservice;
-	
+	private HosnameService hnservice;
+
+	public HosService getService() {
+		return service;
+	}
+
+	public void setService(HosService service) {
+		this.service = service;
+	}
+
+	public HosnameService getHnservice() {
+		return hnservice;
+	}
+
+	public void setHnservice(HosnameService hnservice) {
+		this.hnservice = hnservice;
+	}
+
 	SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
 
 	public MemberService getMservice() {
@@ -90,8 +115,9 @@ public class AdminController {
 
 	// member menu 1
 	@RequestMapping("/adminMember.do")
-	public ModelAndView adminMemberProcess() {
+	public ModelAndView adminMemberProcess(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
+		System.out.println(session.getAttribute("grade"));
 		mav.addObject("menu", "1");
 		mav.addObject("count", mservice.countProcess());
 		mav.addObject("list", mservice.listProcess());
@@ -110,7 +136,7 @@ public class AdminController {
 		}
 		mav.addObject("count", mservice.countProcess());
 		mav.addObject("list", mservice.listProcess());
-		mav.setViewName("admin");
+		mav.setViewName("redirect:adminMember.do");
 		return mav;
 	}
 
@@ -122,7 +148,7 @@ public class AdminController {
 		mav.addObject("menu", menu);
 		mav.addObject("count", mservice.countProcess());
 		mav.addObject("list", mservice.listProcess());
-		mav.setViewName("admin");
+		mav.setViewName("redirect:adminMember.do");
 		return mav;
 	}
 
@@ -130,6 +156,8 @@ public class AdminController {
 	public ModelAndView adminUpdateProcess(String menu, MemberDTO dto) {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("dto", mservice.contentProcess(dto));
+		System.out.println(dto);
+		System.out.println(mservice.contentProcess(dto));
 		mav.addObject("menu", menu);
 		mav.setViewName("update");
 		return mav;
@@ -142,7 +170,7 @@ public class AdminController {
 		mav.addObject("menu", menu);
 		mav.addObject("count", mservice.countProcess());
 		mav.addObject("list", mservice.listProcess());
-		mav.setViewName("admin");
+		mav.setViewName("redirect:adminMember.do");
 		return mav;
 
 	}
@@ -178,7 +206,7 @@ public class AdminController {
 		}
 		mav.addObject("count", pservice.countProcess());
 		mav.addObject("list", pservice.listProcess());
-		mav.setViewName("admin");
+		mav.setViewName("redirect:adminPet.do");
 		return mav;
 	}
 
@@ -190,7 +218,7 @@ public class AdminController {
 		mav.addObject("menu", menu);
 		mav.addObject("count", pservice.countProcess());
 		mav.addObject("list", pservice.listProcess());
-		mav.setViewName("admin");
+		mav.setViewName("redirect:adminPet.do");
 		return mav;
 	}
 
@@ -198,6 +226,7 @@ public class AdminController {
 	public ModelAndView adminUpdateProcess(String menu, PetDTO dto) {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("dto", pservice.contentProcess(dto));
+		mav.addObject("petkind", pkservice.listProcess());
 		mav.addObject("menu", menu);
 		mav.setViewName("update");
 		return mav;
@@ -210,12 +239,12 @@ public class AdminController {
 		mav.addObject("menu", menu);
 		mav.addObject("count", pservice.countProcess());
 		mav.addObject("list", pservice.listProcess());
-		mav.setViewName("admin");
+		mav.setViewName("redirect:adminPet.do");
 		return mav;
 
 	}
 
-	// hosmap menu 3
+	// hospital menu 3
 
 	@RequestMapping("/adminHospital.do")
 	public ModelAndView adminHospitalProcess() {
@@ -230,14 +259,17 @@ public class AdminController {
 
 	@RequestMapping("/adminHospitalInsert.do")
 	public ModelAndView adminHospitalInsertProcess(HosmapDTO dto) {
+
+		HospitalDTO hdto = new HospitalDTO(dto.getHosnum(), dto.getHosname(), dto.getPetkind_kind().split(" "),
+				dto.getHosaddress(), dto.getHosarea(), dto.getLatitude(), dto.getLongitude());
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("menu", "3");
 		if (!dto.equals(null) && hservice.checkProcess(dto) == 0) {
-			hservice.insertProcess(dto);
+			hservice.insertProcess(hdto);
 		}
 		mav.addObject("count", hservice.countProcess());
 		mav.addObject("list", hservice.listProcess());
-		mav.setViewName("admin");
+		mav.setViewName("redirect:adminHospital.do");
 		return mav;
 	}
 
@@ -245,17 +277,18 @@ public class AdminController {
 	public ModelAndView adminHospitalDeleteProcess(String menu, String[] chk) {
 		ModelAndView mav = new ModelAndView();
 		hservice.deleteProcess(chk);
-		mav.addObject("menu", menu);
 		mav.addObject("count", hservice.countProcess());
 		mav.addObject("list", hservice.listProcess());
-		mav.setViewName("admin");
+		mav.setViewName("redirect:adminHospital.do");
 		return mav;
 
 	}
 
 	@RequestMapping("/adminHospitalContent.do")
 	public ModelAndView adminHospitalContentProcess(String menu, HosmapDTO dto) {
+		System.out.println(hservice.contentProcess(dto).getHosaddress());
 		ModelAndView mav = new ModelAndView();
+		mav.addObject("petkind", pkservice.listProcess());
 		mav.addObject("dto", hservice.contentProcess(dto));
 		mav.addObject("menu", menu);
 		mav.setViewName("update");
@@ -264,12 +297,22 @@ public class AdminController {
 
 	@RequestMapping("/adminHospitalUpdate.do")
 	public ModelAndView adminHospitalUpdateProcess(String menu, HosmapDTO dto) {
+		HospitalDTO hdto = new HospitalDTO(dto.getHosnum(), dto.getHosname(), dto.getPetkind_kind().split(" "),
+				dto.getHosaddress(), dto.getHosarea(), dto.getLatitude(), dto.getLongitude());
 		ModelAndView mav = new ModelAndView();
+		mav.addObject("menu", "3");
+
+		hnservice.hosdeleteProcess(dto.getHosnum());
+		for (String tmp : hdto.getPetkind_kind()) {
+			HosnameDTO hndto = new HosnameDTO(dto.getHosnum(), tmp);
+			hnservice.insertProcess(hndto);
+		}
 		hservice.updateProcess(dto);
+		
 		mav.addObject("menu", menu);
 		mav.addObject("count", hservice.countProcess());
 		mav.addObject("list", hservice.listProcess());
-		mav.setViewName("admin");
+		mav.setViewName("redirect:adminHospital.do");
 		return mav;
 
 	}
@@ -285,7 +328,7 @@ public class AdminController {
 		return mav;
 
 	}
-	
+
 	@RequestMapping("/adminReservationInsert.do")
 	public ModelAndView adminReservationInsertProcess(String rdate, ReservationDTO dto) {
 		ModelAndView mav = new ModelAndView();
@@ -293,6 +336,7 @@ public class AdminController {
 		if (!dto.equals(null) && rservice.checkProcess(dto) == 0) {
 			try {
 				dto.setRes_date(transFormat.parse(rdate));
+				System.out.println(dto.getPetpet());
 				rservice.insertProcess(dto);
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
@@ -301,7 +345,7 @@ public class AdminController {
 		}
 		mav.addObject("count", rservice.countProcess());
 		mav.addObject("list", rservice.listProcess());
-		mav.setViewName("admin");
+		mav.setViewName("redirect:adminReservation.do");
 		return mav;
 	}
 
@@ -312,28 +356,29 @@ public class AdminController {
 		mav.addObject("menu", menu);
 		mav.addObject("count", rservice.countProcess());
 		mav.addObject("list", rservice.listProcess());
-		mav.setViewName("admin");
+		mav.setViewName("redirect:adminReservation.do");
 		return mav;
 
 	}
-	
-	
+
 	@RequestMapping("/adminReservationContent.do")
 	public ModelAndView adminReservationContentProcess(String menu, ReservationDTO dto) {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("dto", rservice.contentProcess(dto));
+		mav.addObject("petkind", pkservice.listProcess());
 		mav.addObject("menu", menu);
 		mav.setViewName("update");
 		return mav;
 	}
-	
+
 	@RequestMapping("/adminReservationUpdate.do")
 	public ModelAndView adminReservationUpdateProcess(String menu, String rdate, ReservationDTO dto) {
 		ModelAndView mav = new ModelAndView();
 		System.out.println(rdate);
-		
+
 		try {
 			dto.setRes_date(transFormat.parse(rdate));
+			rservice.insertProcess(dto);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -342,11 +387,10 @@ public class AdminController {
 		mav.addObject("menu", menu);
 		mav.addObject("count", rservice.countProcess());
 		mav.addObject("list", rservice.listProcess());
-		mav.setViewName("admin");
+		mav.setViewName("redirect:adminReservation.do");
 		return mav;
 
 	}
-	
 
 	// petkind menu 6
 	@RequestMapping("/adminPetKind.do")
@@ -368,7 +412,7 @@ public class AdminController {
 		}
 		mav.addObject("count", pkservice.countProcess());
 		mav.addObject("list", pkservice.listProcess());
-		mav.setViewName("admin");
+		mav.setViewName("redirect:adminPetKind.do");
 		return mav;
 	}
 
@@ -380,7 +424,7 @@ public class AdminController {
 		mav.addObject("menu", menu);
 		mav.addObject("count", pkservice.countProcess());
 		mav.addObject("list", pkservice.listProcess());
-		mav.setViewName("admin");
+		mav.setViewName("redirect:adminPetKind.do");
 		return mav;
 
 	}
