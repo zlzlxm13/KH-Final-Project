@@ -91,30 +91,18 @@ $(document).ready(function() {
 	<!-- Nav -->
 	<nav id="menu">
 		<ul class="links">
-			<li><a href="index.do">Home</a></li>
-			<li><a href="generic.do">Notice</a></li>
-			<!--  -->
-			<li><a href="elements.do">element</a></li>
-			<li><a href="hosmap.do">Hospital</a></li>
+			<li><a href="index.do">Home</a></li>		
 			<%
 				if (session.getAttribute("id") == null) {
 			%>
-			<li><a href="login.do">Login</a></li>
-			<%
-				} else {
-			%>
-			<li>${sessionScope.id }님환영합니다
-				<ul class="links">
-					<li><a href="#">마이페이지</a></li>
-					<li><a href="logout.do">로그아웃</a></li>
-				</ul>
-			</li>
-			<%
-				}
-			%>
-
-			<li><a href="admin.do">admin</a></li>
-			<li><a href="main.do">Reservation</a></li>
+			<%} else {%>
+			<li><p style="color:white !important;">${sessionScope.id }님 환영합니다</p>
+			<li><a href="mypage.do">My Page</a></li>
+								<%if(((String)session.getAttribute("id")).equals("admin")){ %>		
+									<li><a href="admin.do">Admin</a></li>
+								<%} %>
+							<%} %>		
+			<li><a href="hosmap.do">Hospital</a></li>
 
 
 		</ul>
@@ -128,21 +116,12 @@ $(document).ready(function() {
 				<div class="image fit">
 					<img src="images/pic01.jpg" alt="" />
 				</div>
-<<<<<<< HEAD
-				<div class="content">			
-					<h2 class="align-center">Good Bye</h2>								
-					<hr />
-					<div class="column" style="text-align: center;">
-					<p style="font-size: 20pt;">정말 탈퇴 하시겠습니까?</p>
-					<input type="button" id="memtaltwae" value="회원 탈퇴" class="align-center" style="margin-right: 10px">
-=======
 
 				<div class="content">					
 					<hr />
 					<div class="column">
 					정말 탈퇴 하시겠습니까?
 					<input type="button" id="memtaltwae" value="회원 탈퇴">
->>>>>>> refs/remotes/origin/young
 					<a href="index.do" class="button">Home</a>
 					</div>
 				</div>

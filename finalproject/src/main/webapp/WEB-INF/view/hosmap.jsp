@@ -202,53 +202,8 @@
 </head>
 
 <body>
-<<<<<<< HEAD
-<!-- Header -->
 
-			<script src="js/login.js" type="text/javascript"></script>
-	<header id="header">
-			<div class="logo"><a href="index.do">SooCut animal hospital <span>by KHfamily</span></a></div>
-						<a href="#menu" class="toggle" style="float:right"><span>Menu</span></a>
-		<%if(session.getAttribute("id") == null){ %>	
-						<input value="Login" class="button alt icon fa-check" type="submit" id = "login_process"style="float:right;">		
-						<input name="pass" id="pass" type="password" placeholder="Pass" style="width: 10%;float: right;margin-right: 10px;">				
-				<input name="id" id="id" type="text" placeholder="id" style="width: 10%;float: right;margin-right: 10px;">
-				<%} else {%>
-				${sessionScope.id }님 환영합니다
-			<a href="logout.do">로그아웃</a><%} %>
-		
-			</header>
-=======
->>>>>>> refs/remotes/origin/young
-
-<<<<<<< HEAD
-		<!-- Nav -->
-			<nav id="menu">
-				<ul class="links">
-					<li><a href="index.do">Home</a></li>
-					<li><a href="generic.do">Notice</a></li>
-		   <!--  --><li><a href="elements.do">element</a></li>	
-					<li><a href="hosmap.do">Hospital</a></li>					
-					<%if(session.getAttribute("id") == null){ %>	
-							<li><a href="login.do">Login</a></li>
-							<%} else {%>
-							<li>${sessionScope.id }님 환영합니다
-								<ul class="links">
-									<li><a href="#">마이페이지</a></li>
-									<li><a href="logout.do">로그아웃</a></li>
-								</ul>
-							</li>			
-							<%} %>
-
-					<li><a href="admin.do">admin</a></li>
-					<li><a href="main.do">Reservation</a></li>
-
-					
-				</ul>
-			</nav>
-=======
-<script type="text/javascript">
->>>>>>> refs/remotes/origin/young
+	<script type="text/javascript">
 
 $(document).on('click', 'input[value="예약하기"]', function() {
 	var hosname=$(this).attr('name');
@@ -288,37 +243,32 @@ $(document).on('click', 'input[value="예약하기"]', function() {
 	<!-- Nav -->
 	<nav id="menu">
 		<ul class="links">
-			<li><a href="index.do">Home</a></li>
-			<li><a href="generic.do">Notice</a></li>
-			<li><a href="elements.do">Element</a></li>
-			<li><a href="login.do">Login</a></li>
+			<li><a href="index.do">Home</a></li>		
 			<%
 				if (session.getAttribute("id") == null) {
 			%>
 			<%} else {%>
+			<li><p style="color:white !important;">${sessionScope.id }님 환영합니다</p>
 			<li><a href="mypage.do">My Page</a></li>
 								<%if(((String)session.getAttribute("id")).equals("admin")){ %>		
 									<li><a href="admin.do">Admin</a></li>
 								<%} %>
 							<%} %>		
-			
-<<<<<<< HEAD
-=======
+			<li><a href="hosmap.do">Hospital</a></li>
+
+
 		</ul>
 	</nav>
-
->>>>>>> refs/remotes/origin/young
-
-	<div class="map_wrap">
-		<div id="map"
-			style="width: 100%; height: 100%; position: relative; overflow: hidden;"></div>
+<div class="map_wrap">
+					<div id="map"
+						style="width: 100%; height: 100%; position: relative; overflow: hidden;"></div>
 
 		<div id="menu_wrap" class="bg_white">
 			<div class="option">
 				<div>
 					<form onsubmit="searchPlaces(); return false;">
 						병원검색 : <input type="text" value="품종을 입력하세요." id="keyword"
-							size="15" onclick=this.value=''>
+										size="15" onclick=this.value=''>
 						<button type="submit">검색하기</button>
 					</form>
 				</div>
@@ -337,5 +287,6 @@ $(document).on('click', 'input[value="예약하기"]', function() {
 	<script src="js/util.js"></script>
 	<script src="js/main.js"></script>
 
-</body>
+
+			</body>
 </html>

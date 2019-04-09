@@ -124,7 +124,7 @@ $(document).ready(function(){
  	
  	<hr/>
 	<tr> 예약자 성함 </tr>
-	<td> <input type="text" name="name" id="name" value="${sessionScope.email}" readonly/> </td>
+	<td> <input type="text" name="name" id="name" value="${sessionScope.name}" readonly/> </td>
 	<hr/>
 	
  	<tr> 예약 날짜 

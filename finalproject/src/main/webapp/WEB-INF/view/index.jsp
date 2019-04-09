@@ -24,11 +24,7 @@
 
 						<a href="#menu" class="toggle" style="float:right"><span>Menu</span></a>
 		<%if(session.getAttribute("id") == null){ %>
-<<<<<<< HEAD
 						<a href="signup.do" class="button alt icon" style="width: 5%;float: right;color:white !important;">Sign up</a>						
-=======
-												
->>>>>>> refs/remotes/origin/young
 						<input value="Login" class="button alt icon fa-check" type="submit" id = "login_process" style="float:right;margin-right: 10px;color:white !important;">		
 						<input name="password" id="pass" type="password" placeholder="Pass" style="width: 10%;float: right;margin-right: 10px;">				
 				<input name="id" id="id" type="text" placeholder="id" style="width: 10%;float: right;margin-right: 10px;">
@@ -39,29 +35,25 @@
 			</header>
 
 		<!-- Nav -->
-			<nav id="menu">
-				<ul class="links">
-					<li><a href="index.do">Home</a></li>
-					<li><a href="generic.do">Notice</a></li>
-					<li><a href="hosmap.do">Hospital</a></li>					
-					
-					<%if(session.getAttribute("id") == null){ %>	
-							<li><a href="login.do">Login</a></li>
-							<%} else {%>
-							<li><p style="color:white !important;">${sessionScope.id }님 환영합니다</p>
-								<ul class="links">
-									<li><a href="mypage.do">My Page</a></li>
-									<li><a href="logout.do">LogOut</a></li>
-								</ul>
-							</li>			
-							<%} %>
-							<%if(session.getAttribute("id") == "admin"){ %>	
-					<li><a href="admin.do">admin</a></li>
-					<%} %>					
-					</ul>
-			</nav>
+		<nav id="menu">
+		<ul class="links">
+			<li><a href="index.do">Home</a></li>		
+			<%
+				if (session.getAttribute("id") == null) {
+			%>
+			<%} else {%>
+			<li><p style="color:white !important;">${sessionScope.id }님 환영합니다</p>
+			<li><a href="mypage.do">My Page</a></li>
+								<%if(((String)session.getAttribute("id")).equals("admin")){ %>		
+									<li><a href="admin.do">Admin</a></li>
+								<%} %>
+							<%} %>		
+			<li><a href="hosmap.do">Hospital</a></li>
 
-		<!-- Banner -->
+
+		</ul>
+	</nav>
+				<!-- Banner -->
 		<!--
 			To use a video as your background, set data-video to the name of your video without
 			its extension (eg. images/banner). Your video must be available in both .mp4 and .webm

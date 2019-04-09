@@ -20,7 +20,7 @@
 		
 					var code = null;
 					var emailck = 0;
-					var nullchk = true;
+					var nullchk = false;
 					var passchkValidation = false;
 					var emailcodechk = false;
 					var phoneValidation = false;
@@ -32,10 +32,10 @@
 
 					var phonenum = hp1.value + hp2.value + hp3.value;
 					var modiemailq = "<%=session.getAttribute("email")%>"
-					var modipassq="<%=session.getAttribute("password")%>"
+					var modipassq="<%=session.getAttribute("pass")%>"
 					$('#modifybtn').click(
 							function() {
-
+									nullChk();
 								if (phoneValidation == true
 										&& passchkValidation == true
 										&& passValidation == true
@@ -46,7 +46,7 @@
 								} else if (passchkValidation == false) {
 									alert("비밀번호가 일치하지 않습니다.");
 									return false;
-								} else if (nullchk) {
+								} else if (nullchk==true) {
 									alert("입력값을 모두 입력해주세요.");
 									return false;
 								} else if (phoneValidation == false) {
@@ -202,8 +202,8 @@
 											document.getElementById("phonep").innerHTML = "번호를 올바르게 입력해주세요.";
 											phoneValidation = false;
 										}
-									});// end phoneKeyUp() defalutpass
-					
+									});// end phoneKeyUp()
+
 				});
 	
 </script>
@@ -238,7 +238,7 @@
 						<a href="#menu" class="toggle" style="float:right"><span>Menu</span></a>
 		<%if(session.getAttribute("id") == null){ %>	
 						<input value="Login" class="button alt icon fa-check" type="submit" id = "login_process"style="float:right;">		
-						<input name="password" id="pass" type="password" placeholder="Pass" style="width: 10%;float: right;margin-right: 10px;">				
+						<input name="pass" id="pass" type="password" placeholder="Pass" style="width: 10%;float: right;margin-right: 10px;">				
 				<input name="id" id="id" type="text" placeholder="id" style="width: 10%;float: right;margin-right: 10px;">
 				<%} else {%>
 				${sessionScope.id }님 환영합니다
@@ -292,15 +292,14 @@
 								<div class="field">
 									<label for="id">ID</label> 
 									<p id="id" style="width: 68%;">${sessionScope.id}</p>
-									
+									<input type="hidden" name="id" value="${sessionScope.id}">
 								</div>
 								<div class="field">
 									<label for="pass">Defalut Password</label> <input name="defalutpass" id="defalutpass"
-										type="password" placeholder="Pass" style="width: 68%;">
-																			
+										type="password" placeholder="Pass" style="width: 68%;">									
 								</div>
 								<div class="field">
-									<label for="pass">Change Password</label> <input name="modipass" id="modipass"
+									<label for="pass">Change Password</label> <input name="password" id="modipass"
 										type="password" placeholder="Pass" style="width: 68%;">
 									<p id="passp" style="color: red"></p>
 								</div>
@@ -313,6 +312,8 @@
 								<div class="field">
 									<label for="name">Name</label> 
 									<p id="name" style="width: 68%;">${sessionScope.name}</p>
+									<input type="hidden" name="name" value="${sessionScope.name}">
+									<input type="hidden" name="grade" value="${sessionScope.grade}">
 								</div>
 
 							<div class="field" id="phone">
@@ -343,7 +344,7 @@
 								</div>
 
 								<div class="field">
-									<label for="email">Email</label> <input name="modiemail" id="modiemail"
+									<label for="email">Email</label> <input name="email" id="modiemail"
 										type="email" placeholder="Email"
 										style="width: 45%; float: left; margin-right: 10px;">
 									<input type="hidden" id="codechk" value="code"> <input

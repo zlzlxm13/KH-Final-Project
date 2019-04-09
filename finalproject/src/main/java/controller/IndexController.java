@@ -22,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 import dao.LoginDAO;
 import dao.PetDAO;
 import dto.MemDTO;
+import dto.MemberDTO;
 import dto.PetDTO;
 import mail.TempKey;
 import service.LoginService;
@@ -293,7 +294,33 @@ public JavaMailSenderImpl getMailSender() {
 		
 		return "membermodify";
 	}
+	@RequestMapping(value = "/membermodify.do", method = RequestMethod.POST)
+	public ModelAndView membermodify1(MemberDTO dto,HttpSession session) {	
+		System.out.println("88yqer8qe8yqe    "+dto.getPassword());
+		ModelAndView mav = new ModelAndView();
+		mservice.updateProcess(dto);
+		MemDTO tdto = new MemDTO();
+		session.removeAttribute("password");
+		session.setAttribute("password", dto.getPassword());
+		tdto.setId((String)session.getAttribute("id"));
+		tdto.setPassword((String)session.getAttribute("password"));
+		MemDTO mdto = lservice.signloginprocess(tdto);	
+		session.removeAttribute("id");	
+		session.removeAttribute("name");
+		session.removeAttribute("email");
+		session.removeAttribute("grade");
+		session.removeAttribute("phonenum");
 	
+		session.setAttribute("id", mdto.getId());
+
+		session.setAttribute("email", mdto.getEmail());
+		session.setAttribute("name", mdto.getName());
+		session.setAttribute("grade", mdto.getGrade());
+		session.setAttribute("phonenum", mdto.getPhonenum());
+
+		mav.setViewName("mypage");
+		return mav;
+	}
 
 	@RequestMapping(value = "/petinsert.do", method = RequestMethod.GET)
 	public ModelAndView petinsert() {

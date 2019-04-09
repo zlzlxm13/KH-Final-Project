@@ -1,79 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<<<<<<< HEAD
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="js/datedropper.js"></script>
-<link rel="stylesheet" type="text/css" href="css/datedropper.css"> 
-
-<style>
-
-#res {
-  width: 610px;
-  height: 600px;
-  padding: 40px;
-  margin: 0 auto;	
-  border: 1px solid #eee;
-  border-top-width: 2px;
-  }
-  
-  
-#res_num {font-size:20px;height:40px;line-height:40px; margin: 0 0 20px; }
-#departure {font-size:20px;height:40px;line-height:40px; margin: 0 0 20px;}
-#hos_num {font-size:20px;height:40px;line-height:40px; margin: 0 0 20px;}
-#mem_id {font-size:20px;height:40px;line-height:40px; margin: 0 0 20px;}
-
-</style>
-
-<script type="text/javascript">
-  $(document).ready(function(){
-
-	  
-	  $('#btnSave').bind('click',function(){
-		  
-		  $('#frm').attr('action','reservation.do').submit();
-	  });
-	  
-
-  });
-</script>
-
-</head>
-<body>
-
-
-<form name="frm" id="frm" method="post">
-
-<div id="res">
-<table>
-<tr>
-<td width="20%" align="center"> 예약 번호  :</td>
-<td> <input type="text" id = "res_num"/> </td>
-</tr>
-
-<tr>
-<td width="20%" align="center"> 예약 날짜  :</td>
-<td> <input type="date" id = "departure" />
-<!-- <script>$("#departure").dateDropper();</script> </td> -->
-</tr>
-
-<tr>
-<td width="20%" align="center"> 병원 번호  :</td>
-<td> <input type="text" id = "hos_num"/> </td>
-</tr>
-
-<tr>
-<td width="20%" align="center"> 고객 ID  :</td>
-<td><input type="text" id = "mem_id"/></td>
-</tr>
-</table>
-<input type="button" id="btnSave" value="저장" />
-</div>
-</form>
-=======
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>​
 <!DOCTYPE html>
@@ -218,23 +143,24 @@ body{
 			</header>
 
 		<!-- Nav -->
-			<nav id="menu">
-				<ul class="links">
-					<li><a href="index.do">Home</a></li>
-					<li><a href="generic.do">Notice</a></li>
-		   <!--  --><li><a href="elements.do">element</a></li>	
-					<li><a href="hosmap.do">Hospital</a></li>					
-					<%if(session.getAttribute("id") == null){ %>	
-							<li><a href="login.do">Login</a></li>
-							<%} else {%>
-							<li><a href="mypage.do">My Page</a></li>
+<nav id="menu">
+		<ul class="links">
+			<li><a href="index.do">Home</a></li>		
+			<%
+				if (session.getAttribute("id") == null) {
+			%>
+			<%} else {%>
+			<li><p style="color:white !important;">${sessionScope.id }님 환영합니다</p>
+			<li><a href="mypage.do">My Page</a></li>
 								<%if(((String)session.getAttribute("id")).equals("admin")){ %>		
 									<li><a href="admin.do">Admin</a></li>
 								<%} %>
-							<%} %>
-					
-				</ul>
-			</nav>
+							<%} %>		
+			<li><a href="hosmap.do">Hospital</a></li>
+
+
+		</ul>
+	</nav>
 
 <h2 class="align-center">Reservation</h2>
  <hr />
@@ -298,7 +224,6 @@ body{
 	<script src="js/skel.min.js"></script>
 	<script src="js/util.js"></script>
 	<script src="js/main.js"></script>
->>>>>>> refs/remotes/origin/young
 
  </body>
 </html>

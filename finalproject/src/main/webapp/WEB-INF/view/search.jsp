@@ -3,35 +3,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<<<<<<< HEAD
-<title>Insert title here</title>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<!-- <script src="ajaxsrc/search.js"></script> -->
-
-
-<script type="text/javascript">
-
-
-</script>
-
-
-</head>
-<body>
-
-
-
- 	<p> 검색 </p>
-	 <input type="text" name="member_id" id="member_id"/>
-	<input type="submit" value="찾기" id="btnsearch" />
-	
-	<div id="wrap">
-	
-	</div>
-
-</body>
-</html>
-=======
 <title>예약관리페이지</title>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -274,19 +245,20 @@ $(document)
 		<!-- Nav -->
 	<nav id="menu">
 		<ul class="links">
-			<li><a href="index.do">Home</a></li>
-			<li><a href="generic.do">Notice</a></li>
-			<li><a href="elements.do">element</a></li>
-			<li><a href="hosmap.do">Hospital</a></li>
+			<li><a href="index.do">Home</a></li>		
 			<%
 				if (session.getAttribute("id") == null) {
 			%>
 			<%} else {%>
+			<li><p style="color:white !important;">${sessionScope.id }님 환영합니다</p>
 			<li><a href="mypage.do">My Page</a></li>
 								<%if(((String)session.getAttribute("id")).equals("admin")){ %>		
 									<li><a href="admin.do">Admin</a></li>
 								<%} %>
-							<%} %>
+							<%} %>		
+			<li><a href="hosmap.do">Hospital</a></li>
+
+
 		</ul>
 	</nav>
 	<div id = "search" class="box">
@@ -351,4 +323,3 @@ $(document)
 
  </body>
 </html>
->>>>>>> refs/remotes/origin/young

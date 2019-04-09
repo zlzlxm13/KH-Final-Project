@@ -50,7 +50,7 @@
 	<script src="js/login.js" type="text/javascript"></script>
 	<header id="header">
 		<div class="logo">
-			<a href="index.do">SooCut animal hospital <span>by
+			<a href="index.do">SooCut4ttt4 animal hospital <span>by
 					KHfamily</span></a>
 		</div>
 		<a href="#menu" class="toggle" style="float: right"><span>Menu</span></a>
@@ -66,7 +66,7 @@
 		<%
 			} else {
 		%>
-		${sessionScope.id }님 환영합니다 <a href="logout.do">로그아웃</a>
+		${sessionScope.id }님 jfjf환영합니다 <a href="logout.do">로그아웃</a>
 		<%
 			}
 		%>
