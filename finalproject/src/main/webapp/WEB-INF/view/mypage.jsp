@@ -222,8 +222,8 @@
 											나의 애완동물 정보를<br> 관리할 수 있습니다.
 										</p>
 									</div>
-									<div class="sh_content" style="font-size: 11pt;">
-										<form id="frm" method="post">
+									<div class="sh_content" style="font-size: 10pt;">
+										<form id="frm" method="post" style="text-align: center;overflow: auto;">
 											<table>
 												<tr>												
 													<td>PETNAME</td>

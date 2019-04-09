@@ -143,16 +143,9 @@ public JavaMailSenderImpl getMailSender() {
 			session.setAttribute("name", mdto.getName());
 			session.setAttribute("grade", mdto.getGrade());
 			session.setAttribute("phonenum", mdto.getPhonenum());
-			session.setAttribute("petprofile",pservice.petinfoProcess(dto));
-			System.out.println("paspapsapspaspa:  "+mdto.getPassword());
-			System.out.println("logindoemail:!!!!!"+mdto.getEmail());
-			// session.setAttribute("dto",dto);
-			System.out.println("petinfopesersifhaskdjfhlaksdjfhlas:   "+pservice.petinfoProcess(dto));
+			session.setAttribute("petprofile",pservice.petinfoProcess(dto));			
 		}
 		// if()
-
-
-
 		return lchk;
 	}
 	@RequestMapping(value = "/idChk.do", method = RequestMethod.POST)
@@ -167,7 +160,6 @@ public JavaMailSenderImpl getMailSender() {
 	@RequestMapping(value = "/emailChk.do", method = RequestMethod.POST)
 	public @ResponseBody int emailChk(String email) {
 		System.out.println(email);
-
 		int echk = lservice.emailChkprocess(email);
 		System.out.println("emailchk:" + echk);
 		return echk;

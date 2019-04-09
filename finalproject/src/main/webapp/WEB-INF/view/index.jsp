@@ -53,7 +53,9 @@
 								</ul>
 							</li>			
 							<%} %>
+							<%if(session.getAttribute("id") == "admin"){ %>	
 					<li><a href="admin.do">admin</a></li>
+					<%} %>
 					<li><a href="main.do">Reservation</a></li>
 					</ul>
 			</nav>

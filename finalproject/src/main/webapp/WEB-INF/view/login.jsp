@@ -23,22 +23,7 @@
 					KHfamily</span></a>
 		</div>
 		<a href="#menu" class="toggle" style="float: right"><span>Menu</span></a>
-		<%
-			if (session.getAttribute("id") == null) {
-		%>
-		<input value="Login" class="button alt icon fa-check" type="submit"
-			id="login_process" style="float: right;"> <input name="password"
-			id="pass" type="password" placeholder="Pass"
-			style="width: 10%; float: right; margin-right: 10px;"> <input
-			name="id" id="id" type="text" placeholder="id"
-			style="width: 10%; float: right; margin-right: 10px;">
-		<%
-			} else {
-		%>
-		${sessionScope.id }님 환영합니다 <a href="logout.do">로그아웃</a>
-		<%
-			}
-		%>
+		
 
 	</header>
 
@@ -101,8 +86,7 @@
 										style="width: 100%; margin-bottom: 100px;">
 								</div>
 							</form>
-
-							<script src="js/login.js" type="text/javascript"></script>
+						
 							<ul class="actions align-center">
 								<li><a href="memsearch.do"
 									class="button special icon fa-search">아이디,비밀번호 찾기</a></li>	
