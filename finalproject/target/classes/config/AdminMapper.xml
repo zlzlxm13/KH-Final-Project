@@ -4,19 +4,296 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="admin">
+	<!-- 병원 -->
+	<select id="hospital_count" resultType="int">
+		select count(*) from
+		hospital
+	</select>
+	<select id="hospital_list" resultType="dto.HosmapDTO">
+		<![CDATA[
+select b.* from(
+ select rownum as rowm, a.* from(
+    select hp.hosnum, hp.hosname, SUBSTR(xmlagg(xmlelement
+(x,',',hn.petkind_kind)order by hn.petkind_kind).extract('//text()'),2)as petkind_kind, hp.hosaddress,hp.hosarea,hp.latitude,hp.longitude
+from hospital hp, hosname hn
+where hp.hosnum=hn.hosnum
+group by 
+hp.hosnum,hp.hosname,hp.hosaddress,hp.hosarea,hp.latitude,hp.longitude)a )b
+ ]]>
+	</select>
+	<insert id="hospital_insert" parameterType="dto.HospitalDTO">
+		insert all into hospital
+		values(hos_seq.nextval, #{hosname},
+		#{hosaddress}, #{hosarea},
+		#{latitude}, #{longitude})
+		<foreach collection="petkind_kind" item="item">
+			into hosname values(hos_seq.currval, #{item})
+		</foreach>
+		select * from dual
+	</insert>
 
-<select id="hos_count" resultType="int">
-		select count(*) from hospital
+
+
+	<delete id="hospital_delete" parameterType="map">
+
+		delete from hospital where hosnum in
+		<foreach collection="array" item="item" index="index" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+	<update id="hospital_update" parameterType="dto.HosmapDTO">
+		update hospital set
+		hosname = #{hosname}, hosaddress = #{hosaddress}, hosarea =
+		#{hosarea}, latitude = #{latitude}, longitude = #{longitude}
+		where
+		hosnum = #{hosnum}
+	</update>
+
+	<select id="hospital_content" parameterType="dto.HosmapDTO"
+		resultType="dto.HosmapDTO">
+				<![CDATA[
+select b.* from(
+ select rownum as rowm, a.* from(
+    select hp.hosnum, hp.hosname, SUBSTR(xmlagg(xmlelement
+(x,',',hn.petkind_kind)order by hn.petkind_kind).extract('//text()'),2)as petkind_kind, hp.hosaddress,hp.hosarea,hp.latitude,hp.longitude
+from hospital hp, hosname hn
+where hp.hosnum=hn.hosnum
+and hp.hosnum = #{hosnum}
+group by 
+hp.hosnum,hp.hosname,hp.hosaddress,hp.hosarea,hp.latitude,hp.longitude)a )b
+ ]]>
 	</select>
-	<select id="hos_list" resultType="dto.HosmapDTO">
-		select * from hospital
+
+	<select id="hospital_check" parameterType="dto.HosmapDTO"
+		resultType="int">
+		select count(*) from hospital where hosnum = #{hosnum}
 	</select>
-	<select id= "hos_insert" parameterType ="dto.HosmapDTO">
-	insert into hospital values(hos_seq.nextval, #{hosname}, #{petkind_kind}, #{hosadress}, #{hosarea}, #{latitude}, #{longitude})
-	</select> 
-	<select id= "hos_update" parameterType ="dto.HosmapDTO" resultType = "dto.HosmapDTO">
-		update hospital	set hosname = #{hosname}, petkind_kind = #{petkind_kind}, hosadress = #{hosadress}, hosarea = #{hosarea}, latitude = #{latitude}, longitude = #{longitude}
-		where hosnum=#{hosnum}
+
+	<select id="hospital_seq" resultType="int">
+		select last_number from
+		USER_SEQUENCES where SEQUENCE_NAME = 'HOS_SEQ'
+	</select>
+
+
+
+	<!-- petkind -->
+	<select id="petkind_count" resultType="int">
+		select count(*) from
+		petkind
+	</select>
+	<select id="petkind_list" resultType="dto.PetKindDTO">
+		select * from petkind
+	</select>
+	<select id="petkind_insert" parameterType="dto.PetKindDTO">
+		insert into petkind
+		values(#{kind})
+	</select>
+
+	<delete id="petkind_delete" parameterType="map">
+		delete from petkind where kind in
+		<foreach collection="array" item="item" index="index" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+	<update id="petkind_update" parameterType="dto.PetKindDTO">
+		update petkind set
+		kind = #{kind} where kind = #{kind}
+	</update>
+	<select id="petkind_content" parameterType="dto.PetKindDTO"
+		resultType="dto.PetKindDTO">
+		select * from petkind where kind = #{kind}
+	</select>
+	<select id="petkind_check" parameterType="dto.PetKindDTO"
+		resultType="int">
+		select count(*) from pet where kind = #{kind}
+	</select>
+
+
+	<!-- pet -->
+	<select id="pet_count" resultType="int">
+		select count(*) from pet
+	</select>
+	<select id="pet_list" resultType="dto.PetDTO">
+		select * from pet order by
+		member_id
+	</select>
+	<select id="pet_insert" parameterType="dto.PetDTO">
+		insert into pet
+		values(#{petname}, #{petage}, #{petsex}, #{member_id}, #{petinfo},
+		#{petkind_kind}, petnum_seq.nextval)
+	</select>
+	<delete id="pet_delete" parameterType="map">
+
+		delete from pet where petnum in
+		<foreach collection="array" item="item" index="index" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+	<update id="pet_update" parameterType="dto.PetDTO">
+		update pet set
+		petname =
+		#{petname}, petage = #{petage}, petsex = #{petsex}, member_id =
+		#{member_id}, petinfo = #{petinfo},
+		petkind_kind = #{petkind_kind}
+		where petnum = #{petnum}
+	</update>
+
+	<select id="pet_content" parameterType="dto.PetDTO"
+		resultType="dto.PetDTO">
+		select * from pet where petnum = #{petnum}
+	</select>
+
+	<select id="pet_check" parameterType="dto.PetDTO"
+		resultType="int">
+		select count(*) from pet where petnum = #{petnum}
 	</select>
 	
+	<select id="pet_info" parameterType="dto.MemDTO" resultType="dto.PetDTO">
+	 select * from pet where member_id=#{id}
+	</select>
+
+
+
+	<!-- member -->
+	<select id="member_count" resultType="int">
+		select count(*) from member
+	</select>
+	<select id="member_list" resultType="dto.MemberDTO">
+		select * from member order
+		by grade
+	</select>
+	<select id="member_insert" parameterType="dto.MemberDTO">
+		insert into member
+		values(#{id}, #{password}, #{name}, #{grade}, #{phonenum},
+		#{email})
+	</select>
+	<delete id="member_delete" parameterType="map">
+
+		delete from member where id in
+		<foreach collection="array" item="item" index="index" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+
+	<update id="member_update" parameterType="dto.MemberDTO">
+		update member set
+		password = #{password}, name = #{name}, grade = #{grade}, phonenum =
+		#{phonenum}, email = #{email}
+		where id = #{id}
+	</update>
+
+	<select id="member_content" parameterType="dto.MemberDTO"
+		resultType="dto.MemberDTO">
+		select * from member where id = #{id}
+
+	</select>
+
+	<select id="member_check" parameterType="dto.MemberDTO"
+		resultType="int">
+		select count(*) from member where id = #{id}
+	</select>
+
+
+
+	<select id="reservation_count" resultType="int">
+		select count(*) from
+		reservation
+	</select>
+	<select id="reservation_list" resultType="dto.ReservationDTO">
+		select * from
+		reservation order by member_id
+	</select>
+	<select id="reservation_insert"
+		parameterType="dto.ReservationDTO">
+		insert into reservation
+		values(res_seq.nextval,
+		#{res_date},
+		#{hospital_hosnum}, #{member_id}, #{petpet}, #{petinfo},
+		#{hospital_hosname})
+	</select>
+	<delete id="reservation_delete" parameterType="map">
+
+		delete from reservation where res_num in
+		<foreach collection="array" item="item" index="index" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+
+	<update id="reservation_update"
+		parameterType="dto.ReservationDTO">
+		update reservation set
+		res_date = #{res_date},	hospital_hosnum = #{hospital_hosnum}, member_id = #{member_id}, petpet = #{petpet}, petinfo = #{petinfo},
+		hospital_hosname = #{hospital_hosname}
+		where
+		res_num = #{res_num}
+	</update>
+
+	<select id="reservation_content"
+		parameterType="dto.ReservationDTO" resultType="dto.ReservationDTO">
+		select * from
+		reservation where res_num = #{res_num}
+
+	</select>
+
+	<select id="reservation_check"
+		parameterType="dto.ReservationDTO" resultType="int">
+		select count(*) from
+		reservation where res_num = #{res_num}
+	</select>
+
+
+	<!-- hosname -->
+	<select id="hosname_count" resultType="int">
+		select count(*) from
+		hosname
+	</select>
+	<select id="hosname_list" resultType="dto.HosnameDTO">
+		select * from hosname order
+		by
+		hosnum
+	</select>
+
+	<insert id="hosname_insert" parameterType="dto.HosnameDTO">
+		insert into hosname
+		values(#{hosnum}, #{petkind_kind})
+	</insert>
+
+	<delete id="hosname_delete" parameterType="dto.HosnameDTO">	
+			delete from
+			hosname where hosnum = #{hosnum} and #{petkind_kind}
+	</delete>
+	
+	<delete id="hosname_hosdelete" parameterType="dto.HosnameDTO">	
+			delete from
+			hosname where hosnum = #{hosnum}
+	</delete>
+	
+	<select id="hosname_content" parameterType="dto.HosnameDTO"
+		resultType="dto.HosnameDTO">
+		select * from hosname where hosnum = #{hosnum} and
+		petkind_kind = #{petkind_kind}
+	</select>
+	<select id="hosname_check" parameterType="dto.HosnameDTO"
+		resultType="int">
+		select count(*) from hosname where hosnum = #{hosnum} and
+		petkind_kind = #{petkind_kind}
+	</select>
+
+
+	<select id="hosname_petkind" parameterType="dto.HosmapDTO"
+		resultType="hashmap">
+		select * from hosname where hosnum = #{hosnum}
+	</select>
+
+
+
 </mapper>
+
+
+
+

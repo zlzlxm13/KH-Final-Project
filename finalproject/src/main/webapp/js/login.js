@@ -6,9 +6,8 @@ $(document).ready(function(){
         var json = {
             //m_id의 이름을 가지고 m_id의 id를 가지는 태그의 벨류값을 가져옴 아래도 동일
            id : $("#id").val(),
-           pass : $("#pass").val()
-        };
-    
+           password : $("#pass").val()
+        };        
         //json을 포이치문 돌림
         for(var str in json){
             //json[m_id or m_pw]를 돌릴때 길이가 0이면 아래 출력
@@ -31,19 +30,17 @@ $(document).ready(function(){
                 switch (Number(data)) { //위치문
                 case 0: // 0 일때
                     alert("아이디 또는 비밀번호가 일치하지 않습니다."); //경고 출력
-                   window.location.href = "index.do";
-                   
+
+                    return;
+
                 case 1: // 1 일떄
                 	alert("로그인이 완료되었습니다.");
                     window.location.href = "index.do"; //로그인 성공시 index페이지 이동
 
-                default:
-                    break;
+                default:break;
                 }
-            },
-            error : function(error) { //404 500등 오류 발생시 
-                alert("오류 발생"+ error);
             }
+          
         });
     });
 });

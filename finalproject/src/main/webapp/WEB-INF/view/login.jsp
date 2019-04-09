@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -11,27 +12,37 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="stylesheet" href="css/main.css" />
 
-<<<<<<< HEAD
-
-=======
->>>>>>> branch 'testbranch' of https://github.com/zlzlxm13/KH-Final-Project
 </head>
 <body class="subpage">
 
 	<!-- Header -->
+	<script src="js/login.js" type="text/javascript"></script>
 	<header id="header">
 		<div class="logo">
-			<a href="index.do">Transitive <span>by TEMPLATED</span></a>
+			<a href="index.do">SooCut animal hospital <span>by
+					KHfamily</span></a>
 		</div>
-		<a href="#menu" class="toggle"><span>Menu</span></a>
+		<a href="#menu" class="toggle" style="float: right"><span>Menu</span></a>
+		
+
 	</header>
 
 	<!-- Nav -->
 	<nav id="menu">
 		<ul class="links">
 			<li><a href="index.do">Home</a></li>
-			<li><a href="generic.do">Generic</a></li>
-			<li><a href="elements.do">Elements</a></li>
+			<li><a href="generic.do">Notice</a></li>
+			<li><a href="elements.do">Element</a></li>
+			<%
+				if (session.getAttribute("id") == null) {
+			%>
+			<%} else {%>
+			<li><a href="mypage.do">My Page</a></li>
+								<%if(((String)session.getAttribute("id")).equals("admin")){ %>		
+									<li><a href="admin.do">Admin</a></li>
+								<%} %>
+							<%} %>		
+			<li><a href="hosmap.do">Hospital</a></li>
 		</ul>
 	</nav>
 
@@ -45,28 +56,45 @@
 				<div class="content">
 					<h2 class="align-center">Get in Touch</h2>
 					<hr />
-					<p><span class="image right"><img src="images/pay1.jpg" alt="" /></span>
-					<form action="#" method="post">				
-						<div class="field">
-							<label for="id">ID</label> <input name="id" id="id" type="text"
-								placeholder="id" style="width: 50%">
-						</div>						
-						<div class="field">
-							<label for="pass">Password</label> <input name="pass" id="pass"
-								type="password" placeholder="Pass" style="width: 50%">
-						</div>							
-					</form>
+
+
+					<div class="row 200%">
+						<div class="6u 12u$(medium)">
+							<form action="#" method="post">
+
+								<div class="field">
+									<label for="id">ID</label> <input name="id" id="id" type="text"
+										placeholder="id" style="width: 100%; margin-bottom: 100px;">
+
+								</div>
+								<div class="field">
+									<label for="pass">Password</label> <input name="password" id="pass"
+										type="password" placeholder="Pass"
+										style="width: 100%; margin-bottom: 100px;">
+								</div>
+							</form>
+
 							
-					<script src="js/login.js" type="text/javascript"></script>
-						<ul class="actions align-center">		
-						<li><a href="#" class="button special icon fa-search">아이디,비밀번호 찾기</a>	</li>				
-							<li><input value="Login" class="button alt icon fa-check"
-							 type="submit" id = "login_process" style="color: black;">
-							</li>							
-							<li><a href="signup.do" class="button">회원가입</a></li>
-						</ul>
+							<ul class="actions align-center">
+								<li><a href="memsearch.do"
+									class="button special icon fa-search">아이디,비밀번호 찾기</a></li>	
+								<li><input value="Login" class="button alt icon fa-check"
+									type="submit" id="login_process" style="color: black;">
+								</li>
+								<li><a href="signup.do" class="button">회원가입</a></li>
+							</ul>
+							<!-- 네아로 카로 -->
+						</div>
+						<!-- <span class="image right"></span> -->
+						<div class="6u 12u$(medium)">
+							<img src="images/pay1.jpeg" alt=""
+								style="width: 80%; position: relative;" />
+						</div>
+
+					</div>
 				</div>
 			</div>
+	
 		</div>
 	</section>
 
@@ -105,6 +133,5 @@
 	<script src="js/util.js"></script>
 	<script src="js/main.js"></script>
 
-	
 </body>
 </html>

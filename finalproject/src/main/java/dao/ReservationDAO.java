@@ -6,16 +6,20 @@ import dto.ReservationDTO;
 
 
 public interface ReservationDAO {
-<<<<<<< HEAD
-	public void ReservationInsertMethod(ReservationDTO rdto);
-=======
 	
 	public void save(ReservationDTO dto);
-	public List<ReservationDTO> search(String member_id);
-	public List<ReservationDTO> r_list();
+	public List<ReservationDTO> r_search(String member_id);
 	public void r_delete(int num);
+	//추가
+	public ReservationDTO r_fsearch(int res_num);
+	public void r_update(ReservationDTO dto);
 	
->>>>>>> branch 'testbranch' of https://github.com/zlzlxm13/KH-Final-Project
-	
+	public int count();
+	public List<ReservationDTO> list();
+	public void insert(ReservationDTO dto);
+	public void update(ReservationDTO dto);
+	public void delete(String[] chk);
+	public ReservationDTO content(ReservationDTO dto);
+	public int check(ReservationDTO dto);
 	
 }//end interface

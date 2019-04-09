@@ -1,17 +1,21 @@
 package dao;
 
-import java.security.spec.ECFieldF2m;
+
+
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import org.apache.ibatis.session.SqlSession;
+
 import org.mybatis.spring.SqlSessionTemplate;
+
+import dto.HosmapDTO;
 import dto.MemDTO;
 
 public class LoginDAOImp implements LoginDAO{
- private SqlSessionTemplate session;
- 
- public LoginDAOImp() {
-	 
- }
+private SqlSessionTemplate session;
+
+public LoginDAOImp() {}
  
 public SqlSessionTemplate getSession() {
 	return session;
@@ -25,7 +29,9 @@ public void setSession(SqlSessionTemplate session) {
  private static final String NameSpace="login.";
  
 	@Override
-	public int signUpMethod(MemDTO dto) {
+
+	public int signUpMethod(MemDTO dto){
+
 		 //위에 선언된 Id_Check(m)의 결과값을 Id_Check_Result에 담는다.
         int Id_Check_Result = IdChk(dto.getId());
         //Id_Check_Result값이 0이 아니라면 Id_Check_Result값을 반환
@@ -57,7 +63,28 @@ public void setSession(SqlSessionTemplate session) {
 	public int IdChk(String id) {		
 		System.out.println("daoID:"+id);
 		return session.selectOne("login.Idchk",id);
+
 	
 	}
+	@Override
+	public String idsearch(MemDTO dto) {
 	
+		return session.selectOne("login.idsearch",dto);
+	}
+	@Override
+	public String passsearch(MemDTO dto) {
+		
+		return session.selectOne("login.passsearch",dto);
+	}
+	@Override
+	public int emailChk(String email) {
+		
+		return session.selectOne("login.emailchk",email);
+	}
+	@Override
+	public MemDTO signin(MemDTO dto) {
+	
+		return session.selectOne("login.signlogin",dto);
+	}
+
 }

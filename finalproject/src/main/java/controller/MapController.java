@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import dto.HosmapDTO;
+import dto.ReservationDTO;
 import service.HosService;
 
 //http://localhost:8090/pet/hosmap.do
@@ -27,6 +28,16 @@ public class MapController {
 	@RequestMapping("/hosmap.do")
 	public String mapForm() {
 		return "hosmap";
+	}//end mapForm()////////////////////
+	
+	@RequestMapping("/updatemap.do")
+	public ModelAndView upmapForm(ReservationDTO dto) {
+		System.out.println(dto.getRes_num());
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("res_num",dto.getRes_num());
+		System.out.println(" (맵)받아온 값 : " + dto.getRes_num());
+		mav.setViewName("updatemap");
+		return mav;
 	}//end mapForm()////////////////////
 	
 	@RequestMapping("/hosmap1.do")

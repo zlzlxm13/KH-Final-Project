@@ -6,16 +6,21 @@
 <mapper namespace="hos">
 
  <select id="hos_countAll" parameterType="String" resultType="int">
-   select count(*) from hospital where petkind_kind like '%' || #{data} || '%'
+   select count(distinct hosnum) from hosname where petkind_kind like '%' || #{data} || '%'
  </select>
 
  <select id="hos_list" parameterType="java.util.HashMap" resultType="dto.HosmapDTO">
  <![CDATA[
 select b.* from(
  select rownum as rowm, a.* from(
-    select * from hospital
-    where petkind_kind like '%' || #{keyword} || '%')a )b
- where b.rowm>=#{Startpage} and b.rowm<=#{Endpage}
+    select hp.hosnum, hp.hosname, SUBSTR(xmlagg(xmlelement
+(x,',',hn.petkind_kind)order by hn.petkind_kind).extract('//text()'),2)as petkind_kind, hp.hosaddress,hp.hosarea,hp.latitude,hp.longitude
+from hospital hp, hosname hn
+where hn.petkind_kind like '%' || #{keyword} || '%' and hp.hosnum=hn.hosnum
+group by 
+hp.hosnum,hp.hosname,hp.hosaddress,hp.hosarea,hp.latitude,hp.longitude)a )b
  ]]>
  </select>
+
+ 
 </mapper>

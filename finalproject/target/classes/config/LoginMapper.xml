@@ -6,25 +6,45 @@
 
 <mapper namespace="login">
 	<insert id="signup" parameterType="dto.MemDTO">
-		insert into member
-		values(#{id},#{pass},#{name},'Bronze',#{phonenum},#{email})
+		insert into member values(#{id},#{password},#{name},'Bronze',#{phonenum},#{email})
 	</insert>
 
 	<select id="signin" parameterType="dto.MemDTO" resultType="int">
-		select count(*) from member where id = #{id} and password=#{pass}
+		select count(*) from member where id = #{id} and password=#{password}
+	</select>
+	<select id="signlogin" parameterType="dto.MemDTO" resultType="dto.MemDTO">
+		select * from member where id=#{id} and password=#{password}
+	</select>
+	<select id="Idchk" resultType="int">
+		select count(*) from member where id = #{id}
+	</select>
+	
+
+	<select id="emailchk" resultType="int">		
+		select count(*) from member	where email = #{email}	
 	</select>
 
-	<select id="Idchk" resultType="int">
-		<!-- 검색을 하는데 갯수를 출력해라 MEMBER 테이블에 해당하는 테이블의 별칭은 m으로 선언한다. -->
-		select count(*) from member	where id = #{id}
-		<!-- 검색을 하는데 m테이블에 m_id 는 매개변수로 받아온 m_id와 동일해야 한다. -->
-	
-		<!-- 결과 : 0이면 아이디 중복 x 1이면 중복 검색 결과가 없으면 0으로 나옴 아래는 다 생략 동일하니 -->
-	</select>
-	
 	<select id="Login_Info" resultType="dto.MemDTO">
 		select * from member
-		where id = #{id} and pw = #{pw}
+		where id
+		= #{id} and password = #{password}
+	</select>
+
+
+	<select id="idsearch" parameterType="dto.MemDTO"
+		resultType="String">
+		select id from member where name = #{name} and
+		email=#{email}
+
+	</select>
+
+	<select id="passsearch" parameterType="dto.MemDTO"
+		resultType="String">
+		select password from member where id = #{id} and
+		email=#{email}
 	</select>
 
 </mapper>
+
+
+

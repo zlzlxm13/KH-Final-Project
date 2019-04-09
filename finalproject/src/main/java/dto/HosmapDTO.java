@@ -43,6 +43,7 @@ public class HosmapDTO {
 
 	public void setHosaddress(String hosaddress) {
 		this.hosaddress = hosaddress;
+
 	}
 
 	public String getHosarea() {

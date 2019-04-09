@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="reservation">
+	
+	<insert id="save" parameterType="dto.ReservationDTO">
+	    insert into reservation
+	    values(res_seq.nextval, #{res_date}, #{hospital_hosnum,jdbcType=INTEGER}, #{member_id,jdbcType=VARCHAR}, #{petpet}, #{petinfo}, #{hospital_hosname,jdbcType=VARCHAR})
+	</insert>
+	
+ 	<select id="r_search" parameterType="String" resultType="dto.ReservationDTO">
+		select res_num, res_date, hospital_hosname, hospital_hosnum, member_id, petpet, petinfo
+		from reservation
+		where member_id=#{member_id}
+		order by res_date DESC
+	</select> 
+	
+	<select id="r_fsearch" parameterType="int" resultType="dto.ReservationDTO">
+		select res_num, res_date, hospital_hosname, hospital_hosnum, member_id, petpet, petinfo
+		from reservation
+		where res_num=#{res_num}
+	</select>
+	
+	<delete id="r_delete" parameterType="int">
+		delete 
+		from reservation
+		where res_num = #{res_num}
+	</delete>
+	
+	<update id="r_update" parameterType="dto.ReservationDTO">
+	 update reservation set res_date=#{res_date}, hospital_hosname=#{hospital_hosname},hospital_hosnum=#{hospital_hosnum},petpet=#{petpet},petinfo=#{petinfo}
+	 where res_num = #{res_num}
+	</update>
+
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+ 
+ 
+ 
+ 
+ 

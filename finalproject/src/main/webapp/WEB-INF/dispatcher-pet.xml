@@ -2,36 +2,33 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:mvc="http://www.springframework.org/schema/mvc"
-<<<<<<< HEAD
 	xmlns:aop="http://www.springframework.org/schema/aop"
 	xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+
 	xmlns:websocket="http://www.springframework.org/schema/websocket"
 	xsi:schemaLocation="http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket-4.3.xsd
 		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
 		http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
-	    http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
-		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">	
-=======
-	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
-		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
->>>>>>> branch 'testbranch' of https://github.com/zlzlxm13/KH-Final-Project
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 
 
-<<<<<<< HEAD
+
 	<mvc:annotation-driven></mvc:annotation-driven>
-  
-   
-   <!-- WebSocket 등록 -->
-   <bean id="chatWebSocketHandler" class="controller.ChatWebSocketHandler" />
-   
-   <websocket:handlers>
-    <websocket:mapping handler="chatWebSocketHandler" path="/chatws.do" />
-   </websocket:handlers>
-
 	
+
+	<!-- WebSocket 등록 -->
+	<bean id="chatWebSocketHandler"
+		class="controller.ChatWebSocketHandler" />
+
+	<websocket:handlers>
+		<websocket:mapping handler="chatWebSocketHandler"
+			path="/chatws.do" />
+	</websocket:handlers>
+
+
 	<!-- [1] DataSource빈 선언 -->
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
@@ -52,11 +49,32 @@
 			<list>
 				<value>classpath:config/HospitalMapper.xml</value>
 				<value>classpath:config/LoginMapper.xml</value>
-				<value>classpath:config/reservation.xml</value>
-				<value>classpath:config/AdminMapper.xml</value>				
+				<value>classpath:config/ReservationMapper.xml</value>
+				<value>classpath:config/AdminMapper.xml</value>
 			</list>
 		</property>
 	</bean>
+
+
+	<!-- Mail 인증 관련 -->
+	<!-- mail -->
+	<bean id="mailSender"
+		class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.gmail.com" />
+		<property name="port" value="587" />
+		<property name="username" value="snrnaudwls@gmail.com" />
+		<property name="password" value="audwlsdl2@" />
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+				<prop key="mail.debug">true</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!-- mail end -->
 
 	<!-- [3] SqlSessionTemplate -->
 	<bean id="sqlSession"
@@ -96,98 +114,149 @@
 
 
 	<!-- [6]DaoImp빈 선언 -->
+
 	<bean id="ldao" class="dao.LoginDAOImp">
 		<property name="session" ref="session" />
 		<!-- <constructor-arg><ref bean = "sqlSession"/></constructor-arg> -->
 	</bean>
-
 	<bean id="Reservationdao" class="dao.ReservationDaoImp">
 		<property name="sqlSession" ref="sqlSession" />
-	</bean>
-	
-	<bean id="dao" class="dao.HosmapDaoImp">
-		<property name="sqlSession" ref="sqlSession" />
-	</bean>
-	
-	<!-- [7] ServiceImp Bean 선언 -->
-	<bean id="lservice" class="service.LoginServiceImp">
-		<property name="ldao" ref="ldao" />
+
 	</bean>
 
-	<bean id="rservice" class="service.ReservationServiceImp">
-		<property name="dao" ref="Reservationdao" />
+	<bean id="dao" class="dao.HosmapDaoImp">
+		<property name="sqlSession" ref="sqlSession" />
+
+	</bean>
+
+
+
+
+	<bean class="dao.PetKindDAOImp" id="pkdao">
+		<property name="sqlSession" ref="sqlSession" />
+	</bean>
+	<bean class="dao.PetDAOImp" id="pdao">
+		<property name="sqlSession" ref="sqlSession" />
+	</bean>
+
+	<bean id="hdao" class="dao.HospitalDaoImp">
+		<property name="sqlSession" ref="sqlSession" />
+
+	</bean>
+	<bean id="mdao" class="dao.MemberDaoImp">
+		<property name="sqlSession" ref="sqlSession" />
+
 	</bean>
 	
+	<bean id="hndao" class="dao.HosnameDaoImp">
+		<property name="sqlSession" ref="sqlSession" />
+
+	</bean>
+	
+
+
+	<!-- [7] ServiceImp Bean 선언 -->
+
+	<bean id="lservice" class="service.LoginServiceImp">
+		<property name="ldao" ref="ldao" />
+
+	</bean>
+
 	<bean id="service" class="service.HosServiceImp">
 		<property name="dao" ref="dao" />
 
+	</bean>
+	<bean class="service.ReservationServiceImp" id="rservice">
+		<property name="rdao" ref="Reservationdao" />
+	</bean>
+
+
+
+
+	<bean class="service.PetImpService" id="pservice">
+		<property name="dao" ref="pdao" />
+	</bean>
+	<bean class="service.PetKindImpService" id="pkservice">
+		<property name="dao" ref="pkdao" />
+	</bean>
+
+	<bean class="service.HospitalServiceImp" id="hservice">
+		<property name="dao" ref="hdao" />
+	</bean>
+	<bean class="service.MemberImpService" id="mservice">
+		<property name="dao" ref="mdao" />
+	</bean>
+	<bean class="service.HosnameServiceImp" id="hnservice">
+		<property name="dao" ref="hndao" />
+	</bean>
+
+
 	<!-- [9] Controller 빈 선언 -->
+
 	<bean class="controller.IndexController">
-		<property name="lservice" ref="lservice" />
+		<property name="lservice" ref="lservice"></property>
+		<property name="mailSender" ref="mailSender"></property>
+		<property name="pservice" ref="pservice"></property>
+		<property name="pkservice" ref="pkservice"></property>
+		<property name="mservice" ref="mservice"></property>
+		
 	</bean>
-	
-	<bean class="controller.Reservationcontroller">
-		<property name="rservice" ref="rservice" />
-	</bean>
-	
+
+
 	<bean class="controller.MapController">
 		<property name="service" ref="service" />
 	</bean>
-	
+
 	<bean class="controller.ChatController" />
-	
-	<!-- [7] View -->
-    <bean class="org.springframework.web.servlet.view.json.MappingJackson2JsonView" id="jsonView">
-      <property value="application/json;charset=UTF-8" name="contentType"/></bean>
-      
-    <bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
-      <property value="1" name="order"/></bean>
-   </bean>
-   
-=======
 
-  	<mvc:annotation-driven> </mvc:annotation-driven>
-
-
-	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName" value="oracle.jdbc.OracleDriver" />
-		<property name="url" value="jdbc:oracle:thin://@127.0.0.1:1521:xe" />
-		<property name="username" value="hr" />
-		<property name="password" value="a1234" />
-	</bean>
-
-	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="dataSource" ref="dataSource" />
-		<property name="mapperLocations">
-			<list>
-				<value>classpath:config/reservation.xml</value>
-			 </list>
-		</property>
-	</bean>
-	
-	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
-		<constructor-arg ref="sqlSessionFactory" />
-	</bean>
-	
-	
-	<bean id="Reservationdao" class="dao.ReservationDaoImp">
-		<property name="sqlSession" ref="sqlSession" />
-	</bean>
-
-	<bean class="controller.IndexController" />
 	<bean class="controller.Reservationcontroller">
-			<!-- <property name="service" ref="service"/> -->
-			<property name="dao" ref="Reservationdao"/>
+		<property name="rservice" ref="rservice" />
+		<property name="mailSender" ref="mailSender"></property>
+	</bean>
+
+
+	<bean class="controller.AdminController">
+		<property name="service" ref="service" />
+		<property name="hservice" ref="hservice" />
+		<property name="pkservice" ref="pkservice" />
+		<property name="pservice" ref="pservice" />
+		<property name="mservice" ref="mservice" />
+		<property name="rservice" ref="rservice" />
+		<property name="hnservice" ref="hnservice" />
+
 	</bean>
 	
+	<!-- interceptor -->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/reservation.do"/>
+			<bean class="reservationinterceptor.ReservationInterceptor"/>
+		</mvc:interceptor>
+	</mvc:interceptors>
 
->>>>>>> branch 'testbranch' of https://github.com/zlzlxm13/KH-Final-Project
+	<!-- [7] View -->
+	<bean
+		class="org.springframework.web.servlet.view.json.MappingJackson2JsonView"
+		id="jsonView">
+		<property value="application/json;charset=UTF-8"
+			name="contentType" />
+	</bean>
+
+	<bean
+		class="org.springframework.web.servlet.view.BeanNameViewResolver">
+		<property value="1" name="order" />
+	</bean>
+
+
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+
+
 		<property name="prefix" value="/WEB-INF/view/" />
 		<property name="suffix" value=".jsp" />
 		<property name="order" value="2" />
 	</bean>
+
 
 
 </beans>
