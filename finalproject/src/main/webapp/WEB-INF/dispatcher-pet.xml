@@ -49,10 +49,9 @@
 			<list>
 				<value>classpath:config/HospitalMapper.xml</value>
 				<value>classpath:config/LoginMapper.xml</value>
-				<value>classpath:config/boardMapper.xml</value>
 				<value>classpath:config/ReservationMapper.xml</value>
 				<value>classpath:config/AdminMapper.xml</value>
-
+				<value>classpath:config/boardMapper.xml</value>				
 			</list>
 		</property>
 	</bean>
@@ -113,11 +112,13 @@
 		<aop:advisor advice-ref="txAdvice"
 			pointcut="execution(* service.Board*.*(..))" />
 	</aop:config>
+
+
 	<!-- [6]DaoImp빈 선언 -->
 
 	<bean id="ldao" class="dao.LoginDAOImp">
 		<property name="session" ref="session" />
-		<!-- <constructor-arg><ref bean = "sqlSession"/></constructor-arg> -->
+		<!-- <constructor-arg><ref bean = "Session"/></constructor-arg> -->
 	</bean>
 	<bean id="Reservationdao" class="dao.ReservationDaoImp">
 		<property name="sqlSession" ref="sqlSession" />
@@ -152,6 +153,8 @@
 		<property name="sqlSession" ref="sqlSession" />
 
 	</bean>
+	
+
 
 	<!-- [7] ServiceImp Bean 선언 -->
 
@@ -224,7 +227,6 @@
 
 	</bean>
 	
-
 	<!-- interceptor -->
 	<mvc:interceptors>
 		<mvc:interceptor>
