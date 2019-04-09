@@ -49,8 +49,6 @@
 								<%} %>
 							<%} %>		
 			<li><a href="hosmap.do">Hospital</a></li>
-
-
 		</ul>
 	</nav>
 				<!-- Banner -->
