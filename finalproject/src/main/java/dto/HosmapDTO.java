@@ -38,8 +38,13 @@ public class HosmapDTO {
 		this.petkind_kind = petkind_kind;
 	}
 
+	public String getPetkind_kind() {
+		return petkind_kind;
+	}
+
 	public void setHosaddress(String hosaddress) {
 		this.hosaddress = hosaddress;
+
 	}
 
 	public String getHosarea() {

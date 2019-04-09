@@ -10,4 +10,7 @@ public interface HosService {
 
 	public int f_countAllProcess(String data);
 
+	public List<HosmapDTO> listProcess();
+	
+	public int countProcess();
 }//end Service

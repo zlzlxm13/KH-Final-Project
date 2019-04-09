@@ -13,9 +13,11 @@ import dto.HosmapDTO;
 import dto.MemDTO;
 
 public class LoginDAOImp implements LoginDAO{
- private SqlSessionTemplate session;
 
- public LoginDAOImp() {}
+private SqlSessionTemplate session;
+
+public LoginDAOImp() {}
+
 public SqlSessionTemplate getSession() {
 	return session;
 }

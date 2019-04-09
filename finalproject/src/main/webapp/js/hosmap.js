@@ -4,6 +4,7 @@ var pageNo;
 var totalPage;
 var num;
 var total;
+var hosname;
 
 function Pagesearch(totalPage, total, blocksize, blockpage) {
 	displayPagination(totalPage, total, blocksize, blockpage);
@@ -127,9 +128,10 @@ function Searchkeyword(keyword) {
 
 // 검색 결과 목록과 마커를 표출하는 함수입니다
 function displayPlaces(search) {
-	var listEl = document.getElementById('placesList'), menuEl = document
-			.getElementById('menu_wrap'), fragment = document
-			.createDocumentFragment(), bounds = new daum.maps.LatLngBounds(), listStr = '';
+	var listEl = document.getElementById('placesList');
+	var menuEl = document.getElementById('menu_wrap');
+	var fragment = document.createDocumentFragment();
+	var bounds = new daum.maps.LatLngBounds(), listStr = '';
 
 	// 검색 결과 목록에 추가된 항목들을 제거합니다
 	removeAllChildNods(listEl);
@@ -140,10 +142,9 @@ function displayPlaces(search) {
 
 	for (var i = 0; i < search.length; i++) {
 		// 마커를 생성하고 지도에 표시합니다
-		var placePosition = new daum.maps.LatLng(
-				search[i].latitude,
-				search[i].longitude), marker = addMarker(
-				placePosition, i), itemEl = getListItem(i, search[i], marker); // 검색
+		var placePosition = new daum.maps.LatLng(search[i].latitude,search[i].longitude);
+		var marker = addMarker(placePosition, i);
+		var itemEl = getListItem(i, search[i], marker); // 검색
 		// 결과
 		// 항목
 		// Element를
@@ -179,7 +180,7 @@ function displayPlaces(search) {
 		})(marker, search[i], searchs);
 
 		fragment.appendChild(itemEl);
-	} // 무시
+	}
 
 	function removeMarker() {
 		for (var i = 0; i < markers.length; i++) {
@@ -197,24 +198,15 @@ function displayPlaces(search) {
 	map.setBounds(bounds);
 }
 
-function javascript(){
-    //현재창에서 다른페이지로 이동합니다.
-
-    window.location.href="http://localhost:8090/pet/reservation.do";
-
-}
-
 // 검색결과 항목을 Element로 반환하는 함수입니다
 function getListItem(index, search, marker) {
-
 	var el = document.createElement('li'), itemStr = '<span class="markerbg marker_'
 			+ (index + 1)
 			+ '"></span>'
 			+ '<div class="info">'
 			+ '<h5>'
-			+search.hosname +'<input type="button" onclick="javascript()" value="예약하기" /></h5>';
-
-
+			+search.hosname +'<input type="submit" id="'+search.hosnum +'" name="'+search.hosname+'" value="예약하기" /></h5>';
+	
 	if (search.newAddress) {
 		itemStr +='<span class="jibun gray">' + search.petkind_kind
 				+ '</span>';
@@ -300,6 +292,7 @@ function displayInfowindow(marker, title, searchs) {
 	
 	var content = '<div class ="f_main"><div id="f_image">' + searchs.hosname + '</div>'
 			+ '<div class="f_header">' + searchs.petkind_kind
+
 			+ '</div>' + '<div id="f_number">'
 			+ searchs.hosaddress + '</div></div>'; 
 

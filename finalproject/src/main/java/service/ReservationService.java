@@ -2,12 +2,15 @@ package service;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import dto.ReservationDTO;
 
-
 public interface ReservationService {
+	
+	public void saveProcess(ReservationDTO dto);
+	public List<ReservationDTO> search(String member_id);
+	public List<ReservationDTO> r_list();
+	public List<ReservationDTO> r_deleteProcess(ReservationDTO dto);
+	public ReservationDTO r_fsearch(int res_num);
 	
 	public int countProcess();
 	public List<ReservationDTO> listProcess();
@@ -17,4 +20,5 @@ public interface ReservationService {
 	public int checkProcess(ReservationDTO dto);
 	public ReservationDTO contentProcess(ReservationDTO dto);
 
-}//end interface
+}//end class
+

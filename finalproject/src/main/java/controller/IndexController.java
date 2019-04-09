@@ -30,9 +30,10 @@ import service.PetKindService;
 import service.PetService;
 
 
-
 //http://localhost:8090/pet/index.do
+
 //
+
 @Controller
 public class IndexController {
 
@@ -43,7 +44,6 @@ public class IndexController {
 	private PetKindService pkservice;
 	private MemberService mservice;
 
-	//private JavaMailSender mailSender;
 	@Autowired 
 	private JavaMailSenderImpl mailSender;
 
@@ -163,11 +163,9 @@ public JavaMailSenderImpl getMailSender() {
 		int echk = lservice.emailChkprocess(email);
 		System.out.println("emailchk:" + echk);
 		return echk;
-
 	}
 
 	@RequestMapping("/logout.do")
-
 	public String logoutProcess(MemDTO dto, HttpSession session) {
 
 		session.removeAttribute("id");
@@ -193,9 +191,9 @@ public JavaMailSenderImpl getMailSender() {
            
            return "index";
        }
+	   
 	   @RequestMapping("/admin.do")
 		public ModelAndView adminProcess() {
-
 			ModelAndView mav = new ModelAndView();
 			mav.setViewName("admin");
 			return mav;
@@ -221,6 +219,7 @@ public JavaMailSenderImpl getMailSender() {
 		String passsear=lservice.passearchprocess(dto);
 		System.out.println(dto.getEmail());
 		System.out.println(passsear);
+
 		try {
 		      MimeMessage message = mailSender.createMimeMessage();
 		      MimeMessageHelper messageHelper 

@@ -20,6 +20,7 @@ import mail.TempKey;
 
 public class LoginServiceImp implements LoginService {
 	private LoginDAO ldao;
+
 	@Autowired
 	private JavaMailSender mailSender;	
 

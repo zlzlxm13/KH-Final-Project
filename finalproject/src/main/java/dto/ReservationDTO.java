@@ -4,23 +4,46 @@ package dto;
 import java.util.Date;
 
 public class ReservationDTO {
-
 	private int res_num;
 	private Date res_date;
 	private int hospital_hosnum;
 	private String member_id;
-	
+	private String petpet;
+	private String petinfo;
+	private String hospital_hosname;
 	
 	public ReservationDTO() {
 		
 	}
+
 	
-	public ReservationDTO(int res_num, Date res_date, int hospital_hosnum, String member_id) {
-		super();
-		this.res_num = res_num;
-		this.res_date = res_date;
-		this.hospital_hosnum = hospital_hosnum;
-		this.member_id = member_id;
+
+	public String getHospital_hosname() {
+		return hospital_hosname;
+	}
+
+
+	public void setHospital_hosname(String hospital_hosname) {
+		this.hospital_hosname = hospital_hosname;
+	}
+
+
+
+
+	public String getPetinfo() {
+		return petinfo;
+	}
+
+	public void setPetinfo(String petinfo) {
+		this.petinfo = petinfo;
+	}
+
+	public String getPetpet() {
+		return petpet;
+	}
+
+	public void setPetpet(String petpet) {
+		this.petpet = petpet;
 	}
 
 	public int getRes_num() {
@@ -31,8 +54,7 @@ public class ReservationDTO {
 		this.res_num = res_num;
 	}
 
-	public java.util.Date getRes_date() {
-
+	public Date getRes_date() {
 		return res_date;
 	}
 
@@ -56,7 +78,5 @@ public class ReservationDTO {
 		this.member_id = member_id;
 	}
 
-	
-	
-	
+
 }

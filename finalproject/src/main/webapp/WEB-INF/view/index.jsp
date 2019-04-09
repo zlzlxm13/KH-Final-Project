@@ -24,7 +24,11 @@
 
 						<a href="#menu" class="toggle" style="float:right"><span>Menu</span></a>
 		<%if(session.getAttribute("id") == null){ %>
+<<<<<<< HEAD
 						<a href="signup.do" class="button alt icon" style="width: 5%;float: right;color:white !important;">Sign up</a>						
+=======
+												
+>>>>>>> refs/remotes/origin/young
 						<input value="Login" class="button alt icon fa-check" type="submit" id = "login_process" style="float:right;margin-right: 10px;color:white !important;">		
 						<input name="password" id="pass" type="password" placeholder="Pass" style="width: 10%;float: right;margin-right: 10px;">				
 				<input name="id" id="id" type="text" placeholder="id" style="width: 10%;float: right;margin-right: 10px;">
@@ -39,8 +43,6 @@
 				<ul class="links">
 					<li><a href="index.do">Home</a></li>
 					<li><a href="generic.do">Notice</a></li>
-
-		   <!--  --><li><a href="elements.do">element</a></li>	
 					<li><a href="hosmap.do">Hospital</a></li>					
 					
 					<%if(session.getAttribute("id") == null){ %>	
@@ -48,15 +50,14 @@
 							<%} else {%>
 							<li><p style="color:white !important;">${sessionScope.id }님 환영합니다</p>
 								<ul class="links">
-									<li><a href="mypage.do">마이페이지</a></li>
-									<li><a href="logout.do">로그아웃</a></li>
+									<li><a href="mypage.do">My Page</a></li>
+									<li><a href="logout.do">LogOut</a></li>
 								</ul>
 							</li>			
 							<%} %>
 							<%if(session.getAttribute("id") == "admin"){ %>	
 					<li><a href="admin.do">admin</a></li>
-					<%} %>
-					<li><a href="main.do">Reservation</a></li>
+					<%} %>					
 					</ul>
 			</nav>
 

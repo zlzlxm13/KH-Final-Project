@@ -32,5 +32,15 @@ public class HosServiceImp implements HosService {
 	public int f_countAllProcess(String data) {
 		return dao.hos_countAll(data);
 	}
+
+	@Override
+	public List<HosmapDTO> listProcess() {
+		return dao.list();
+	}
+
+	@Override
+	public int countProcess() {
+		return dao.count();
+	}
 	
 }//end class

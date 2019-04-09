@@ -31,5 +31,16 @@ public class HosmapDaoImp implements HosmapDAO {
 	}
 
 
+
+	@Override
+	public List<HosmapDTO> list() {
+		return sqlSession.selectList("admin.hos_list");
+	}
+
+	@Override
+	public int count() {
+		return sqlSession.selectOne("admin.hos_count");
+	}
+
 	
 }//end class

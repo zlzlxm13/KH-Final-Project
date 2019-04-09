@@ -49,9 +49,10 @@
 			<list>
 				<value>classpath:config/HospitalMapper.xml</value>
 				<value>classpath:config/LoginMapper.xml</value>
-				<value>classpath:config/reservation.xml</value>
-				<value>classpath:config/AdminMapper.xml</value>
 				<value>classpath:config/boardMapper.xml</value>
+				<value>classpath:config/ReservationMapper.xml</value>
+				<value>classpath:config/AdminMapper.xml</value>
+
 			</list>
 		</property>
 	</bean>
@@ -112,8 +113,6 @@
 		<aop:advisor advice-ref="txAdvice"
 			pointcut="execution(* service.Board*.*(..))" />
 	</aop:config>
-
-
 	<!-- [6]DaoImp빈 선언 -->
 
 	<bean id="ldao" class="dao.LoginDAOImp">
@@ -129,10 +128,10 @@
 		<property name="sqlSession" ref="sqlSession" />
 
 	</bean>
-<bean id="bdao" class="dao.BoardDaoImp">
-		<property name="sqlSession" ref="sqlSession" />
-	</bean>
-	
+
+
+
+
 	<bean class="dao.PetKindDAOImp" id="pkdao">
 		<property name="sqlSession" ref="sqlSession" />
 	</bean>
@@ -148,7 +147,11 @@
 		<property name="sqlSession" ref="sqlSession" />
 
 	</bean>
+	
+	<bean id="hndao" class="dao.HosnameDaoImp">
+		<property name="sqlSession" ref="sqlSession" />
 
+	</bean>
 
 	<!-- [7] ServiceImp Bean 선언 -->
 
@@ -162,8 +165,11 @@
 
 	</bean>
 	<bean class="service.ReservationServiceImp" id="rservice">
-		<property name="dao" ref="Reservationdao" />
+		<property name="rdao" ref="Reservationdao" />
 	</bean>
+
+
+
 
 	<bean class="service.PetImpService" id="pservice">
 		<property name="dao" ref="pdao" />
@@ -178,9 +184,8 @@
 	<bean class="service.MemberImpService" id="mservice">
 		<property name="dao" ref="mdao" />
 	</bean>
-
-<bean id="bservice" class="service.BoardServiceImp">
-		<property name="bdao" ref="bdao" />
+	<bean class="service.HosnameServiceImp" id="hnservice">
+		<property name="dao" ref="hndao" />
 	</bean>
 
 
@@ -189,10 +194,10 @@
 	<bean class="controller.IndexController">
 		<property name="lservice" ref="lservice"></property>
 		<property name="mailSender" ref="mailSender"></property>
-		<property name="pservice" ref="pservice" />
-		<property name="pkservice" ref="pkservice" />
-		<property name="mservice" ref="mservice" />
-				
+		<property name="pservice" ref="pservice"></property>
+		<property name="pkservice" ref="pkservice"></property>
+		<property name="mservice" ref="mservice"></property>
+		
 	</bean>
 
 
@@ -203,21 +208,31 @@
 	<bean class="controller.ChatController" />
 
 	<bean class="controller.Reservationcontroller">
-		<property name="dao" ref="Reservationdao" />
+		<property name="rservice" ref="rservice" />
+		<property name="mailSender" ref="mailSender"></property>
 	</bean>
 
 
 	<bean class="controller.AdminController">
+		<property name="service" ref="service" />
 		<property name="hservice" ref="hservice" />
 		<property name="pkservice" ref="pkservice" />
 		<property name="pservice" ref="pservice" />
 		<property name="mservice" ref="mservice" />
 		<property name="rservice" ref="rservice" />
+		<property name="hnservice" ref="hnservice" />
 
 	</bean>
-<bean class="controller.BoardController">
-		<property name="bservice" ref="bservice" />
-	</bean>
+	
+
+	<!-- interceptor -->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/reservation.do"/>
+			<bean class="reservationinterceptor.ReservationInterceptor"/>
+		</mvc:interceptor>
+	</mvc:interceptors>
+
 	<!-- [7] View -->
 	<bean
 		class="org.springframework.web.servlet.view.json.MappingJackson2JsonView"

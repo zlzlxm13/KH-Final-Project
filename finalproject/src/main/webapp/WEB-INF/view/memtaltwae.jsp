@@ -128,12 +128,21 @@ $(document).ready(function() {
 				<div class="image fit">
 					<img src="images/pic01.jpg" alt="" />
 				</div>
+<<<<<<< HEAD
 				<div class="content">			
 					<h2 class="align-center">Good Bye</h2>								
 					<hr />
 					<div class="column" style="text-align: center;">
 					<p style="font-size: 20pt;">정말 탈퇴 하시겠습니까?</p>
 					<input type="button" id="memtaltwae" value="회원 탈퇴" class="align-center" style="margin-right: 10px">
+=======
+
+				<div class="content">					
+					<hr />
+					<div class="column">
+					정말 탈퇴 하시겠습니까?
+					<input type="button" id="memtaltwae" value="회원 탈퇴">
+>>>>>>> refs/remotes/origin/young
 					<a href="index.do" class="button">Home</a>
 					</div>
 				</div>

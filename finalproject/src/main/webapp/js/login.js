@@ -36,7 +36,6 @@ $(document).ready(function(){
                 case 1: // 1 일떄
                 	alert("로그인이 완료되었습니다.");
                     window.location.href = "index.do"; //로그인 성공시 index페이지 이동
-
                 default:
                     break;
                 }

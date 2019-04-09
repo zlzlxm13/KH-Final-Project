@@ -32,6 +32,7 @@
 		<ul class="links">
 			<li><a href="index.do">Home</a></li>
 			<li><a href="generic.do">Notice</a></li>
+<<<<<<< HEAD
 			<!--  -->
 			<li><a href="elements.do">element</a></li>
 			<li><a href="hosmap.do">Hospital</a></li>
@@ -56,6 +57,19 @@
 			<li><a href="main.do">Reservation</a></li>
 
 
+=======
+			<li><a href="elements.do">Element</a></li>
+			<%
+				if (session.getAttribute("id") == null) {
+			%>
+			<%} else {%>
+			<li><a href="mypage.do">My Page</a></li>
+								<%if(((String)session.getAttribute("id")).equals("admin")){ %>		
+									<li><a href="admin.do">Admin</a></li>
+								<%} %>
+							<%} %>		
+			<li><a href="hosmap.do">Hospital</a></li>
+>>>>>>> refs/remotes/origin/young
 		</ul>
 	</nav>
 
@@ -86,7 +100,12 @@
 										style="width: 100%; margin-bottom: 100px;">
 								</div>
 							</form>
+<<<<<<< HEAD
 						
+=======
+
+							
+>>>>>>> refs/remotes/origin/young
 							<ul class="actions align-center">
 								<li><a href="memsearch.do"
 									class="button special icon fa-search">아이디,비밀번호 찾기</a></li>	
@@ -106,7 +125,11 @@
 					</div>
 				</div>
 			</div>
+<<<<<<< HEAD
 			<!--  -->
+=======
+	
+>>>>>>> refs/remotes/origin/young
 		</div>
 	</section>
 

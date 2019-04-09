@@ -1,6 +1,3 @@
-
-	
-
 (function ( $ ) {
 	$.fn.dateDropper = function( options ) {
 		return $(this).each(function() {

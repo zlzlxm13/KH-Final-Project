@@ -10,6 +10,10 @@
 		|| #{data} || '%'
 	</select>
 
+ <select id="hos_countAll" parameterType="String" resultType="int">
+   select count(distinct hosnum) from hosname where petkind_kind like '%' || #{data} || '%'
+ </select>
+
 
 	<select id="hos_list" parameterType="java.util.HashMap"
 		resultType="dto.HosmapDTO">
@@ -25,6 +29,6 @@ group by
 hp.hosnum,hp.hosname,hp.hosaddress,hp.hosarea,hp.latitude,hp.longitude)a )b
  ]]>
 
-	</select>
+ </select>
 
 </mapper>
