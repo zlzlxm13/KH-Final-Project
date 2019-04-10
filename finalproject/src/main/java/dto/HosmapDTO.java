@@ -11,7 +11,7 @@ public class HosmapDTO {
 	
 	public HosmapDTO() {
 		
-	}
+	} 
 
 	public int getHosnum() {
 		return hosnum;
