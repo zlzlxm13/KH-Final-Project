@@ -12,6 +12,7 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="stylesheet" href="css/main.css" />
+		<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
 	</head>
 	<body>
 	
@@ -38,7 +39,7 @@
 		<nav id="menu">
 		<ul class="links">
 			<li><a href="index.do">Home</a></li>		
-			<li><a href="notice.do">Notice</a></li>		
+			<li><a href="generic.do">Notice</a></li>		
 			<%
 				if (session.getAttribute("id") == null) {
 			%>
@@ -78,13 +79,11 @@
 							</div>
 							<div class="content">	
 								<header class="align-center">
-									<h2>Lorem ipsum dolor</h2>
+									<h2>SooCut animal hospital</h2>
 									<p>	<%System.out.print(session.getAttribute("id"));%></p>
-									<p>maecenas feugiat ex purus, quis volutpat lacus placerat</p>
+									<p> 더 이상 당신의 가족이 아프지 않도록, 아파하지 않도록 </p>
+									<a href="generic.do" class="button scrolly">Get Started</a>
 								</header>
-								<hr />
-								<p> Cras aliquet urna ut sapien tincidunt, quis malesuada elit facilisis. Vestibulum sit amet tortor velit. Nam elementum nibh a libero pharetra elementum. Maecenas feugiat ex purus, quis volutpat lacus placerat malesuada. Praesent in sem ex. Morbi mattis sapien pretium tellus venenatis, at egestas urna ornare.</p>
-								<p>Vivamus fermentum nibh vel pharetra blandit. Cras a purus urna. Sed et libero ex. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Suspendisse id hendrerit felis. Nulla viverra tempor dui at congue. Pellentesque quis nulla ornare, congue nisi id, finibus nulla. Aliquam sit amet hendrerit purus. Donec libero massa, posuere fermentum eros sit amet, maximus fringilla augue. Maecenas at rhoncus lorem. Vivamus ultricies consequat est, efficitur convallis libero. Vivamus rutrum semper mauris, vitae consequat eros tempor ac. Pellentesque et ornare sapien</p>
 							</div>
 						</div>
 					</div>
@@ -155,11 +154,13 @@
 								</div>
 								<div class="content">
 									<header class="align-center">
-										<h2>Vestibulum sit amet</h2>
-										<p>mattis sapien pretium tellus venenatis</p>
+										<h2> 사랑스러운 반려동물의 건강! </h2>
+										<p> 반려동물에게 꼭 필요한 비타민 </p>
 									</header>
 									<hr />
-									<p> Cras aliquet urna ut sapien tincidunt, quis malesuada elit facilisis. Vestibulum sit amet tortor velit. Nam elementum nibh a libero pharetra elementum. Maecenas feugiat ex purus, quis volutpat lacus placerat malesuada. Praesent in sem ex. Morbi mattis sapien pretium tellus venenatis, at egestas urna ornare.</p>
+									<p> 비타민은 매우 적은 양으로 신체의 물질 대사나 기능에 필수적인 영양소입니다. </p>
+									<p> 하지만 체내에서 합성이 되지 않거나, 합성이 되어도 충분하지 못한 경우가 많습니다. 부족한 경우 생명의 유지에 필요한 체내 영양소의 대사에 장애가 유발하게 되어 꼭 필요한 영양소입니다.
+									오늘은 보호자분들과 반려동물에게 꼭 필요한 비타민을 소개해드리려고 합니다.</p>
 								</div>
 							</div>
 						</div>
@@ -173,8 +174,8 @@
 				<div class="inner">
 
 					<header class="align-center">
-						<h2>Morbi interdum mollis sapien</h2>
-						<p>Cras aliquet urna ut sapien tincidunt, quis malesuada elit facilisis. Vestibulum sit amet tortor velit. Nam elementum nibh a libero pharetra elementum. Maecenas feugiat ex purus, quis volutpat lacus placerat malesuada. Praesent in sem ex. Morbi mattis sapien pretium tellus venenatis, at egestas urna ornare.</p>
+						<h2> 愁Cut aniaml hospital </h2>
+						<p></p>
 					</header>
 
 				</div>

@@ -1,6 +1,5 @@
 package service;
 
-
 import java.util.List;
 
 import dao.ReservationDAO;
@@ -32,7 +31,7 @@ public class ReservationServiceImp implements ReservationService {
 	@Override
 	public List<ReservationDTO> r_deleteProcess(ReservationDTO dto) {
 		rdao.r_delete(dto.getRes_num());
-		return rdao.r_search(dto.getMember_id());
+		return null;
 	}
 	
 	@Override
@@ -92,3 +91,5 @@ public class ReservationServiceImp implements ReservationService {
 
 
 }
+
+	

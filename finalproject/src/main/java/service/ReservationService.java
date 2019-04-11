@@ -21,4 +21,3 @@ public interface ReservationService {
 	public ReservationDTO contentProcess(ReservationDTO dto);
 
 }//end class
-

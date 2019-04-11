@@ -1,6 +1,5 @@
 package controller;
 
-
 import java.util.Date;
 import java.io.UnsupportedEncodingException;
 import java.text.DateFormat;
@@ -15,6 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
@@ -100,15 +100,22 @@ public class Reservationcontroller {
 	
 	//예외추가
 	@RequestMapping("/reservationok.do")
-	public ModelAndView reservationokMethod(ReservationDTO dto, String red ,String email ) throws UnsupportedEncodingException, MessagingException  {
+	public ModelAndView reservationokMethod(ReservationDTO dto, String red ,String email) throws UnsupportedEncodingException, MessagingException  {
 		ModelAndView mav = new ModelAndView();
-		
+		mav.addObject("dto", dto);
+		mav.setViewName("reservationok");
 		
 		//추가한 것
 		String text;
-		text = " 안녕하십니까, SooCut 예약서비스 입니다. 고객님의 예약이 성공적으로 완료되었습니다. \n";
-		text += " 예약하신 병원의 이름은 " + dto.getHospital_hosname() + " 이며 진찰받으실 동물의 품종은 " + dto.getPetpet() + " 입니다.\n ";
-		text += " 이전 예약 고객분에 의해 진료의 시간이 길어질 수가 있으니 유의하시기 바랍니다. ";
+		String text2;
+		String text3;
+		String text4;
+		String img;
+		img =  " <img src=\"cid:Logo.png\"> ";
+		text = " 안녕하십니까, SooCut 예약서비스 입니다. 고객님의 예약이 성공적으로 완료되었습니다. ";
+		text2 = " 예약하신 병원의 이름은 " + dto.getHospital_hosname() + " 이며 진찰받으실 동물의 품종은 " + dto.getPetpet() + " 입니다.";
+		text3 = " 예약하신 시간은 " + red + " 분 입니다. ";
+		text4 = " 이전 예약 고객분에 의해 진료의 시간이 길어질 수가 있으니 유의하시기 바랍니다. ";
 	
 		try {
 			dto.setRes_date(dateFormat.parse(red));
@@ -118,15 +125,21 @@ public class Reservationcontroller {
 		      messageHelper.setFrom("snrnaudwls@gmail.com","수컷 예약서비스");  // 보내는사람 생략하거나 하면 정상작동을 안함
 		      messageHelper.setTo(email);     // 받는사람 이메일
 		      messageHelper.setSubject("[Soocut] 예약 서비스입니다."); // 메일제목은 생략이 가능하다
-		      messageHelper.setText(text);
+		      messageHelper.setText(img + "<br/><br/>" + text + "<br/><br/>" + text2 + "<br/><br/>" + text3 + "<br/><br/>" + text4 , true);
+		      
+		      // 파일첨부
+		      String filename = "C:/job/workspace_spring/finalproject/src/main/webapp/images/Logo.png";
+		      FileSystemResource frs = new FileSystemResource(filename);
+		      messageHelper.addInline("Logo.png", frs);
+		      
+		      
 		      mailSender.send(message);
 			
-			rservice.saveProcess(dto);
+		      rservice.saveProcess(dto);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		mav.addObject("dto", dto);
-		mav.setViewName("reservationok");
+		
 		return mav;
 	}
 	
@@ -140,20 +153,12 @@ public class Reservationcontroller {
 		return rservice.search(member_id);
 	}
 	
-	/*@RequestMapping("/list.do")
-	public ModelAndView listForm() {
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("list", rservice.r_list());
-		mav.setViewName("list");
-		return mav;
-	}*/
-	
 	@RequestMapping("/delete.do")
 	public @ResponseBody List<ReservationDTO> delete(ReservationDTO dto) {
 		return rservice.r_deleteProcess(dto);
 	}
 	
-	//추가
+	// 추가
 	@RequestMapping("/rfsearch.do")
 	public ModelAndView fsearchMethod(int res_num) {
 		
@@ -193,9 +198,15 @@ public class Reservationcontroller {
 		ModelAndView mav = new ModelAndView();
 		
 		String text;
+		String text2;
+		String text3;
+		String text4;
+		String img;
+		img =  " <img src=\"cid:Logo.png\"> ";
 		text = " 안녕하십니까, SooCut 예약서비스 입니다. 고객님의 수정이 성공적으로 완료되었습니다. \n";
-		text += " 수정하신 병원의 이름은 " + dto.getHospital_hosname() + " 이며 진찰받으실 동물의 품종은 " + dto.getPetpet() + " 입니다.\n ";
-		text += " 이전 예약 고객분에 의해 진료의 시간이 길어질 수가 있으니 유의하시기 바랍니다. ";
+		text2 = " 수정하신 병원의 이름은 " + dto.getHospital_hosname() + " 이며 진찰받으실 동물의 품종은 " + dto.getPetpet() + " 입니다.\n ";
+		text3 = " 수정하신 예약 시간은 " + red + " 분 입니다. ";
+		text4 = " 이전 예약 고객분에 의해 진료의 시간이 길어질 수가 있으니 유의하시기 바랍니다. ";
 		
 		try {
 			System.out.println("예약 날짜 : " + dateFormat.parse(red));
@@ -209,7 +220,13 @@ public class Reservationcontroller {
 		      messageHelper.setFrom("snrnaudwls@gmail.com","수컷 예약서비스");  // 보내는사람 생략하거나 하면 정상작동을 안함
 		      messageHelper.setTo(email);     // 받는사람 이메일
 		      messageHelper.setSubject("[Soocut] 예약 서비스입니다."); // 메일제목은 생략이 가능하다
-		      messageHelper.setText(text);
+		      messageHelper.setText(img + "<br/><br/>" + text + "<br/><br/>" + text2 + "<br/><br/>" + text3 + "<br/><br/>" + text4 , true);
+		      
+		      // 파일첨부
+		      String filename = "C:/job/workspace_spring/finalproject/src/main/webapp/images/Logo.png";
+		      FileSystemResource frs = new FileSystemResource(filename);
+		      messageHelper.addInline("mail.jpg", frs);
+		      
 		      mailSender.send(message);
 
 			rservice.updateProcess(dto);
