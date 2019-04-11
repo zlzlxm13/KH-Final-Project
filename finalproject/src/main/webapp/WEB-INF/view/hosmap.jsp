@@ -241,7 +241,7 @@ $(document).on('click', 'input[value="예약하기"]', function() {
 
 
 	<!-- Nav -->
-	<nav id="menu">
+			<nav id="menu">
 		<ul class="links">
 			<li><a href="index.do">Home</a></li>		
 			<li><a href="generic.do">Notice</a></li>		

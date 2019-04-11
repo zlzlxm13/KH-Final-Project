@@ -183,19 +183,10 @@
 											수컷 서비스중 <em>병원 예약 서비스 내역</em>입니다.
 										</p>
 									</div>
-									<div class="sh_content">
-										<dl class="sh_lst2">
-											<dt>예약 내용</dt>
-											<dd>${requestScope.dto.email}</dd>
-										</dl>
+									<div class="sh_content">										
+									</div>								
+										<a href="search.do" class="button">예약내용 바로가기</a>
 									</div>
-									<p class="btn_area_btm">
-										<a
-											href="search.do"
-											onclick="clickcr(this,'imn.cntmodify','','',event);"
-											class="btn_model"><b class="btn2">수정</b></a>
-									</p>
-								</div>
 							</div>
 						</div>
 						<div class="6u 12u$(medium)">

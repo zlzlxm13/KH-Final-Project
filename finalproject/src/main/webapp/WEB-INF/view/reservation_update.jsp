@@ -150,21 +150,23 @@ table{
 			</header>
 
 		<!-- Nav -->
-	<nav id="menu">
+		<nav id="menu">
 		<ul class="links">
-			<li><a href="index.do">Home</a></li>
-			<li><a href="generic.do">Notice</a></li>
-			<li><a href="elements.do">element</a></li>
-			<li><a href="hosmap.do">Hospital</a></li>
+			<li><a href="index.do">Home</a></li>		
+			<li><a href="generic.do">Notice</a></li>		
 			<%
 				if (session.getAttribute("id") == null) {
 			%>
+			<li><a href="login.do">Login</a></li>
 			<%} else {%>
+			<li><p style="color:white !important;">${sessionScope.id }님 환영합니다</p>
 			<li><a href="mypage.do">My Page</a></li>
 								<%if(((String)session.getAttribute("id")).equals("admin")){ %>		
 									<li><a href="admin.do">Admin</a></li>
 								<%} %>
-							<%} %>
+							<%} %>		
+			<li><a href="hosmap.do">Hospital</a></li>
+			
 		</ul>
 	</nav>
 
