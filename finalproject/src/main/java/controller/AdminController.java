@@ -122,7 +122,7 @@ public class AdminController {
 
 	public ModelAndView adminMemberProcess(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
-		System.out.println(session.getAttribute("grade"));
+	
 		mav.addObject("menu", "1");
 		mav.addObject("count", mservice.countProcess());
 		mav.addObject("list", mservice.listProcess());
@@ -148,7 +148,7 @@ public class AdminController {
 	@RequestMapping("/adminMemberDelete.do")
 	public ModelAndView adminMemberDeleteProcess(String menu, String[] chk) {
 		ModelAndView mav = new ModelAndView();
-		System.out.println(chk[0]);
+	
 		mservice.deleteProcess(chk);
 		mav.addObject("menu", menu);
 		mav.addObject("count", mservice.countProcess());
@@ -161,8 +161,9 @@ public class AdminController {
 	public ModelAndView adminUpdateProcess(String menu, MemberDTO dto) {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("dto", mservice.contentProcess(dto));
+
 		mav.addObject("menu", menu);
-		mav.setViewName("update");
+		mav.setViewName("adupdate");
 		return mav;
 	}
 
@@ -201,7 +202,7 @@ public class AdminController {
 	@RequestMapping("/adminPetInsert.do")
 	public ModelAndView adminPetInsertProcess(PetDTO dto) {
 		ModelAndView mav = new ModelAndView();
-		System.out.println(dto.getPetname());
+
 		mav.addObject("menu", "2");
 
 		if (!dto.equals(null) || pservice.checkProcess(dto) == 0) {
@@ -216,7 +217,7 @@ public class AdminController {
 	@RequestMapping("/adminPetDelete.do")
 	public ModelAndView adminPetDeleteProcess(String menu, String[] chk) {
 		ModelAndView mav = new ModelAndView();
-		System.out.println(chk[0]);
+
 		pservice.deleteProcess(chk);
 		mav.addObject("menu", menu);
 		mav.addObject("count", pservice.countProcess());
@@ -231,7 +232,7 @@ public class AdminController {
 		mav.addObject("dto", pservice.contentProcess(dto));
 		mav.addObject("petkind", pkservice.listProcess());
 		mav.addObject("menu", menu);
-		mav.setViewName("update");
+		mav.setViewName("adupdate");
 		return mav;
 	}
 
@@ -289,12 +290,12 @@ public class AdminController {
 
 	@RequestMapping("/adminHospitalContent.do")
 	public ModelAndView adminHospitalContentProcess(String menu, HosmapDTO dto) {
-		System.out.println(hservice.contentProcess(dto).getHosaddress());
+	
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("petkind", pkservice.listProcess());
 		mav.addObject("dto", hservice.contentProcess(dto));
 		mav.addObject("menu", menu);
-		mav.setViewName("update");
+		mav.setViewName("hospitalupdate");
 		return mav;
 	}
 
@@ -339,7 +340,7 @@ public class AdminController {
 		if (!dto.equals(null) && rservice.checkProcess(dto) == 0) {
 			try {
 				dto.setRes_date(transFormat.parse(rdate));
-				System.out.println(dto.getPetpet());
+				
 				rservice.insertProcess(dto);
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
@@ -370,14 +371,14 @@ public class AdminController {
 		mav.addObject("dto", rservice.contentProcess(dto));
 		mav.addObject("petkind", pkservice.listProcess());
 		mav.addObject("menu", menu);
-		mav.setViewName("update");
+		mav.setViewName("adupdate");
 		return mav;
 	}
 
 	@RequestMapping("/adminReservationUpdate.do")
 	public ModelAndView adminReservationUpdateProcess(String menu, String rdate, ReservationDTO dto) {
 		ModelAndView mav = new ModelAndView();
-		System.out.println(rdate);
+	
 
 		try {
 			dto.setRes_date(transFormat.parse(rdate));
@@ -421,7 +422,7 @@ public class AdminController {
 
 	@RequestMapping("/adminPetKindDelete.do")
 	public ModelAndView adminPetKindDeleteProcess(String menu, String[] chk) {
-		System.out.println(chk[0]);
+	
 		ModelAndView mav = new ModelAndView();
 		pkservice.deleteProcess(chk);
 		mav.addObject("menu", menu);

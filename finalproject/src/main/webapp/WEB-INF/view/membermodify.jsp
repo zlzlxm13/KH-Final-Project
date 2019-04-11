@@ -31,8 +31,8 @@
 					var hp3 = document.getElementById('hp3');
 
 					var phonenum = hp1.value + hp2.value + hp3.value;
-					var modiemailq = "<%=session.getAttribute("email")%>"
-					var modipassq="<%=session.getAttribute("pass")%>"
+					var modiemailq = '${sessionScope.email}';
+					var modipassq='${sessionScope.pass}';
 					$('#modifybtn').click(
 							function() {
 									nullChk();
@@ -61,8 +61,7 @@
 								}
 							});// end btn ================
 
-					$('#modiemailchk').on('click',function() {									
-									alert(modiemailq);
+					$('#modiemailchk').on('click',function() {						
 										$.ajax({
 											url : "emailChk.do",
 											type : 'POST',
@@ -101,7 +100,6 @@
 														});// ajax
 
 												function emailMethod(res) {
-													alert($("#modiemail").val());
 													if ($("#modiemail").val() != "") {
 														code = res;
 														alert("인증코드가 발송되었습니다.");
@@ -149,8 +147,9 @@
 					$('#modipass')
 							.keyup(
 									function() {
-										var pass = $(this).val();
-										var re1 = /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/; // 패스워드
+										var fpass = $(this).val();
+										/* var re1 = /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/; */  // 패스워드
+										var re1 = new RegExp("^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$");
 										// 정규식
 										var result = re1.test(fpass);
 										if (result) {

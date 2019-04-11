@@ -20,13 +20,13 @@
 		set	readcount=readcount+1
 		where boardkind_canum=#{boardkind_canum} AND bnum=#{bnum}
 	</update>
-	
+
 	<select id="boardView" parameterType="dto.BoardDTO" resultType="dto.BoardDTO">
 		select *
 		from board
 		where boardkind_canum=#{boardkind_canum} AND bnum=#{bnum}
 	</select>
-	
+
 	<insert id="boardInsert" parameterType="dto.BoardDTO">
 	    insert into board(boardkind_canum,bnum,btitle,bcontent,reg_date,readcount,member_id,bpath,col)
 		values(#{boardkind_canum},
@@ -44,7 +44,26 @@
 	    ,#{btitle},#{bcontent},sysdate,0,#{member_id},#{bpath,jdbcType=VARCHAR},0)
 	</insert>
 	
+	<update id="boardUpdate" parameterType="dto.BoardDTO">
+		update board
+		set btitle=#{btitle},bcontent=#{bcontent}
+		<if test="bpath!=null">
+			,bpath=#{bpath}
+		</if>
+		where boardkind_canum=#{boardkind_canum} AND bnum=#{bnum}
+	</update>
 	
+	<delete id="boardDelete" parameterType="dto.BoardDTO">
+		delete
+		from board
+		where boardkind_canum=#{boardkind_canum} AND bnum=#{bnum}
+	</delete>
+	
+	<update id="replyCount" parameterType="dto.BoardDTO">
+		update board
+		set col=#{col}
+		where boardkind_canum=#{boardkind_canum} AND bnum=#{bnum}
+	</update>
 	
 	<select id="uploadFile" parameterType="dto.BoardDTO" resultType="String">
 		select bpath
@@ -52,9 +71,9 @@
 		where boardkind_canum=#{boardkind_canum} AND bnum=#{bnum}
 	</select>
 
-	<select id="kind" parameterType="int">
-		select *
+	<select id="catitle" parameterType="dto.BoardDTO" resultType="dto.BoardkindDTO">
+		select catitle
 		from boardkind
-		where canum=#{canum}
+		where canum=#{boardkind_canum}
 	</select>
 </mapper>

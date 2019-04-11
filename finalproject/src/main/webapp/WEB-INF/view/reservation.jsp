@@ -6,12 +6,14 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />  
 <script src="https://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
 <script src="//code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 <script src="js/jquery-ui-timepicker-addon.js"></script>
 <link rel="stylesheet" type="text/css" href="css/datedropper.css"> 
+
 <style>
 
 #frm{
@@ -71,10 +73,11 @@ body{
  
  #btnSave{margin-top : 10px; margin-left : 120px;}
  
-#pet_pet {font-size:20px;height:40px;line-height:40px; margin: 0 0 20px;}
-#datepi {font-size:20px;height:40px;line-height:40px; margin: 0 0 20px;}
-#hos_num {font-size:20px;height:40px;line-height:40px; margin: 0 0 20px;}
-#mem_id {font-size:20px;height:40px;line-height:40px; margin: 0 0 20px;}
+#pet_pet {font-size : 13px; height:40px;line-height:40px; margin: 0 0 20px;}
+#datepi {font-size : 13px; height:40px;line-height:40px; margin: 0 0 20px;}
+#hos_num {font-size : 13px; height:40px;line-height:40px; margin: 0 0 20px;}
+#mem_id {font-size : 13px; height:40px;line-height:40px; margin: 0 0 20px;}
+textarea {font-size : 13px;}
  .ui-datepicker-week-end {color:red;}
 .ui-datepicker-week-end .ui-state-default {color:red;} 
 </style>
@@ -113,18 +116,16 @@ body{
 		    });
 		    
 		    
-		     $('#datepicker').datetimepicker('setDate', 'today');
+		    $('#datepicker').datetimepicker('setDate', 'today');
 		    function noSundays(date) {
 		      return [date.getDay() != 0, ''];
-		    } 
-		    
+		    }
   		});
   	
  });
  
  
 </script>
-
 </head>
 <body>
 <!-- Header -->
@@ -143,30 +144,32 @@ body{
 			</header>
 
 		<!-- Nav -->
-<nav id="menu">
-		<ul class="links">
-			<li><a href="index.do">Home</a></li>		
-			<%
-				if (session.getAttribute("id") == null) {
-			%>
-			<%} else {%>
-			<li><p style="color:white !important;">${sessionScope.id }님 환영합니다</p>
-			<li><a href="mypage.do">My Page</a></li>
-								<%if(((String)session.getAttribute("id")).equals("admin")){ %>		
-									<li><a href="admin.do">Admin</a></li>
-								<%} %>
-							<%} %>		
-			<li><a href="hosmap.do">Hospital</a></li>
-
-
-		</ul>
-	</nav>
+			<nav id="menu">
+				<ul class="links">
+					<li><a href="index.do">Home</a></li>
+					<li><a href="generic.do">Notice</a></li>
+		   <!--  --><li><a href="elements.do">element</a></li>	
+					<li><a href="hosmap.do">Hospital</a></li>					
+					<%if(session.getAttribute("id") == null){ %>	
+							<li><a href="login.do">Login</a></li>
+							<%} else {%>
+							<li>${sessionScope.id }님 환영합니다
+								<ul class="links">
+									<li><a href="#">마이페이지</a></li>
+									<li><a href="logout.do">로그아웃</a></li>
+								</ul>
+							</li>			
+							<%} %>
+					
+				</ul>
+			</nav>
 
 <h2 class="align-center">Reservation</h2>
  <hr />
 
 
 <form method="post" action="reservationok.do">
+
 
 <div id="res" style="float:left;">
 <table>

@@ -6,17 +6,9 @@
 <!DOCTYPE html>
 <html>
 
-<title>Generic - Transitive by TEMPLATED</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="js/login.js" type="text/javascript"></script>
-
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-
-
-
-<link rel="stylesheet" href="css/main.css" />
 
 <link rel="stylesheet"
 	href="http://netdna.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
@@ -237,9 +229,11 @@ main {
 <nav id="menu">
 		<ul class="links">
 			<li><a href="index.do">Home</a></li>		
+			<li><a href="generic.do">Notice</a></li>		
 			<%
 				if (session.getAttribute("id") == null) {
 			%>
+			<li><a href="login.do">Login</a></li>
 			<%} else {%>
 			<li><p style="color:white !important;">${sessionScope.id }님 환영합니다</p>
 			<li><a href="mypage.do">My Page</a></li>
@@ -248,8 +242,7 @@ main {
 								<%} %>
 							<%} %>		
 			<li><a href="hosmap.do">Hospital</a></li>
-
-
+			
 		</ul>
 	</nav>
 

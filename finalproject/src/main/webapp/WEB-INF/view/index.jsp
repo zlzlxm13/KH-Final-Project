@@ -43,6 +43,7 @@
 			<%
 				if (session.getAttribute("id") == null) {
 			%>
+			<li><a href="login.do">Login</a></li>
 			<%} else {%>
 			<li><p style="color:white !important;">${sessionScope.id }님 환영합니다</p>
 			<li><a href="mypage.do">My Page</a></li>
@@ -51,7 +52,7 @@
 								<%} %>
 							<%} %>		
 			<li><a href="hosmap.do">Hospital</a></li>
-			<li><a href="login.do">Login</a></li>
+			
 		</ul>
 	</nav>
 				<!-- Banner -->
@@ -82,7 +83,7 @@
 									<h2>SooCut animal hospital</h2>
 									<p>	<%System.out.print(session.getAttribute("id"));%></p>
 									<p> 더 이상 당신의 가족이 아프지 않도록, 아파하지 않도록 </p>
-									<a href="generic.do" class="button scrolly">Get Started</a>
+									<a href="generic.do" class="button scrolly">Notice</a>
 								</header>
 							</div>
 						</div>
@@ -98,7 +99,7 @@
 							<header>
 								<h3>자유게시판</h3>
 							</header>
-							<p>boardkind_canum=1</p>
+							
 							<ul class="actions">
 								<li><a href="board/list.do?boardkind_canum=1" class="button alt">더보기</a></li>
 							</ul>
@@ -107,7 +108,7 @@
 							<header>
 								<h3>상담게시판</h3>
 							</header>
-							<p>boardkind_canum=2 </p>
+						
 							<ul class="actions">
 								<li><a href="board/list.do?boardkind_canum=2" class="button alt">더보기</a></li>
 							</ul>
@@ -116,7 +117,7 @@
 							<header>
 								<h3>공지사항</h3>
 							</header>
-							<p>boardkind_canum=3</p>
+							
 							<ul class="actions">
 								<li><a href="board/list.do?boardkind_canum=3" class="button alt">더보기</a></li>
 							</ul>

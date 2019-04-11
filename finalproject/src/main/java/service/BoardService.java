@@ -1,16 +1,18 @@
 package service;
 
 import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
-
 import dto.BoardDTO;
+import dto.BoardkindDTO;
 
 public interface BoardService {
-	public int countProcess(); 
-	public List<BoardDTO> listProcess(int boardkind_canum);
-	public String catitle(int boardkind_canum);
-	public void insertProcess(BoardDTO bdto);
-	public BoardDTO viewProcess(BoardDTO bdto);
-	public BoardDTO updateSelectProcess(BoardDTO bdto);
+	public int count(int boardkind_canum); 
+	public List<BoardDTO> boardList(int boardkind_canum);
+	public List<BoardkindDTO> catitle(int boardkind_canum);
+	public void boardInsert(BoardDTO bdto);
+	public BoardDTO boardUpdateSelect(BoardDTO bdto);
+	public void boardUpdate(BoardDTO bdto, HttpServletRequest request);
+	public void boardDelete(BoardDTO bdto);
+	public BoardDTO boardView(BoardDTO bdto);
+	public void replyCount(BoardDTO bdto);
 }//end interface

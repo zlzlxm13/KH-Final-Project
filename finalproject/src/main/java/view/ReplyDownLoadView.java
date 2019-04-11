@@ -11,34 +11,37 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.servlet.view.AbstractView;
 
-import dao.BoardDAO;
-import dto.BoardDTO;
+import dao.ReplyDAO;
+import dto.ReplyDTO;
 
-public class BoardDownLoadView extends AbstractView{
-	private BoardDAO bdao;
+public class ReplyDownLoadView extends AbstractView{
+	private ReplyDAO rdao;
 	
-	public BoardDownLoadView() {
+	public ReplyDownLoadView() {
 		
 	}
 
-	public void setBdao(BoardDAO bdao) {
-		this.bdao = bdao;
+	public void setRdao(ReplyDAO rdao) {
+		this.rdao = rdao;
 	}
 
 	@Override
 	protected void renderMergedOutputModel(Map<String, Object> model, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		System.out.println("업로드 시 발생");
-		
 		int boardkind_canum = Integer.parseInt(request.getParameter("boardkind_canum"));
 		int bnum = Integer.parseInt(request.getParameter("bnum"));
+		int rnum = Integer.parseInt(request.getParameter("rnum"));
+		model.get("boardkind_canum");
+		model.get("bnum");
+		model.get("rnum");
 		
-		BoardDTO bdto = new BoardDTO();
-		bdto.setBoardkind_canum(boardkind_canum);
-		bdto.setBnum(bnum);
+		ReplyDTO rdto = new ReplyDTO();
+		rdto.setBoardkind_canum(boardkind_canum);
+		rdto.setBnum(bnum);
+		rdto.setRnum(rnum);
 		
 		String root = request.getSession().getServletContext().getRealPath("/");// root + "temp/"
 		String saveDirectory = root + "temp" + File.separator;
-		String bpath = bdao.getFile(bdto);
+		String bpath = rdao.getFile(rdto);
 		String fileName = bpath.substring(bpath.indexOf("_") + 1);
 		String str = URLEncoder.encode(fileName,"UTF-8");
 		str = str.replaceAll("\\+", "%20");

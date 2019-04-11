@@ -39,7 +39,7 @@
 												function idsearchMethod(chk) {
 
 													idsear = chk;
-													alert(idsear);
+												
 													if (idsear == "") {
 
 														$('#idsearchdiv1').css(
@@ -133,9 +133,10 @@
 			</header>
 
 		<!-- Nav -->
-	<nav id="menu">
+		<nav id="menu">
 		<ul class="links">
 			<li><a href="index.do">Home</a></li>		
+			<li><a href="generic.do">Notice</a></li>		
 			<%
 				if (session.getAttribute("id") == null) {
 			%>
@@ -147,8 +148,7 @@
 								<%} %>
 							<%} %>		
 			<li><a href="hosmap.do">Hospital</a></li>
-
-
+			<li><a href="login.do">Login</a></li>
 		</ul>
 	</nav>
 

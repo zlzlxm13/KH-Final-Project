@@ -17,7 +17,7 @@
 
 
 	<mvc:annotation-driven></mvc:annotation-driven>
-	
+
 
 	<!-- WebSocket 등록 -->
 	<bean id="chatWebSocketHandler"
@@ -51,7 +51,8 @@
 				<value>classpath:config/LoginMapper.xml</value>
 				<value>classpath:config/ReservationMapper.xml</value>
 				<value>classpath:config/AdminMapper.xml</value>
-				<value>classpath:config/boardMapper.xml</value>				
+				<value>classpath:config/boardMapper.xml</value>
+				<value>classpath:config/replyMapper.xml</value>
 			</list>
 		</property>
 	</bean>
@@ -148,12 +149,19 @@
 		<property name="sqlSession" ref="sqlSession" />
 
 	</bean>
-	
+
 	<bean id="hndao" class="dao.HosnameDaoImp">
 		<property name="sqlSession" ref="sqlSession" />
 
 	</bean>
-	
+
+	<bean class="dao.BoardDaoImp" id="bdao">
+		<property name="sqlSession" ref="sqlSession" />
+	</bean>
+
+	<bean class="dao.ReplyDaoImp" id="rdao">
+		<property name="sqlSession" ref="sqlSession" />
+	</bean>
 
 
 	<!-- [7] ServiceImp Bean 선언 -->
@@ -191,7 +199,26 @@
 		<property name="dao" ref="hndao" />
 	</bean>
 
+	<bean class="service.BoardServiceImp" id="bservice">
+		<property name="bdao" ref="bdao" />
+	</bean>
 
+	<bean class="service.ReplyServiceImp" id="repservice">
+		<property name="rdao" ref="rdao" />
+	</bean>
+	<!-- 첨부파일의 임시기억장치 경로 설정 -->
+	<bean class="org.springframework.core.io.FileSystemResource"
+		id="uploadDirResource">
+		<constructor-arg value="./src/main/webapp/files/" />
+	</bean>
+	<!-- 첨부파일의 제약조건 설정(필수!!!) -->
+	<bean
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver"
+		id="multipartResolver">
+		<property name="uploadTempDir" ref="uploadDirResource" />
+		<property value="1000000000" name="maxUploadSize" />
+		<!-- 최대 크기(1GB) -->
+	</bean>
 	<!-- [9] Controller 빈 선언 -->
 
 	<bean class="controller.IndexController">
@@ -200,7 +227,7 @@
 		<property name="pservice" ref="pservice"></property>
 		<property name="pkservice" ref="pkservice"></property>
 		<property name="mservice" ref="mservice"></property>
-		
+
 	</bean>
 
 
@@ -226,12 +253,15 @@
 		<property name="hnservice" ref="hnservice" />
 
 	</bean>
-	
+	<bean class="controller.BoardController">
+		<property name="bservice" ref="bservice" />
+		<property name="repservice" ref="repservice" />
+	</bean>
 	<!-- interceptor -->
 	<mvc:interceptors>
 		<mvc:interceptor>
-			<mvc:mapping path="/reservation.do"/>
-			<bean class="reservationinterceptor.ReservationInterceptor"/>
+			<mvc:mapping path="/reservation.do" />
+			<bean class="reservationinterceptor.ReservationInterceptor" />
 		</mvc:interceptor>
 	</mvc:interceptors>
 
@@ -248,7 +278,13 @@
 		<property value="1" name="order" />
 	</bean>
 
+	<bean class="view.BoardDownLoadView" id="bdownload">
+		<property name="bdao" ref="bdao" />
+	</bean>
 
+	<bean class="view.ReplyDownLoadView" id="rdownload">
+		<property name="rdao" ref="rdao" />
+	</bean>
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 

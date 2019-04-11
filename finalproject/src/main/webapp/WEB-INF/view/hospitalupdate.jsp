@@ -1,7 +1,10 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <!DOCTYPE html>
 <html>
 
@@ -9,9 +12,6 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="js/login.js" type="text/javascript"></script>
-
-
-<script src="http://code.jquery.com/jquery.min.js"></script>
 
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -21,7 +21,12 @@
 	href="http://netdna.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 <head>
 <title>SooCut animal hospital</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="css/main.css" />
 </head>
 <script src="js/jquery.min.js"></script>
 <script src="js/jquery.scrolly.min.js"></script>
@@ -30,37 +35,21 @@
 <script src="js/util.js"></script>
 <script src="js/main.js"></script>
 
-
 <script type="text/javascript"
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d0a984e7e6b73a9984c04ff2a0f0da1c&libraries=services,clusterer,drawing"></script>
 
 <script type="text/javascript">
-
-
 $(document).ready(function(){
-	
-	
-	
 	if(${menu} != "") {
 		$("li[value="+${menu}+"]").addClass('active');
 	}
-	if(${menu} == '4') {
-		document.getElementById('rdate').valueAsDate = new Date();
-	} 
-	if(${menu} == '3') {
-		var locPosition = new daum.maps.LatLng(33.450701, 126.570667);
+	if(${menu} == 3) {
+
+	var locPosition = new daum.maps.LatLng(${dto.latitude}, ${dto.longitude});
+
+	
 	var geocoder = new daum.maps.services.Geocoder();
-	if (navigator.geolocation) {
-	    
-	navigator.geolocation.getCurrentPosition(function(position) {
-		locPosition = new daum.maps.LatLng(position.coords.latitude, position.coords.longitude);
-         // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
-		map.panTo(locPosition);
-		 marker.setPosition(locPosition);
-      });
-	}
-	
-	
+
 
 	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
    	mapOption = { 
@@ -128,23 +117,21 @@ function displayCenterInfo(result, status) {
         for(var i = 0; i < result.length; i++) {
             // 행정동의 region_type 값은 'H' 이므로
             if (result[i].region_type === 'H') {
-                infoDiv.innerHTML = result[i].address_name;
+                infoDiv.innerHTML = result[i].address_name;	
                 break;
             }
         }
     }    
 }
-$("#reset").click(function(){
-	map.panTo(locPosition);
-	marker.setPosition(locPosition);	
-    $('#latitude').attr("value", locPosition.getLat());
-  	$('#longitude').attr("value", locPosition.getLng());
-  	infowindow.close();
-});
-
 }
 	
-	
+	$("#reset").on('click', function(){
+		var locPosition = new daum.maps.LatLng(${dto.latitude}, ${dto.longitude});
+		marker.setPosition(locPosition);
+		map.panTo(locPosition);
+        $('#latitude').attr("value", ${dto.latitude});
+      	$('#longitude').attr("value", ${dto.longitude});
+	});
 	
 	$("#kind").on('change',function(){
 		if ($('#kind option:selected').val() != ""){
@@ -171,7 +158,8 @@ $("#reset").click(function(){
 		$('#petkind_kind').attr("value", str);
 
 	});
-	 $.fn.inputdata = function() {
+	
+	$.fn.inputdata = function() {
 		var empty = "";
 		$('form').find("input").each(function(){
 			
@@ -181,7 +169,11 @@ $("#reset").click(function(){
 		});
 		return empty;
 	}	
+		
 });
+
+
+
 </script>
 
 <style type="text/css">
@@ -388,7 +380,7 @@ main {
 		<%
 			} else {
 		%>
-		${sessionScope.id }님 환영합니다 <a href="logout.do">로그아웃</a>
+		${sessionScope.id }"님 환영합니다 <a href="logout.do">로그아웃</a>
 		<%
 			}
 		%>
@@ -413,7 +405,7 @@ main {
 		<%
 			} else {
 		%>
-		${sessionScope.id }님 환영합니다 <a href="logout.do">로그아웃</a>
+		${sessionScope.id }"님 환영합니다 <a href="logout.do">로그아웃</a>
 		<%
 			}
 		%>
@@ -434,7 +426,7 @@ main {
 			<%
 				} else {
 			%>
-			<li>${sessionScope.id }님환영합니다
+			<li>${sessionScope.id }"님환영합니다
 				<ul>
 					<li><a href="#">마이페이지</a></li>
 					<li><a href="logout.do">로그아웃</a></li>
@@ -478,161 +470,180 @@ main {
 			</a></li>
 		</ul>
 	</nav>
-	<c:if test="${menu == 1}">
-		<main>
-		<form method="post">
+
+	<main> <c:if test="${menu == 1}">
+		<form id="frm" method="post">
 			<table>
 				<thead>
 					<tr>
-						<th>INSERT</th>
+						<th>UPDATE</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
-						<td>ID</td>
-						<td><input type="text" name="id" id="id" value=""
-							placeholder="ID"></input></td>
+						<td>id</td>
+						<td><input type="text" id="id" name="id" value="${dto.id }"
+							readonly></input></td>
 					</tr>
 					<tr>
 						<td>password</td>
-						<td><input type="text" name="password" id="password" value=""
-							placeholder="password"></input></td>
+						<td><input type="text" name="password" id="password"
+							value="${dto.password }" placeholder="password"></td>
 					</tr>
-
-
-
 					<tr>
 						<td>name</td>
-						<td><input type="text" name="name" id="name" value=""
-							placeholder="name"></input></td>
+						<td><input type="text" name="name" id="name"
+							value="${dto.name }" placeholder="name"></td>
 					</tr>
 					<tr>
 						<td>grade</td>
-						<td><input type="text" name="grade" id="grade" value=""
-							placeholder="grade"></input></td>
+						<td><input type="text" name="grade" id="grade"
+							value="${dto.grade }" placeholder="grade"></td>
 					</tr>
 					<tr>
 						<td>phonenum</td>
-						<td><input type="text" name="phonenum" id="phonenum" value=""
-							placeholder="phonenum"></input></td>
+						<td><input type="text" name="phonenum" id="phonenum"
+							value="${dto.phonenum }" placeholder="phonenum"></td>
 					</tr>
-
 					<tr>
 						<td>email</td>
-						<td><input type="text" name="email" id="email" value=""
-							placeholder="email"></input></td>
+						<td><input type="text" name="email" id="email"
+							value="${dto.email }" placeholder="email"></td>
 					</tr>
 				</tbody>
 			</table>
-			<!--  -->
-
-			<a href="#" class="button"
-				onclick="if($.fn.inputdata() == '') {$('form').attr('action', 'adminMemberInsert.do').submit();} else{alert($.fn.inputdata().substr(0, $.fn.inputdata().length - 2)+'가 비었습니다.');}">Insert</a>
+			<input type="hidden" name="menu" value="1"></input>
 		</form>
-		</main>
-	</c:if>
+		<a href="#" class="button"
+			onclick="if($.fn.inputdata() == '') {$('form').attr('action', 'adminMemberUpdate.do').submit();} else{alert($.fn.inputdata().substr(0, $.fn.inputdata().length - 2)+'가 비었습니다.');}">Update</a>
 
-	<c:if test="${menu == 2}">
-		<main>
-		<form method="post">
+	</c:if> <c:if test="${menu == 2}">
+		<form id="frm" method="post">
+
 			<table>
 				<thead>
 					<tr>
-						<th>INSERT</th>
+						<th>UPDATE</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
-						<td>petname</td>
-						<td><input type="text" name="petname" id="petname" value=""
-							placeholder="petname"></input></td>
+						<td>PETNUM</td>
+						<td><input type="text" id="petnum" name="petnum"
+							value="${dto.petnum }" readonly></input></td>
 					</tr>
 					<tr>
-						<td>petage</td>
-						<td><input type="text" name="petage" id="petage" value=""
-							placeholder="petage"></input></td>
+						<td>PETNAME</td>
+						<td><input type="text" name="petname" id="petname"
+							value="${dto.petname }" placeholder="PETNAME"></td>
 					</tr>
 					<tr>
-						<td>petsex</td>
-						<td><input type="text" name="petsex" id="petsex" value=""
-							placeholder="petsex"></input></td>
+						<td>PETAGE</td>
+						<td><input type="text" name="petage" id="petage"
+							value="${dto.petage }" placeholder="PETAGE"></td>
 					</tr>
 					<tr>
-						<td>member_id</td>
+						<td>PETSEX</td>
+						<td><input type="text" name="petsex" id="petsex"
+							value="${dto.petsex }" placeholder="petsex"></td>
+					</tr>
+					<tr>
+						<td>MEMBER_ID</td>
 						<td><input type="text" name="member_id" id="member_id"
-							value="" placeholder="member_id"></input></td>
+							value="${dto.member_id }" placeholder="member_id"></td>
 					</tr>
 					<tr>
-						<td>petkind_kind</td>
-
-						<td><select name="petkind_kind" id="petkind_kind">
-								<option value="">- PetKind -</option>
+						<td>PETKIND_KIND</td>
+						<td><select name="petkind_kind" id="kind">
 								<c:forEach var="petkind" items="${petkind}" varStatus="status">
-									<option value="${petkind.kind}">${petkind.kind}</option>
+									<c:choose>
+										<c:when test="${petkind.kind == dto.petkind_kind}">
+											<option value="${petkind.kind}" selected>${petkind.kind}
+											</option>
+										</c:when>
+										<c:when test="${petkind.kind != dto.petkind_kind }">
+											<option value="${petkind.kind}">${petkind.kind}</option>
+										</c:when>
+									</c:choose>
 								</c:forEach>
+
 						</select></td>
 					</tr>
 					<tr>
-						<td>petinfo</td>
-						<td><input type="text" name="petinfo" id="petinfo" value=""
-							placeholder="petinfo"></input></td>
+						<td>PETINFO</td>
+						<td><textarea name="petinfo" id="petinfo"
+								placeholder=" petinfo" rows="4">${dto.petinfo }</textarea></td>
 					</tr>
-
 
 				</tbody>
 			</table>
-
-			<a href="#" class="button"
-				onclick="if($.fn.inputdata() == '') {$('form').attr('action', 'adminPetInsert.do').submit();} else{alert($.fn.inputdata().substr(0, $.fn.inputdata().length - 2)+'가 비었습니다.');}">Insert</a>
+			<input type="hidden" name="menu" value="2"></input>
 		</form>
-		</main>
-	</c:if>
-	<c:if test="${menu == 3}">
-		<main>
-		<form method="post">
+		<a href="#"
+			class="button"
+			onclick="if($.fn.inputdata() == '') {$('form').attr('action', 'adminPetberUpdate.do').submit();} else{alert($.fn.inputdata().substr(0, $.fn.inputdata().length - 2)+'가 비었습니다.');}">Update</a>
+	</c:if> <c:if test="${menu == 3}">
+		<c:set var="ptmp" value="${dto.petkind_kind}" />
+		<c:set var="petkind_kind" value="${fn:replace(ptmp, ',', ' ')}" />
+		<c:set var="arraypetkind" value="${fn:split(ptmp, ',')}" />
+		<form id="frm" method="post">
+
 			<table>
 				<thead>
 					<tr>
-						<th>INSERT</th>
+						<th>UPDATE</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
+						<td>HOSNUM</td>
+						<td><input type="text" id="hosnum" name="hosnum"
+							value="${dto.hosnum}" readonly></input></td>
+					</tr>
+					<tr>
 						<td>HOSNAME</td>
-						<td><input type="text" name="hosname" id="hosname" value=""
-							placeholder="HOSNAME"></input></td>
+						<td><input type="text" name="hosname" id="hosname"
+							value="${dto.hosname }" placeholder="hosname"></td>
 					</tr>
 					<tr>
 						<td>HOSADDRESS</td>
 						<td><input type="text" name="hosaddress" id="hosaddress"
-							value="" placeholder="HOSADDRESS"></input></td>
+							value="${dto.hosaddress}" placeholder="hosaddress"></td>
 					</tr>
 					<tr>
 						<td>HOSAREA</td>
-						<td><input type="text" name="hosarea" id="hosarea" value=""
-							placeholder="HOSAREA"></input></td>
+						<td><input type="text" name="hosarea" id="hosarea"
+							value="${dto.hosarea }" placeholder="hosarea"></td>
 					</tr>
 					<tr>
 						<td>LATITUDE</td>
-						<td><input type="text" name="latitude" id="latitude" value=""
-							placeholder="LATITUDE"></input></td>
+						<td><input type="text" name="latitude" id="latitude"
+							value="${dto.latitude }" placeholder="latitude"></td>
 					</tr>
 					<tr>
 						<td>LONGITUDE</td>
 						<td><input type="text" name="longitude" id="longitude"
-							value="" placeholder="LONGITUDE"></input></td>
+							value="${dto.longitude }" placeholder="longitude"></td>
 						<td><input type="button" class="reset" id="reset"
 							name="reset" value="RESET"></input></td>
 					</tr>
-
+					
 					<tr>
 						<td>PETKIND</td>
 						<td><input type="text" class="petkind_kind" id="petkind_kind"
-							value="" name="petkind_kind" readonly></input></td>
+							value="${petkind_kind }" name="petkind_kind" readonly></input></td>
 						<td><select name="kind" id="kind">
 								<option value="">- PetKind -</option>
 								<c:forEach var="petkind" items="${petkind}" varStatus="status">
-									<option value="${petkind.kind}">${petkind.kind}</option>
+									<c:set var="doneLoop" value="true" />
+									<c:forEach var="apetkind" items="${arraypetkind }">
+										<c:if test="${apetkind == petkind.kind}">
+											<c:set var="doneLoop" value="false" />
+										</c:if>
+									</c:forEach>
+									<c:if test="${doneLoop == true}">
+										<option value="${petkind.kind}">${petkind.kind}</option>
+									</c:if>
 								</c:forEach>
 						</select></td>
 
@@ -640,13 +651,11 @@ main {
 							value="del"></input></td>
 
 					</tr>
+
 				</tbody>
 			</table>
-
-
-			<a href="#" class="button"
-				onclick="if($.fn.inputdata() == '') {$('form').attr('action', 'adminHospitalInsert.do').submit();} else{alert($.fn.inputdata().substr(0, $.fn.inputdata().length - 2)+'가 비었습니다.');}">Insert</a>
-
+			<input type="hidden" name="menu" value="3"></input>
+			
 		</form>
 		<div class="map_wrap">
 			<div id="map"></div>
@@ -664,84 +673,80 @@ main {
 
 
 		</div>
-		</main>
-	</c:if>
-	<c:if test="${menu == 4}">
-		<main>
-		<form method="post">
+		
+		
+		<a href="#"
+			class="button"
+			onclick="if($.fn.inputdata() == '') {$('form').attr('action', 'adminHospitalUpdate.do').submit();} else{alert($.fn.inputdata().substr(0, $.fn.inputdata().length - 2)+'가 비었습니다.');}">Update</a>
+	</c:if> <c:if test="${menu == 4}">
+		<form id="frm" method="post">
+
 			<table>
 				<thead>
 					<tr>
-						<th>INSERT</th>
+						<th>UPDATE</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
+						<TD>RES_NUM</TD>
+						<td><input type="text" id="res_num" name="res_num"
+							value="${dto.res_num }" readonly></input></td>
+					</tr>
+					<tr>
+						<TD>RES_DATE</TD>
+						<fmt:formatDate var="rdate" value="${dto.res_date}"
+							pattern="yyyy-MM-dd" />
+						<td><input type="date" name="rdate" id="rdate"
+							value="${rdate }" placeholder="res_date"></input></td>
+					</tr>
+					<tr>
 						<TD>HOSPITAL_HOSNUM</TD>
 						<td><input type="text" name="hospital_hosnum"
-							id="hospital_hosnum" value="" placeholder="hospital_hosnum"></input></td>
+							id="hospital_hosnum" value="${dto.hospital_hosnum }"
+							placeholder="hospital_hosnum"></td>
 					</tr>
 					<tr>
 						<TD>HOSPITAL_HOSNAME</TD>
 						<td><input type="text" name="hospital_hosname"
-							id="hospital_hosname" value="" placeholder="hospital_hosname"></input></td>
+							id="hospital_hosname" value="${dto.hospital_hosname }"
+							placeholder="hospital_hosname"></td>
 					</tr>
 					<tr>
 						<TD>MEMBER_ID</TD>
 						<td><input type="text" name="member_id" id="member_id"
-							value="" placeholder="member_id"></input></td>
-					</tr>
-					<tr>
-						<TD>RES_DATE</TD>
-						<td><input type="date" name="rdate" id="rdate" value=""
-							placeholder="res_date"></input></td>
+							value="${dto.member_id }" placeholder="member_id"></td>
 					</tr>
 					<tr>
 						<TD>PETKIND</TD>
 						<td><select name="petpet" id="kind">
-								<option value="">- PetKind -</option>
 								<c:forEach var="petkind" items="${petkind}" varStatus="status">
-									<option value="${petkind.kind}">${petkind.kind}</option>
+									<c:choose>
+										<c:when test="${petkind.kind == dto.petpet}">
+											<option value="${petkind.kind}" selected>${petkind.kind}
+											</option>
+										</c:when>
+										<c:when test="${petkind.kind != dto.petpet }">
+											<option value="${petkind.kind}">${petkind.kind}</option>
+										</c:when>
+									</c:choose>
 								</c:forEach>
+
 						</select></td>
 					</tr>
 					<tr>
 						<TD>PETINFO</TD>
-						<td><input type="text" name="petinfo" id="petinfo" value=""
-							placeholder="PET"></input></td>
+						<td><input type="text" name="petinfo" id="petinfo"
+							value="${dto.petinfo }" placeholder="petinfo"></td>
 					</tr>
+
 				</tbody>
 			</table>
-
-			<a href="#" class="button"
-				onclick="if($.fn.inputdata() == '') {$('form').attr('action', 'adminReservationInsert.do').submit();} else{alert($.fn.inputdata().substr(0, $.fn.inputdata().length - 2)+'가 비었습니다.');}">Insert</a>
-
+			<input type="hidden" name="menu" value="4"></input>
 		</form>
-		</main>
-	</c:if>
-	<c:if test="${menu == 6}">
-		<main>
-		<form method="post">
-			<table>
-				<thead>
-					<tr>
-						<th>INSERT</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td>kind</td>
-						<td><input type="text" name="kind" id="kind" value=""
-							placeholder="kind"></input></td>
-					</tr>
-				</tbody>
-			</table>
-			<a href="#" class="button"
-				onclick="if($.fn.inputdata() == '') {$('form').attr('action', 'adminPetKindInsert.do').submit();} else{alert($.fn.inputdata().substr(0, $.fn.inputdata().length - 2)+'가 비었습니다.');}">Insert</a>
-
-		</form>
-		</main>
-	</c:if>
-
+		<a href="#"
+			class="button"
+			onclick="if($.fn.inputdata() == '') {$('form').attr('action', 'adminReservationUpdate.do').submit();} else{alert($.fn.inputdata().substr(0, $.fn.inputdata().length - 2)+'가 비었습니다.');}">Update</a>
+	</c:if></main>
 </body>
 </html>

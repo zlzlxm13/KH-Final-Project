@@ -118,7 +118,6 @@ $(document)
 								});// ajax
 
 								function emailMethod(res) {
-									alert($("#email").val());
 									if($("#email").val()!=""){
 									emailck = 1;
 									code = res;
@@ -138,8 +137,7 @@ $(document)
 					// 코드 확인
 
 					$('#codebtn').on('click', function() {
-					
-						alert($('#codeinsert').val());
+										
 						if ($('#codeinsert').val() == code) {
 							alert("이메일인증이 완료되었습니다.");
 							emailcodechk = true;

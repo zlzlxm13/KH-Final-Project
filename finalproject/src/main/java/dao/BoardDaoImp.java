@@ -1,9 +1,11 @@
 package dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import dto.BoardDTO;
+import dto.BoardkindDTO;
 
 public class BoardDaoImp implements BoardDAO{
 	private SqlSessionTemplate sqlSession;
@@ -17,8 +19,8 @@ public class BoardDaoImp implements BoardDAO{
 	}
 
 	@Override
-	public int count() {
-		return sqlSession.selectOne("board.boardCount");
+	public int count(int boardkind_canum) {
+		return sqlSession.selectOne("board.boardCount", boardkind_canum);
 	}
 
 	@Override
@@ -37,14 +39,28 @@ public class BoardDaoImp implements BoardDAO{
 	}
 	
 	@Override
-	public String catitle(int boardkind_canum) {
-		return sqlSession.selectOne("board.catitle");
+	public List<BoardkindDTO> catitle(int boardkind_canum) {
+		return sqlSession.selectList("board.catitle", boardkind_canum);
 	}
 
 	@Override
 	public void boardInsert(BoardDTO bdto) {
-		System.out.println(bdto.getBoardkind_canum());
 		sqlSession.insert("board.boardInsert", bdto);
+	}
+	
+	@Override
+	public void boardUpdate(BoardDTO bdto) {
+		sqlSession.update("board.boardUpdate", bdto);	
+	}
+	
+	@Override
+	public void boardDelete(BoardDTO bdto) {
+		sqlSession.delete("board.boardDelete", bdto);
+	}
+	
+	@Override
+	public void replyCount(BoardDTO bdto) {
+		sqlSession.update("board.replyCount", bdto);
 	}
 	
 	@Override
