@@ -10,7 +10,9 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="stylesheet" href="css/main.css" />
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
 <style type="text/css">
+
 .section_home .column+.column {
 	float: none;
 	overflow: hidden;

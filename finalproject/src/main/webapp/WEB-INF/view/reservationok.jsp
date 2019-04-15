@@ -5,12 +5,15 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>예약완료</title>
+<title>예약 완료</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />  
 <script src="https://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
 <script src="//code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 <link rel="stylesheet" href="css/hosmap.css" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">+
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png"> 
+
 <style>
 #menu_wrap {position:absolute;top:0;left:0;bottom:0;width:250px;margin:10px 0 30px 10px;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 0.7);z-index: 1;font-size:12px;border-radius: 10px;}
 .bg_white {background:#fff;}
@@ -47,84 +50,183 @@
 #pagination .on {font-weight: bold; cursor: default;color:#777;}
  .ui-datepicker-week-end {color:red;}
 .ui-datepicker-week-end .ui-state-default {color:red;} 
+
+	body {
+		height : 1000px;
+	}
  
-#reservationwrap{ 	 
-           	width: 800px;
- 			height: 200px;
-            margin-left:500px; 
-            text-align:center;
+ 	/* 예약 화면 창  */
+	#reservationwrap{ 	 
+
+           	width : 900px;
+  			height : 850px;
+            margin : 550px; 
+            margin-top : 40px;
+            text-align: center;
             white-space: pre;
+            border: 1px solid #bcbedc;
+  			border-top-width: 2px;
         }
         
-#res {
-  width: 450px;
-  height: 400px;
-  padding: 100px 40px;
-  margin: 0 20px 0 400px;	
-  border: 1px solid #eee;
-  border-top-width: 2px;
-  }
-  #hwak{margin:50px 740px;}
-  #hbtn{margin-left: 135px;}
-       
+  	/* 예약 완료 창 */
+  	.ok-center {
+  	text-align: center;
+    margin-top: 80px;
+    height: 80;
+    width: 300;
+    margin-left: 850;
+	}
+	
+	/* 예약 완료 글자 */
+	header p {
+    color: #212020;
+    }
+ 
+	/* Button */
+	  input[type=button]{
+	  background:#1AAB8A;
+	  color:#fff;
+	  border:none;
+	  position:relative;
+	  height:60px;
+	  font-size:1.6em;
+	  padding:0 2em;
+	  cursor:pointer;
+	  transition:800ms ease all;
+	  outline:none;
+		}
+		
+		 input[type=button]:hover{
+		  background:#fff;
+		  color:#1AAB8A;
+		}
+		 input[type=button]:before,  input[type=button]:after{
+		  content:'';
+		  position:absolute;
+		  top:0;
+		  right:0;
+		  height:2px;
+		  width:0;
+		  background: #1AAB8A;
+		  transition:400ms ease all;
+		}
+		  input[type=button]:after{
+		  right:inherit;
+		  top:inherit;
+		  left:0;
+		  bottom:0;
+		}
+		  input[type=button]:hover:before,  input[type=button]:hover:after{
+		  width:100%;
+		  transition:800ms ease all;
+		}
+		  
+  
+  
+        
 </style>
 
 <script type="text/javascript">
  $(document).ready(function () {
 		
-
-  	
  });
 </script>
 
 </head>
 <body>
+
+<!-- Header -->
+			<script src="js/login.js" type="text/javascript"></script>
+	<header id="header">
+			<div class="logo"><a href="index.do">SooCut animal hospital <span>by KHfamily</span>  Reservation Page</a></div>
+						<a href="#menu" class="toggle" style="float:right"><span>Menu</span></a>
+		<%if(session.getAttribute("id") == null){ %>	
+						<input value="Login" class="button alt icon fa-check" type="submit" id = "login_process"style="float:right;">		
+						<input name="pass" id="pass" type="password" placeholder="Pass" style="width: 10%;float: right;margin-right: 10px;">				
+				<input name="id" id="id" type="text" placeholder="id" style="width: 10%;float: right;margin-right: 10px;">
+				<%} else {%>
+				${sessionScope.id }님 환영합니다
+			<a href="logout.do">로그아웃</a><%} %>
 		
-	<div id=reservationwrap>
-		<td><font size="10" word>예약이 완료되었습니다.
-	이용해주셔서 감사합니다. </font></td>
+			</header>
+
+				<!-- Nav -->
+	<nav id="menu">
+		<ul class="links">
+			<li><a href="index.do">Home</a></li>		
+			<li><a href="generic.do">Notice</a></li>		
+			<%
+				if (session.getAttribute("id") == null) {
+			%>
+			<li><a href="login.do">Login</a></li>
+			<%} else {%>
+			<li><p style="color:white !important;">${sessionScope.id }님 환영합니다</p>
+			<li><a href="mypage.do">My Page</a></li>
+								<%if(((String)session.getAttribute("id")).equals("admin")){ %>		
+									<li><a href="admin.do">Admin</a></li>
+								<%} %>
+							<%} %>		
+			<li><a href="hosmap.do">Hospital</a></li>
+			
+		</ul>
+	</nav>
 	
-    </div>
-    
     <form method="post" action="reservationok.do">
-   
-    <div id="hwak" style="float:left;">
-    <td><font size="3" word>
-	
     
+    <header class="ok-center">
+    <p> 예약 완료 
+    <hr/>
+    </header>
+   	
+	<div id=reservationwrap>
+		<td><font size="10" word>
+예약이 완료되었습니다.
+이용해주셔서 감사합니다.
+		</font>
+
 <table>
-<fmt:formatDate var="rdate" value="${dto.res_date}"
-							pattern="yyyy년 MM월 dd일 HH시 mm분" />
 <tr>
-<td width="20%" align="center"> 품종  </td>
+<td width="20%" align="center"> 품종  :</td>
 <td>${dto.petpet} </td>
 </tr>
 
 <tr>
-<td width="30%" align="center"> 예약 날짜  </td>
-
-<td>${rdate}</td>
+<td width="30%" align="center"> 예약 날짜  :</td>	
+<fmt:formatDate var="res" value="${dto.getRes_date()}" pattern="yyyy 년  MM 월 dd 일 HH 시 mm 분"/>
+<td> ${res} </td>
 </tr>
 
 <tr>
-<td width="20%" align="center"> 병원 이름  </td>
+<td width="20%" align="center"> 병원 이름  :</td>
 <td> ${dto.hospital_hosname}</td>
 </tr>
 
 <tr>
-<td width="20%" align="center"> 고객 ID  </td>
-<td>${dto.member_id}</td>
+<td width="20%" align="center"> 성함  :</td>
+<td>${sessionScope.name}</td>
 </tr>
 
 <tr>
-<td width="20%" align="center"> 증상  </td>
-<td>${dto.petinfo}</td>
+<td width="20%" align="center"> 수신 Email  :</td>
+<td>${sessionScope.email}</td>
 </tr>
 
+
+
+<tr>
+<td width="20%" align="center"> 증상  :</td>
+<td>${dto.petinfo}</td>
+</tr>	
+
 </table>
-	  <td> <input type="button" id="hbtn" value="홈으로" style="color: black;" onclick="location.href='index.do';" /></td>
+
+	  <td> <input type="button" id="hbtn" value="메인 페이지" onclick="location.href='index.do';" /></td>
 </div>
 </form>
+
+
+
+
 
 	<!-- Scripts -->
 	<script src="js/jquery.scrolly.min.js"></script>

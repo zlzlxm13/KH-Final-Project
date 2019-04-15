@@ -10,7 +10,8 @@ public class PageDTO {
 	private int endRow;
 	private int startPage;
 	private int endPage;
-	private int number;	
+	private int number;
+	private int boardkind_canum;
 	private String searchKey;
 	private String searchWord;
 
@@ -18,9 +19,10 @@ public class PageDTO {
 
 	}
 
-	public PageDTO(int currentPage, int totalCount) {
+	public PageDTO(int currentPage, int totalCount, int boardkind_canum) {
 		this.currentPage = currentPage;
 		this.totalCount = totalCount;
+		this.boardkind_canum = boardkind_canum;
 
 		startRow = (currentPage - 1) * blockCount + 1;
 		endRow = startRow + blockCount - 1;
@@ -31,12 +33,6 @@ public class PageDTO {
 			endPage = totalPage;
 
 		number = totalCount - (currentPage - 1) * blockCount;
-	}
-
-	public PageDTO(int currentPage, int totalCount, String searchKey, String searchWord) {
-		this(currentPage, totalCount);
-		this.searchKey = searchKey;
-		this.searchWord = searchWord;
 	}
 
 	public int getNumber() {
@@ -117,6 +113,14 @@ public class PageDTO {
 
 	public void setEndPage(int endPage) {
 		this.endPage = endPage;
+	}
+	
+	public int getBoardkind_canum() {
+		return boardkind_canum;
+	}
+	
+	public void setBoardkind_canum(int boardkind_canum) {
+		this.boardkind_canum = boardkind_canum;
 	}
 	
 	public String getSearchKey() {

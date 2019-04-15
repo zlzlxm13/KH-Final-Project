@@ -4,10 +4,11 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import dto.BoardDTO;
 import dto.BoardkindDTO;
+import dto.PageDTO;
 
 public interface BoardService {
 	public int count(int boardkind_canum); 
-	public List<BoardDTO> boardList(int boardkind_canum);
+	public List<BoardDTO> boardList(PageDTO pdto);
 	public List<BoardkindDTO> catitle(int boardkind_canum);
 	public void boardInsert(BoardDTO bdto);
 	public BoardDTO boardUpdateSelect(BoardDTO bdto);

@@ -10,6 +10,7 @@
 <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=a328a3aa73a3d31430a2aa26a4ea5fe5"></script>    
     
 <link rel="stylesheet" href="css/hosmap.css" />
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
 
 <style>
 .map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
@@ -58,6 +59,9 @@ $(document).on('click', 'input[value="수정하기"]', function() {
 	var hosname=$(this).attr('name');
 	var hosnum = $(this).attr('id');
 	var res_num = ${res_num};
+	var res_date = "${res_date}";
+	var petinfo = "${petinfo}";
+	var petpet = "${petpet}";
 	alert(res_num);
 	
 	location.href="rupdatepage.do?hos_num="+hosnum+"&hosname="+hosname+"&res_num="+res_num;

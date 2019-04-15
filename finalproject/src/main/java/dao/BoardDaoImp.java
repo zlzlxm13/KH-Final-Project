@@ -6,6 +6,7 @@ import java.util.Map;
 import org.mybatis.spring.SqlSessionTemplate;
 import dto.BoardDTO;
 import dto.BoardkindDTO;
+import dto.PageDTO;
 
 public class BoardDaoImp implements BoardDAO{
 	private SqlSessionTemplate sqlSession;
@@ -24,8 +25,8 @@ public class BoardDaoImp implements BoardDAO{
 	}
 
 	@Override
-	public List<BoardDTO> boardList(int boardkind_canum) {	/*PageDTO pv*/
-		return sqlSession.selectList("board.boardList", boardkind_canum);
+	public List<BoardDTO> boardList(PageDTO pdto) {	/*PageDTO pv*/
+		return sqlSession.selectList("board.boardList", pdto);
 	}
 
 	@Override

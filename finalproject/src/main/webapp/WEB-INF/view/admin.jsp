@@ -18,7 +18,8 @@
 <title>SooCut animal hospital</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
+<link rel="stylesheet" href="css/main.css" />
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="stylesheet" href="css/main.css" />
@@ -57,6 +58,7 @@ $(document).ready(function(){
 		} else {
 			$(this).removeAttr('name');
 		}
+		
 	});
 	
 	$(document).on("click", "#checkall", function(){
@@ -262,9 +264,6 @@ main {
 			</a></li>
 			<li value="4"><a href="adminReservation.do"> <i
 					class="fa fa-paper-plane"></i> <span>Reservation</span>
-			</a></li>
-			<li value="5"><a href="adminBoard.do"> <i
-					class="fa fa-pencil"></i> <span>Board</span>
 			</a></li>
 			<li value="6"><a href="adminPetKind.do"> <i
 					class="fa fa-gift"></i> <span>PetKind</span>

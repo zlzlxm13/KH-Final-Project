@@ -1670,13 +1670,12 @@
 			color: #FFF;
 		}
 
-			#header > a[href="#menu"] {
+		#header > a[href="#menu"] {
 				text-decoration: none;
 				-webkit-tap-highlight-color: transparent;
 			}
-
-				#header > a[href="#menu"]:before {
-					content: "";
+			#header > a[href="#menu"]:before {
+					content: "\2630";
 					-moz-osx-font-smoothing: grayscale;
 					-webkit-font-smoothing: antialiased;
 					font-family: FontAwesome;
@@ -1857,7 +1856,7 @@
 		}
 
 			#menu .close:before {
-				content: "";
+				content: "\274C";
 				-moz-osx-font-smoothing: grayscale;
 				-webkit-font-smoothing: antialiased;
 				font-family: FontAwesome;

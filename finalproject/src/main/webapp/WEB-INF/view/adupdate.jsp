@@ -9,6 +9,8 @@
 <html>
 
 <title>Generic - Transitive by TEMPLATED</title>
+<link rel="stylesheet" href="css/main.css" />
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="js/login.js" type="text/javascript"></script>
@@ -377,9 +379,7 @@ main {
 			<li value="4"><a href="adminReservation.do"> <i
 					class="fa fa-paper-plane"></i> <span>Reservation</span>
 			</a></li>
-			<li value="5"><a href="adminBoard.do"> <i
-					class="fa fa-pencil"></i> <span>Board</span>
-			</a></li>
+
 			<li value="6"><a href="adminPetKind.do"> <i
 					class="fa fa-gift"></i> <span>PetKind</span>
 			</a></li>
@@ -494,9 +494,8 @@ main {
 			</table>
 			<input type="hidden" name="menu" value="2"></input>
 		</form>
-		<a href="#"
-			class="button"
-			onclick="if($.fn.inputdata() == '') {$('form').attr('action', 'adminPetberUpdate.do').submit();} else{alert($.fn.inputdata().substr(0, $.fn.inputdata().length - 2)+'가 비었습니다.');}">Update</a>
+		<a href="#" class="button"
+			onclick="if($.fn.inputdata() == '') {$('form').attr('action', 'adminPetUpdate.do').submit();} else{alert($.fn.inputdata().substr(0, $.fn.inputdata().length - 2)+'가 비었습니다.');}">Update</a>
 	</c:if> <c:if test="${menu == 3}">
 		<c:set var="ptmp" value="${dto.petkind_kind}" />
 		<c:set var="petkind_kind" value="${fn:replace(ptmp, ',', ' ')}" />
@@ -542,7 +541,7 @@ main {
 						<td><input type="button" class="reset" id="reset"
 							name="reset" value="RESET"></input></td>
 					</tr>
-					
+
 					<tr>
 						<td>PETKIND</td>
 						<td><input type="text" class="petkind_kind" id="petkind_kind"
@@ -570,7 +569,7 @@ main {
 				</tbody>
 			</table>
 			<input type="hidden" name="menu" value="3"></input>
-			
+
 		</form>
 		<div class="map_wrap">
 			<div id="map"></div>
@@ -588,10 +587,9 @@ main {
 
 
 		</div>
-		
-		
-		<a href="#"
-			class="button"
+
+
+		<a href="#" class="button"
 			onclick="if($.fn.inputdata() == '') {$('form').attr('action', 'adminHospitalUpdate.do').submit();} else{alert($.fn.inputdata().substr(0, $.fn.inputdata().length - 2)+'가 비었습니다.');}">Update</a>
 	</c:if> <c:if test="${menu == 4}">
 		<form id="frm" method="post">
@@ -612,8 +610,12 @@ main {
 						<TD>RES_DATE</TD>
 						<fmt:formatDate var="rdate" value="${dto.res_date}"
 							pattern="yyyy-MM-dd" />
+						<fmt:formatDate var="rtime" value="${dto.res_date}"
+							pattern="HH:mm" />
 						<td><input type="date" name="rdate" id="rdate"
-							value="${rdate }" placeholder="res_date"></input></td>
+							value="${rdate }" placeholder="res_date"></input>
+						<input type="time" name="rtime" id="rtime"
+							value="${rtime }" placeholder="res_date"></input></td>
 					</tr>
 					<tr>
 						<TD>HOSPITAL_HOSNUM</TD>
@@ -634,19 +636,20 @@ main {
 					</tr>
 					<tr>
 						<TD>PETKIND</TD>
-						<td><select name="petpet" id="kind">
+						<td><select name="petpet" id="petpet">
+								<option value="">- PetKind -</option>
 								<c:forEach var="petkind" items="${petkind}" varStatus="status">
 									<c:choose>
-										<c:when test="${petkind.kind == dto.petpet}">
-											<option value="${petkind.kind}" selected>${petkind.kind}
-											</option>
+										<c:when test="${dto.petpet == petkind.kind}">
+											<option selected="selected" value="${petkind.kind}">${petkind.kind}</option>
 										</c:when>
-										<c:when test="${petkind.kind != dto.petpet }">
+										<c:otherwise>
 											<option value="${petkind.kind}">${petkind.kind}</option>
-										</c:when>
+										</c:otherwise>
+
+
 									</c:choose>
 								</c:forEach>
-
 						</select></td>
 					</tr>
 					<tr>
@@ -659,8 +662,7 @@ main {
 			</table>
 			<input type="hidden" name="menu" value="4"></input>
 		</form>
-		<a href="#"
-			class="button"
+		<a href="#" class="button"
 			onclick="if($.fn.inputdata() == '') {$('form').attr('action', 'adminReservationUpdate.do').submit();} else{alert($.fn.inputdata().substr(0, $.fn.inputdata().length - 2)+'가 비었습니다.');}">Update</a>
 	</c:if></main>
 </body>

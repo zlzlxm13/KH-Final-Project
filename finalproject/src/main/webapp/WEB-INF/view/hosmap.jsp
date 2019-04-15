@@ -10,6 +10,7 @@
 <script
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=a328a3aa73a3d31430a2aa26a4ea5fe5"></script>
 <link rel="stylesheet" href="css/hosmap.css" />
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
 
 <style>
 .map_wrap, .map_wrap * {

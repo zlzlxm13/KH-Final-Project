@@ -8,11 +8,12 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -60,7 +61,7 @@ public class AdminController {
 	}
 
 
-	SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
+	SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
 	public MemberService getMservice() {
 		return mservice;
@@ -109,7 +110,13 @@ public class AdminController {
 
 	// insert
 	@RequestMapping("/adminInsert.do")
-	public ModelAndView adminInsertProcess(String menu) {
+	public ModelAndView adminInsertProcess(String menu, HttpSession session) {
+		if(!session.getAttribute("id").equals("admin"))
+		{
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("index");
+			return mav;
+		}
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("petkind", pkservice.listProcess());
 		mav.addObject("menu", menu);
@@ -121,8 +128,14 @@ public class AdminController {
 	@RequestMapping("/adminMember.do")
 
 	public ModelAndView adminMemberProcess(HttpSession session) {
+		
+		if(!session.getAttribute("id").equals("admin"))
+		{
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("index");
+			return mav;
+		}
 		ModelAndView mav = new ModelAndView();
-	
 		mav.addObject("menu", "1");
 		mav.addObject("count", mservice.countProcess());
 		mav.addObject("list", mservice.listProcess());
@@ -132,7 +145,13 @@ public class AdminController {
 	}
 
 	@RequestMapping("/adminMemberInsert.do")
-	public ModelAndView adminMemberInsertProcess(MemberDTO dto) {
+	public ModelAndView adminMemberInsertProcess(MemberDTO dto, HttpSession session) {
+		if(!session.getAttribute("id").equals("admin"))
+		{
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("index");
+			return mav;
+		}
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("menu", "1");
 
@@ -146,7 +165,13 @@ public class AdminController {
 	}
 
 	@RequestMapping("/adminMemberDelete.do")
-	public ModelAndView adminMemberDeleteProcess(String menu, String[] chk) {
+	public ModelAndView adminMemberDeleteProcess(String menu, String[] chk, HttpSession session) {
+		if(!session.getAttribute("id").equals("admin"))
+		{
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("index");
+			return mav;
+		}
 		ModelAndView mav = new ModelAndView();
 	
 		mservice.deleteProcess(chk);
@@ -158,7 +183,13 @@ public class AdminController {
 	}
 
 	@RequestMapping("/adminMemberContent.do")
-	public ModelAndView adminUpdateProcess(String menu, MemberDTO dto) {
+	public ModelAndView adminUpdateProcess(String menu, MemberDTO dto, HttpSession session) {
+		if(!session.getAttribute("id").equals("admin"))
+		{
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("index");
+			return mav;
+		}
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("dto", mservice.contentProcess(dto));
 
@@ -168,7 +199,13 @@ public class AdminController {
 	}
 
 	@RequestMapping("/adminMemberUpdate.do")
-	public ModelAndView adminMemberUpdateProcess(String menu, MemberDTO dto) {
+	public ModelAndView adminMemberUpdateProcess(String menu, MemberDTO dto, HttpSession session) {
+		if(!session.getAttribute("id").equals("admin"))
+		{
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("index");
+			return mav;
+		}
 		ModelAndView mav = new ModelAndView();
 		mservice.updateProcess(dto);
 		mav.addObject("menu", menu);
@@ -180,7 +217,13 @@ public class AdminController {
 	}
 
 	@RequestMapping("/adminBoard.do")
-	public ModelAndView adminBoardProcess() {
+	public ModelAndView adminBoardProcess(HttpSession session) {
+		if(!session.getAttribute("id").equals("admin"))
+		{
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("index");
+			return mav;
+		}
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("menu", "5");
 		mav.setViewName("admin");
@@ -191,6 +234,12 @@ public class AdminController {
 	// pet menu 2
 	@RequestMapping("/adminPet.do")
 	public ModelAndView adminPetProcess(HttpSession session) {
+		if(!session.getAttribute("id").equals("admin"))
+		{
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("index");
+			return mav;
+		}
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("menu", "2");
 		mav.addObject("count", pservice.countProcess());
@@ -200,7 +249,13 @@ public class AdminController {
 	}
 
 	@RequestMapping("/adminPetInsert.do")
-	public ModelAndView adminPetInsertProcess(PetDTO dto) {
+	public ModelAndView adminPetInsertProcess(PetDTO dto, HttpSession session) {
+		if(!session.getAttribute("id").equals("admin"))
+		{
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("index");
+			return mav;
+		}
 		ModelAndView mav = new ModelAndView();
 
 		mav.addObject("menu", "2");
@@ -215,7 +270,14 @@ public class AdminController {
 	}
 
 	@RequestMapping("/adminPetDelete.do")
-	public ModelAndView adminPetDeleteProcess(String menu, String[] chk) {
+	public ModelAndView adminPetDeleteProcess(String menu, String[] chk, HttpSession session) {
+		if(!session.getAttribute("id").equals("admin"))
+		{
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("index");
+			return mav;
+		}
+		
 		ModelAndView mav = new ModelAndView();
 
 		pservice.deleteProcess(chk);
@@ -227,7 +289,13 @@ public class AdminController {
 	}
 
 	@RequestMapping("/adminPetContent.do")
-	public ModelAndView adminUpdateProcess(String menu, PetDTO dto) {
+	public ModelAndView adminUpdateProcess(String menu, PetDTO dto, HttpSession session) {
+		if(!session.getAttribute("id").equals("admin"))
+		{
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("index");
+			return mav;
+		}
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("dto", pservice.contentProcess(dto));
 		mav.addObject("petkind", pkservice.listProcess());
@@ -237,7 +305,13 @@ public class AdminController {
 	}
 
 	@RequestMapping("/adminPetUpdate.do")
-	public ModelAndView adminPetUpdateProcess(String menu, PetDTO dto) {
+	public ModelAndView adminPetUpdateProcess(String menu, PetDTO dto, HttpSession session) {
+		if(!session.getAttribute("id").equals("admin"))
+		{
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("index");
+			return mav;
+		}
 		ModelAndView mav = new ModelAndView();
 		pservice.updateProcess(dto);
 		mav.addObject("menu", menu);
@@ -251,7 +325,13 @@ public class AdminController {
 	// hospital menu 3
 
 	@RequestMapping("/adminHospital.do")
-	public ModelAndView adminHospitalProcess() {
+	public ModelAndView adminHospitalProcess(HttpSession session) {
+		if(!session.getAttribute("id").equals("admin"))
+		{
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("index");
+			return mav;
+		}
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("menu", "3");
 		mav.addObject("count", hservice.countProcess());
@@ -262,7 +342,13 @@ public class AdminController {
 	}
 	
 	@RequestMapping("/adminHospitalInsert.do")
-	public ModelAndView adminHospitalInsertProcess(HosmapDTO dto) {
+	public ModelAndView adminHospitalInsertProcess(HosmapDTO dto, HttpSession session) {
+		if(!session.getAttribute("id").equals("admin"))
+		{
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("index");
+			return mav;
+		}
 
 		HospitalDTO hdto = new HospitalDTO(dto.getHosnum(), dto.getHosname(), dto.getPetkind_kind().split(" "),
 				dto.getHosaddress(), dto.getHosarea(), dto.getLatitude(), dto.getLongitude());
@@ -278,7 +364,13 @@ public class AdminController {
 	}
 
 	@RequestMapping("/adminHospitalDelete.do")
-	public ModelAndView adminHospitalDeleteProcess(String menu, String[] chk) {
+	public ModelAndView adminHospitalDeleteProcess(String menu, String[] chk, HttpSession session) {
+		if(!session.getAttribute("id").equals("admin"))
+		{
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("index");
+			return mav;
+		}
 		ModelAndView mav = new ModelAndView();
 		hservice.deleteProcess(chk);
 		mav.addObject("count", hservice.countProcess());
@@ -289,7 +381,13 @@ public class AdminController {
 	}
 
 	@RequestMapping("/adminHospitalContent.do")
-	public ModelAndView adminHospitalContentProcess(String menu, HosmapDTO dto) {
+	public ModelAndView adminHospitalContentProcess(String menu, HosmapDTO dto, HttpSession session) {
+		if(!session.getAttribute("id").equals("admin"))
+		{
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("index");
+			return mav;
+		}
 	
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("petkind", pkservice.listProcess());
@@ -300,7 +398,13 @@ public class AdminController {
 	}
 
 	@RequestMapping("/adminHospitalUpdate.do")
-	public ModelAndView adminHospitalUpdateProcess(String menu, HosmapDTO dto) {
+	public ModelAndView adminHospitalUpdateProcess(String menu, HosmapDTO dto, HttpSession session) {
+		if(!session.getAttribute("id").equals("admin"))
+		{
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("index");
+			return mav;
+		}
 		HospitalDTO hdto = new HospitalDTO(dto.getHosnum(), dto.getHosname(), dto.getPetkind_kind().split(" "),
 				dto.getHosaddress(), dto.getHosarea(), dto.getLatitude(), dto.getLongitude());
 		ModelAndView mav = new ModelAndView();
@@ -323,7 +427,13 @@ public class AdminController {
 
 	// reservation menu 4
 	@RequestMapping("/adminReservation.do")
-	public ModelAndView adminReservationProcess() {
+	public ModelAndView adminReservationProcess(HttpSession session) {
+		if(!session.getAttribute("id").equals("admin"))
+		{
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("index");
+			return mav;
+		}
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("menu", "4");
 		mav.addObject("count", rservice.countProcess());
@@ -334,13 +444,20 @@ public class AdminController {
 	}
 
 	@RequestMapping("/adminReservationInsert.do")
-	public ModelAndView adminReservationInsertProcess(String rdate, ReservationDTO dto) {
+	public ModelAndView adminReservationInsertProcess(String rdate, String rtime, ReservationDTO dto, HttpSession session) {
+		if(!session.getAttribute("id").equals("admin"))
+		{
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("index");
+			return mav;
+		}
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("menu", "4");
 		if (!dto.equals(null) && rservice.checkProcess(dto) == 0) {
 			try {
-				dto.setRes_date(transFormat.parse(rdate));
-				
+				dto.setRes_date(transFormat.parse(rdate+" "+rtime));
+				System.out.println((rdate+"-"+rtime));
+				System.out.println(dto.getRes_date());
 				rservice.insertProcess(dto);
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
@@ -354,7 +471,13 @@ public class AdminController {
 	}
 
 	@RequestMapping("/adminReservationDelete.do")
-	public ModelAndView adminReservationDeleteProcess(String menu, String[] chk) {
+	public ModelAndView adminReservationDeleteProcess(String menu, String[] chk, HttpSession session) {
+		if(!session.getAttribute("id").equals("admin"))
+		{
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("index");
+			return mav;
+		}
 		ModelAndView mav = new ModelAndView();
 		rservice.deleteProcess(chk);
 		mav.addObject("menu", menu);
@@ -366,7 +489,13 @@ public class AdminController {
 	}
 
 	@RequestMapping("/adminReservationContent.do")
-	public ModelAndView adminReservationContentProcess(String menu, ReservationDTO dto) {
+	public ModelAndView adminReservationContentProcess(String menu, ReservationDTO dto, HttpSession session) {
+		if(!session.getAttribute("id").equals("admin"))
+		{
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("index");
+			return mav;
+		}
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("dto", rservice.contentProcess(dto));
 		mav.addObject("petkind", pkservice.listProcess());
@@ -376,12 +505,18 @@ public class AdminController {
 	}
 
 	@RequestMapping("/adminReservationUpdate.do")
-	public ModelAndView adminReservationUpdateProcess(String menu, String rdate, ReservationDTO dto) {
+	public ModelAndView adminReservationUpdateProcess(String menu, String rdate, String rtime, ReservationDTO dto, HttpSession session) {
+		if(!session.getAttribute("id").equals("admin"))
+		{
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("index");
+			return mav;
+		}
 		ModelAndView mav = new ModelAndView();
 	
 
 		try {
-			dto.setRes_date(transFormat.parse(rdate));
+			dto.setRes_date(transFormat.parse(rdate+" "+rtime));
 			rservice.insertProcess(dto);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
@@ -399,6 +534,12 @@ public class AdminController {
 	// petkind menu 6
 	@RequestMapping("/adminPetKind.do")
 	public ModelAndView adminPetKindProcess(HttpSession session) {
+		if(!session.getAttribute("id").equals("admin"))
+		{
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("index");
+			return mav;
+		}
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("menu", "6");
 		mav.addObject("count", pkservice.countProcess());
@@ -408,7 +549,13 @@ public class AdminController {
 	}
 
 	@RequestMapping("/adminPetKindInsert.do")
-	public ModelAndView adminPetKindInsertProcess(PetKindDTO dto) {
+	public ModelAndView adminPetKindInsertProcess(PetKindDTO dto, HttpSession session) {
+		if(!session.getAttribute("id").equals("admin"))
+		{
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("index");
+			return mav;
+		}
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("menu", "6");
 		if (!dto.equals(null) || pkservice.checkProcess(dto) == 0) {
@@ -421,7 +568,13 @@ public class AdminController {
 	}
 
 	@RequestMapping("/adminPetKindDelete.do")
-	public ModelAndView adminPetKindDeleteProcess(String menu, String[] chk) {
+	public ModelAndView adminPetKindDeleteProcess(String menu, String[] chk, HttpSession session) {
+		if(!session.getAttribute("id").equals("admin"))
+		{
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("index");
+			return mav;
+		}
 	
 		ModelAndView mav = new ModelAndView();
 		pkservice.deleteProcess(chk);

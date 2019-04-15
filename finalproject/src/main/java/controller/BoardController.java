@@ -43,18 +43,22 @@ public class BoardController {
 	}
 	
 	@RequestMapping("/board/list.do")
-	public ModelAndView listMethod(int boardkind_canum) {
+	public ModelAndView listMethod(PageDTO pdto) {
 		ModelAndView mav = new ModelAndView();
-		int currentPage = 15;
-		int cnt = bservice.count(boardkind_canum);
-		int max = (int)((double) cnt / 10 + 0.9);
+		int currentPage = 1;
+		if(pdto.getCurrentPage() == 0) {
+			currentPage = 1;
+		}else {
+			currentPage = pdto.getCurrentPage();
+		}
+		int cnt = bservice.count(pdto.getBoardkind_canum());
+
+		PageDTO dto = new PageDTO(currentPage, cnt, pdto.getBoardkind_canum());
 		
-		mav.addObject("cat", bservice.catitle(boardkind_canum));
-		mav.addObject("list", bservice.boardList(boardkind_canum));
+		mav.addObject("cat", bservice.catitle(pdto.getBoardkind_canum()));
+		mav.addObject("list", bservice.boardList(dto));
+		mav.addObject("pdto", dto);
 		
-		mav.addObject("currentPage", currentPage);
-		mav.addObject("listCount", cnt);
-		mav.addObject("maxPage", max);
 		mav.setViewName("board/list");
 		return mav;
 	}

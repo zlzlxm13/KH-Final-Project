@@ -9,6 +9,7 @@
 <link rel="icon" href="/cat_Qwv_icon.ico" type="image/x-icon">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <link rel="stylesheet" type="text/css" href="css/datedropper.css"> 
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
 </head>
 <style type="text/css">
 

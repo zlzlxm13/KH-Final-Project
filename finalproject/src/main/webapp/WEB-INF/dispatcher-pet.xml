@@ -19,14 +19,6 @@
 	<mvc:annotation-driven></mvc:annotation-driven>
 
 
-	<!-- WebSocket 등록 -->
-	<bean id="chatWebSocketHandler"
-		class="controller.ChatWebSocketHandler" />
-
-	<websocket:handlers>
-		<websocket:mapping handler="chatWebSocketHandler"
-			path="/chatws.do" />
-	</websocket:handlers>
 
 
 	<!-- [1] DataSource빈 선언 -->
@@ -198,7 +190,6 @@
 	<bean class="service.HosnameServiceImp" id="hnservice">
 		<property name="dao" ref="hndao" />
 	</bean>
-
 	<bean class="service.BoardServiceImp" id="bservice">
 		<property name="bdao" ref="bdao" />
 	</bean>
@@ -235,11 +226,11 @@
 		<property name="service" ref="service" />
 	</bean>
 
-	<bean class="controller.ChatController" />
 
 	<bean class="controller.Reservationcontroller">
 		<property name="rservice" ref="rservice" />
 		<property name="mailSender" ref="mailSender"></property>
+		<property name="pkservice" ref="pkservice"/>
 	</bean>
 
 

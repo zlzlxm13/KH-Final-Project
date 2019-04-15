@@ -28,6 +28,7 @@ import org.springframework.web.servlet.ModelAndView;
 import dao.ReservationDAO;
 import dto.HosmapDTO;
 import dto.ReservationDTO;
+import service.PetKindService;
 import service.ReservationService;
 
 //http://localhost:8090/pet/main.do
@@ -35,6 +36,7 @@ import service.ReservationService;
 @Controller
 public class Reservationcontroller {
 	private ReservationService rservice;
+	private PetKindService pkservice;
 	@Autowired 
 	private JavaMailSenderImpl mailSender;
 	
@@ -52,12 +54,22 @@ public class Reservationcontroller {
 	}
 
 
-
 	public void setRservice(ReservationService rservice) {
 		this.rservice = rservice;
 	}
-	
-	
+
+	public PetKindService getPkservice() {
+		return pkservice;
+	}
+
+
+	public void setPkservice(PetKindService pkservice) {
+		this.pkservice = pkservice;
+	}
+
+
+
+
 
 	DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm");
 	DateFormat dateFormat2= new SimpleDateFormat("yyyy년 MM월 dd일 hh : mm");
@@ -66,6 +78,7 @@ public class Reservationcontroller {
 	public ModelAndView listMethod() {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("main");
+
 		return mav;
 		
 	}
@@ -74,7 +87,7 @@ public class Reservationcontroller {
 	@RequestMapping(value = "/reservation.do", method = RequestMethod.GET)
 	public ModelAndView reservation() {
 		ModelAndView mav = new ModelAndView();
-		
+		mav.addObject("petkind", pkservice.listProcess());
 		mav.setViewName("reservation");
 		return mav;
 	
@@ -172,9 +185,13 @@ public class Reservationcontroller {
 	@RequestMapping(value="/rupdate.do", method=RequestMethod.POST)
 	public @ResponseBody ReservationDTO update(String resnum, ReservationDTO dto, HttpSession session) {
 		dto.setRes_num(Integer.parseInt(resnum));
-		System.out.println(" (업데이트)받아온 값 : " + dto.getRes_num());
-		
 		dto = rservice.r_fsearch(dto.getRes_num());
+		
+		session.setAttribute("petpet",dto.getPetpet());
+		session.setAttribute("res_date", dateFormat.format(dto.getRes_date()));
+		session.setAttribute("petinfo", dto.getPetinfo());
+		
+		/*dto.setRes_date(dateFormat2.parse(dto.getRes_date()));*/
 		return dto;
 	}
 	
@@ -183,6 +200,9 @@ public class Reservationcontroller {
 		ModelAndView mav = new ModelAndView();
 
 		mav.addObject("res_num",dto.getRes_num());
+		mav.addObject("petkind", pkservice.listProcess());
+		session.getAttribute("res_date");
+		
 		
 		System.out.println(" (페이지) 받아온 값 : " + dto.getRes_num());		
 		System.out.println(" (페이지) 받아온 날짜 : " + session.getAttribute("res_date"));

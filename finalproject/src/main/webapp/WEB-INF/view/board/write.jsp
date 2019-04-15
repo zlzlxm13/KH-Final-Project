@@ -55,6 +55,7 @@ $(document).ready(function(){
 	});
 
 	$('#btnInsert').on('click',function(){
+		
 		$('[name=bcontent]').val($('[name=bcontent]').val().replace(/\n/gi, '<br/>'));
 		$('#frm').attr('action','write.do').submit();
 	});

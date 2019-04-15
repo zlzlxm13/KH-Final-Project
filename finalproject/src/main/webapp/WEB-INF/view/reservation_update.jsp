@@ -7,13 +7,12 @@
 <meta charset="UTF-8">
 <title> 예약 수정 </title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />  
 <script src="https://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
 <script src="//code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 <script src="js/jquery-ui-timepicker-addon.js"></script>
 <link rel="stylesheet" type="text/css" href="css/datedropper.css"> 
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
 <style>
 
 #frm{
@@ -90,7 +89,19 @@ table{
 
 <script type="text/javascript">
  $(document).ready(function () {
-
+	 
+		$("#btnSave").click(function(){
+			if($("#petpet option:selected").val() == ""){
+				 alert(" 동물을 선택해 주십시오. ");
+				 return false;
+			 }else if( $("#datepi").val() == ""){
+				 alert(" 날짜를 선택해 주십시오. ");
+				 return false;
+			 }else{
+				 $("#reservationUpdate").submit();
+			 }
+		});
+		 
 	 		
 	 jQuery.browser = {};
 	 (function () {
@@ -173,7 +184,7 @@ table{
 <h2 class="align-center"> modify </h2>
  <hr />
 
-<form method="post" action="reupdatepro.do">
+<form method="post" action="reupdatepro.do" id="reservationUpdate">
 
 <div id="res" style="float:left;">
 	
@@ -181,14 +192,26 @@ table{
 <input type="hidden" name="res_num" value="${res_num}"/>
 <tr>
 <td width="50%" align="center"> 품종   :</td>
-<td> <input type="text" id = "pet_pet" name="petpet" placeholder="품종을 입력해주십시오." value="${sessionScope.petpet}" /> </td>
-</tr>
+						<td><select name="petpet" id="petpet">
+								<option value="">- PetKind -</option>
+								<c:forEach var="petkind" items="${petkind}" varStatus="status">
+									<c:choose>
+										<c:when test="${sessionScope.petpet == petkind.kind}">
+											<option selected="selected" value="${petkind.kind}">${petkind.kind}</option>
+										</c:when>
+										<c:otherwise>
+											<option value="${petkind.kind}">${petkind.kind}</option>
+										</c:otherwise>
+
+
+									</c:choose>
+								</c:forEach>
+						</select></td></tr>
 
 <tr>
 <td width="50%" align="center"> 예약 날짜   :</td>
 
-<fmt:formatDate var="res" value="${sessionScope.res_date}" pattern="yyyy-MM-dd HH:mm"/>
-<td> <input type="text" id = "datepi" name="red" placeholder="클릭해주십시오." value="${res}" required ></td>
+<td> <input type="text" id = "datepi" name="red" placeholder="클릭해주십시오." value="${sessionScope.res_date}" required ></td>
 </tr>
 
 <tr>

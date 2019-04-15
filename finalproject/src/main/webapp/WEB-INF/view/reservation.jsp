@@ -5,53 +5,20 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+<title> 예약 페이지 </title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />  
 <script src="https://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
 <script src="//code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 <script src="js/jquery-ui-timepicker-addon.js"></script>
 <link rel="stylesheet" type="text/css" href="css/datedropper.css"> 
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
 
 <style>
 
 #frm{
   margin-top:100px;
 }
-#menu_wrap {position:absolute;top:0;left:0;bottom:0;width:250px;margin:10px 0 30px 10px;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 0.7);z-index: 1;font-size:12px;border-radius: 10px;}
-.bg_white {background:#fff;}
-#menu_wrap hr {display: block; height: 1px;border: 0; border-top: 2px solid #5F5F5F;margin:3px 0;}
-#menu_wrap .option{text-align: center;}
-#menu_wrap .option p {margin:10px 0;}  
-#menu_wrap .option button {margin-left:5px;}
-#placesList li {list-style: none;}
-#placesList .item {position:relative;border-bottom:1px solid #888;overflow: hidden;cursor: pointer;min-height: 65px;}
-#placesList .item span {display: block;margin-top:4px;}
-#placesList .item h5, #placesList .item .info {text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}
-#placesList .item .info{padding:10px 0 10px 55px;}
-#placesList .info .gray {color:#8a8a8a;}
-#placesList .info .jibun {padding-left:26px;background:url(http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/places_jibun.png) no-repeat;}
-#placesList .info .tel {color:#009900;}
-#placesList .item .markerbg {float:left;position:absolute;width:36px; height:37px;margin:10px 0 0 10px;background:url(http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png) no-repeat;}
-#placesList .item .marker_1 {background-position: 0 -10px;}
-#placesList .item .marker_2 {background-position: 0 -56px;}
-#placesList .item .marker_3 {background-position: 0 -102px}
-#placesList .item .marker_4 {background-position: 0 -148px;}
-#placesList .item .marker_5 {background-position: 0 -194px;}
-#placesList .item .marker_6 {background-position: 0 -240px;}
-#placesList .item .marker_7 {background-position: 0 -286px;}
-#placesList .item .marker_8 {background-position: 0 -332px;}
-#placesList .item .marker_9 {background-position: 0 -378px;}
-#placesList .item .marker_10 {background-position: 0 -423px;}
-#placesList .item .marker_11 {background-position: 0 -470px;}
-#placesList .item .marker_12 {background-position: 0 -516px;}
-#placesList .item .marker_13 {background-position: 0 -562px;}
-#placesList .item .marker_14 {background-position: 0 -608px;}
-#placesList .item .marker_15 {background-position: 0 -654px;}
-#pagination {margin:10px auto;text-align: center;}
-#pagination a {display:inline-block;margin-right:10px;}
-#pagination .on {font-weight: bold; cursor: default;color:#777;}
 
 body{
  margin-top: 60px;
@@ -84,7 +51,20 @@ textarea {font-size : 13px;}
 
 <script type="text/javascript">
  $(document).ready(function () {
-
+	 
+	 
+	$("#btnSave").click(function(){
+		if($("#kind option:selected").val() == ""){
+			 alert(" 동물을 선택해 주십시오. ");
+			 return false;
+		 }else if( $("#datepi").val() == ""){
+			 alert(" 날짜를 선택해 주십시오. ");
+			 return false;
+		 }else{
+			 $("#reservation").submit();
+		 }
+	});
+	 
 	 		
 	 jQuery.browser = {};
 	 (function () {
@@ -107,7 +87,7 @@ textarea {font-size : 13px;}
                 ,monthNamesShort: ['1','2','3','4','5','6','7','8','9','10','11','12'] //달력의 월 부분 텍스트
                 ,dayNamesMin: ['일','월','화','수','목','금','토'] //달력의 요일 부분 텍스트
                 ,dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'] //달력의 요일 부분 Tooltip 텍스트
-                ,minDate: "today" //최소 선택일자(-1D:하루전, -1M:한달전, -1Y:일년전)
+                ,minDate: "+1D" //최소 선택일자(-1D:하루전, -1M:한달전, -1Y:일년전)
                 ,maxDate: "+1M" //최대 선택일자(+1D:하루후, -1M:한달후, -1Y:일년후)    
 		    	,beforeShowDay: noSundays
 		        ,timeFormat:'HH:mm'
@@ -168,14 +148,20 @@ textarea {font-size : 13px;}
  <hr />
 
 
-<form method="post" action="reservationok.do">
+<form method="post" action="reservationok.do" id="reservation">
 
 
 <div id="res" style="float:left;">
 <table>
 <tr>
 <td width="20%" align="center"> 품종  :</td>
-<td> <input type="text" id = "pet_pet" name="petpet" placeholder="품종을 입력하세요." required/> </td>
+<td> <select name="petpet" id="kind">
+		<option value="">- PetKind -</option>
+			<c:forEach var="petkind" items="${petkind}" varStatus="status">
+					<option value="${petkind.kind}">${petkind.kind}</option>
+						</c:forEach>
+		</select> 
+</td>
 </tr>
 
 <tr>
@@ -208,7 +194,7 @@ textarea {font-size : 13px;}
 </table>
 
 <input value="예약하기" class="button alt icon fa-check"
-	   type="submit" id="btnSave" style="color: black;" />	 
+	   type="button" id="btnSave" style="color: black;" />	 
 	      
 <input value="취소하기" class="button alt icon fa-check"
 	   type="button" id="btnReturn" onclick="location.href='hosmap.do'" style="color: black;" />	   

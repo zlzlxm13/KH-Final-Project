@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 
@@ -21,6 +22,8 @@
 	href="http://netdna.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 <head>
 <title>SooCut animal hospital</title>
+
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
 
 </head>
 <script src="js/jquery.min.js"></script>
@@ -470,9 +473,7 @@ main {
 			<li value="4"><a href="adminReservation.do"> <i
 					class="fa fa-paper-plane"></i> <span>Reservation</span>
 			</a></li>
-			<li value="5"><a href="adminBoard.do"> <i
-					class="fa fa-pencil"></i> <span>Board</span>
-			</a></li>
+
 			<li value="6"><a href="adminPetKind.do"> <i
 					class="fa fa-gift"></i> <span>PetKind</span>
 			</a></li>
@@ -693,12 +694,15 @@ main {
 					</tr>
 					<tr>
 						<TD>RES_DATE</TD>
+
 						<td><input type="date" name="rdate" id="rdate" value=""
+							placeholder="res_date"></input>
+						<input type="time" name="rtime" id="rtime" value=""
 							placeholder="res_date"></input></td>
 					</tr>
 					<tr>
 						<TD>PETKIND</TD>
-						<td><select name="petpet" id="kind">
+						<td><select name="petpet">
 								<option value="">- PetKind -</option>
 								<c:forEach var="petkind" items="${petkind}" varStatus="status">
 									<option value="${petkind.kind}">${petkind.kind}</option>

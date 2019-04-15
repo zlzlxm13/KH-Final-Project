@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import dao.BoardDAO;
 import dto.BoardDTO;
 import dto.BoardkindDTO;
+import dto.PageDTO;
 
 public class BoardServiceImp implements BoardService{
 	private BoardDAO bdao;
@@ -30,8 +31,8 @@ public class BoardServiceImp implements BoardService{
 	}
 
 	@Override
-	public List<BoardDTO> boardList(int boardkind_canum) {	//PageDTO pv
-		return bdao.boardList(boardkind_canum);
+	public List<BoardDTO> boardList(PageDTO pdto) {	//PageDTO pv
+		return bdao.boardList(pdto);
 	}
 
 	@Override

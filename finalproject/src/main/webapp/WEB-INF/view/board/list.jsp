@@ -107,10 +107,10 @@ $(document).ready(function() {
 				</c:if>
 				<c:if test="${currentPage > 1}">
 					<c:url var="blistST" value="list.do">
-						<c:param name="boardkind_canum" value="${bdto.boardkind_canum}"/>
+						<c:param name="boardkind_canum" value="${pdto.boardkind_canum}"/>
 						<c:param name="page" value="${currentPage-1}"/>
 					</c:url>
-					<a href="blistST">←</a>
+					<a href="${blistST}">←</a>
 				</c:if>
 					
 				<!-- 끝 페이지 번호 처리 -->

@@ -12,6 +12,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="stylesheet" href="css/main.css" />
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
 
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -46,36 +47,57 @@
 	<!-- Header -->
 	<script src="js/login.js" type="text/javascript"></script>
 	<header id="header">
-			<div class="logo"><a href="index.do">SooCut animal hospital <span>by KHfamily</span></a></div>
-						<a href="#menu" class="toggle" style="float:right"><span>Menu</span></a>
-		<%if(session.getAttribute("id") == null){ %>	
-						<input value="Login" class="button alt icon fa-check" type="submit" id = "login_process"style="float:right;">		
-						<input name="pass" id="pass" type="password" placeholder="Pass" style="width: 10%;float: right;margin-right: 10px;">				
-				<input name="id" id="id" type="text" placeholder="id" style="width: 10%;float: right;margin-right: 10px;">
-				<%} else {%>
-				${sessionScope.id }님 환영합니다
-			<a href="logout.do">로그아웃</a><%} %>
-		
-			</header>
+		<div class="logo">
+			<a href="index.do">SooCut animal hospital <span>by
+					KHfamily</span></a>
+		</div>
+		<a href="#menu" class="toggle" style="float: right"><span>Menu</span></a>
+		<%
+			if (session.getAttribute("id") == null) {
+		%>
+		<input value="Login" class="button alt icon fa-check" type="submit"
+			id="login_process" style="float: right;"> <input name="pass"
+			id="pass" type="password" placeholder="Pass"
+			style="width: 10%; float: right; margin-right: 10px;"> <input
+			name="id" id="id" type="text" placeholder="id"
+			style="width: 10%; float: right; margin-right: 10px;">
+		<%
+			} else {
+		%>
+		${sessionScope.id }님 환영합니다 <a href="logout.do">로그아웃</a>
+		<%
+			}
+		%>
 
-		<!-- Nav -->
-		<nav id="menu">
+	</header>
+
+	<!-- Nav -->
+	<nav id="menu">
 		<ul class="links">
-			<li><a href="index.do">Home</a></li>		
-			<li><a href="generic.do">Notice</a></li>		
+			<li><a href="index.do">Home</a></li>
+			<li><a href="generic.do">Notice</a></li>
 			<%
 				if (session.getAttribute("id") == null) {
 			%>
 			<li><a href="login.do">Login</a></li>
-			<%} else {%>
-			<li><p style="color:white !important;">${sessionScope.id }님 환영합니다</p>
+			<%
+				} else {
+			%>
+			<li><p style="color: white !important;">${sessionScope.id }님
+					환영합니다</p>
 			<li><a href="mypage.do">My Page</a></li>
-								<%if(((String)session.getAttribute("id")).equals("admin")){ %>		
-									<li><a href="admin.do">Admin</a></li>
-								<%} %>
-							<%} %>		
+			<%
+				if (((String) session.getAttribute("id")).equals("admin")) {
+			%>
+			<li><a href="admin.do">Admin</a></li>
+			<%
+				}
+			%>
+			<%
+				}
+			%>
 			<li><a href="hosmap.do">Hospital</a></li>
-			
+
 		</ul>
 	</nav>
 
@@ -99,16 +121,17 @@
 										alt="Loading..." />
 								</div>
 								<div class="field">
-									<label for="id">ID</label> 
-									<input name="id" id="signid" type="text"
-										placeholder="id" style="width: 47%; float: left; margin-right: 10px;">
+									<label for="id">ID</label> <input name="id" id="signid"
+										type="text" placeholder="id"
+										style="width: 47%; float: left; margin-right: 10px;">
 									<input type="hidden" name="idDuplication" value="idUncheck">
 									<input type="button" id="chkid" value="중복확인">
 									<p id="idp" style="color: red"></p>
 								</div>
 								<div class="field">
-									<label for="pass">Password</label> <input name="password" id="signpass"
-										type="password" placeholder="Pass" style="width: 68%;">
+									<label for="pass">Password</label> <input name="password"
+										id="signpass" type="password" placeholder="Pass"
+										style="width: 68%;">
 									<p id="passp" style="color: red"></p>
 								</div>
 								<div class="field">
@@ -192,14 +215,9 @@
 	<!-- Four -->
 	<section id="four" class="wrapper style3">
 		<div class="inner">
-
 			<header class="align-center">
-				<h2>Morbi interdum mollis sapien</h2>
-				<p>Cras aliquet urna ut sapien tincidunt, quis malesuada elit
-					facilisis. Vestibulum sit amet tortor velit. Nam elementum nibh a
-					libero pharetra elementum. Maecenas feugiat ex purus, quis volutpat
-					lacus placerat malesuada. Praesent in sem ex. Morbi mattis sapien
-					pretium tellus venenatis, at egestas urna ornare.</p>
+				<h2>愁Cut aniaml hospital</h2>
+				<p></p>
 			</header>
 
 		</div>

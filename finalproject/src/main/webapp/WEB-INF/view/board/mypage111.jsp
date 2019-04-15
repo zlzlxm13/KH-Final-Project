@@ -10,7 +10,6 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="stylesheet" href="css/main.css" />
-<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
 <style type="text/css">
 .section_home .column+.column {
 	float: none;
@@ -239,7 +238,25 @@
 
 									</p>
 								</div>
-								
+								<!-- 상담 관리 -->
+								<div class="sh_group">
+									<div class="sh_header">
+										<h2>상담 관리</h2>
+										<!-- 	<a href="javascript:toggle('region');"
+											onclick="clickcr(this,'imn.reghelp','','',event);"
+											class="link_help"><i id="i_region"
+											class="spico ico_arr3_dn">도움말</i></a> -->
+										<p id="p_region" class="contxt" style="display: none">
+											수컷 서비스에서 <em>문의 하신 상담 내역</em>입니다. <br> 123
+										</p>
+									</div>
+									<div class="sh_content"></div>
+									<p class="btn_area_btm">
+										<a href="/user2/help/region.nhn?menu=nid&amp;lang=ko_KR"
+											onclick="clickcr(this,'imn.regmodify','','',event);"
+											class="btn_model"><b class="btn2">설정하기</b></a>
+									</p>
+								</div>
 							</div>
 						</div>
 
@@ -253,10 +270,14 @@
 	<section id="four" class="wrapper style3">
 		<div class="inner">
 
-		<header class="align-center">
-						<h2> 愁Cut aniaml hospital </h2>
-						<p></p>
-					</header>
+			<header class="align-center">
+				<h2>Morbi interdum mollis sapien</h2>
+				<p>Cras aliquet urna ut sapien tincidunt, quis malesuada elit
+					facilisis. Vestibulum sit amet tortor velit. Nam elementum nibh a
+					libero pharetra elementum. Maecenas feugiat ex purus, quis volutpat
+					lacus placerat malesuada. Praesent in sem ex. Morbi mattis sapien
+					pretium tellus venenatis, at egestas urna ornare.</p>
+			</header>
 
 		</div>
 	</section>
